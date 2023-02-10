@@ -1,5 +1,8 @@
 package com.analytiks.core
 
+import android.content.Context
+import android.os.Bundle
+import com.analytiks.core.model.EventProperty
 import java.util.*
 
 data class UserProperty(
@@ -7,16 +10,19 @@ data class UserProperty(
     val propertyValue: Any?
 )
 
-abstract class BaseAnalytics {
-    abstract fun initialize()
+interface BaseAnalytics {
+    fun initialize(context: Context)
 }
 
 interface EventsExtension {
-    fun logEvent(name: String)
+    fun logEvent(name: String, vararg properties: EventProperty)
 }
 
 interface UserProfileExtension {
     fun identify(userId: String? = UUID.randomUUID().toString())
     fun setProperty(property: UserProperty)
+}
 
+interface PropertiesFormatterExtension {
+    fun formatProps(): Bundle
 }
