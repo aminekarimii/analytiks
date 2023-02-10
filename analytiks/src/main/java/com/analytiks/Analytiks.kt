@@ -1,13 +1,16 @@
 package com.analytiks
 
+import android.content.Context
 import com.analytiks.core.BaseAnalytics
 import com.analytiks.core.EventsExtension
 import com.analytiks.core.UserProperty
 
-class Analytiks constructor(private val clients: List<BaseAnalytics>) {
+class Analytiks(
+    private val clients: List<BaseAnalytics>
+) {
 
-    fun initialize() {
-        clients.map { it.initialize() }
+    fun initialize(context: Context) {
+        clients.map { it.initialize(context) }
     }
 
     fun logEvent(name: String) {

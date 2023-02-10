@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.analytiks.Analytiks
 import com.analytiks.addon.mixpanel.MixpanelAnalyticsClient
+import com.analytiks.addon.mixpanel.MixpanelConfigurationProps
 import com.logitanalyticsapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,17 +20,19 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        analytiks = Analytiks(
-            listOf(
-                MixpanelAnalyticsClient()
-            )
+        val clients = listOf(
+            MixpanelAnalyticsClient(
+                MixpanelConfigurationProps("test-key-goes-here", true)
+            ),
         )
 
-        analytiks.initialize()
+        analytiks = Analytiks(clients)
+
+        analytiks.initialize(this)
         analytiks.logEvent("event_name")
 
         binding.fab.setOnClickListener { view ->
-           analytiks.logEvent(view.id.toString())
+            analytiks.logEvent(view.id.toString())
         }
     }
 
