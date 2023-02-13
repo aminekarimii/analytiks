@@ -43,3 +43,8 @@ google-services.json
 
 # Android Profiling
 *.hprof
+.idea/deploymentTargetDropDown.xml
+gradle.properties
+.idea/misc.xml
+.idea/gradle.xml
+.idea/deploymentTargetDropDown.xml
