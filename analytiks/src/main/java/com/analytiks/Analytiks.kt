@@ -3,7 +3,8 @@ package com.analytiks
 import android.content.Context
 import com.analytiks.core.BaseAnalytics
 import com.analytiks.core.EventsExtension
-import com.analytiks.core.UserProperty
+import com.analytiks.core.model.EventProperty
+import com.analytiks.core.model.UserProperty
 
 class Analytiks(
     private val clients: List<BaseAnalytics>
@@ -13,8 +14,16 @@ class Analytiks(
         clients.map { it.initialize(context) }
     }
 
-    fun logEvent(name: String) {
-        clients.filterIsInstance<EventsExtension>().map { it.logEvent(name) }
+    fun logEvent(
+        name: String, vararg properties: EventProperty,
+        excludedAddons: List<BaseAnalytics>? = null
+    ) {
+        clients
+            .filter { addon ->
+                excludedAddons?.any { it == addon } == true
+            }
+            .filterIsInstance<EventsExtension>()
+            .map { it.logEvent(name, *properties) }
     }
 
     fun userProperty(propertyName: UserProperty) = Unit
