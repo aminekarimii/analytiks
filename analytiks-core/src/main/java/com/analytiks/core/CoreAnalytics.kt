@@ -3,12 +3,9 @@ package com.analytiks.core
 import android.content.Context
 import android.os.Bundle
 import com.analytiks.core.model.EventProperty
+import com.analytiks.core.model.UserProperty
 import java.util.*
 
-data class UserProperty(
-    val propertyName: String,
-    val propertyValue: Any?
-)
 
 interface BaseAnalytics {
     fun initialize(context: Context)
