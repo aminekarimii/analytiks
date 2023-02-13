@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.analytiks.Analytiks
 import com.analytiks.addon.mixpanel.MixpanelAnalyticsClient
 import com.analytiks.addon.mixpanel.MixpanelConfigurationProps
+import com.analytiks.core.model.EventProperty
 import com.logitanalyticsapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -29,10 +30,15 @@ class MainActivity : AppCompatActivity() {
         analytiks = Analytiks(clients)
 
         analytiks.initialize(this)
-        analytiks.logEvent("event_name")
+        analytiks.logEvent(
+            "event_name", EventProperty(propertyName = "val-name", propertyValue = "val-value")
+        )
 
         binding.fab.setOnClickListener { view ->
-            analytiks.logEvent(view.id.toString())
+            analytiks.logEvent(
+                "button-click",
+                EventProperty(propertyName = "val-name", propertyValue = "val-value")
+            )
         }
     }
 
