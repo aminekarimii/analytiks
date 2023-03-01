@@ -12,12 +12,13 @@ interface BaseAnalytics {
 }
 
 interface EventsExtension {
+    fun logEvent(name: String)
     fun logEvent(name: String, vararg properties: EventProperty)
 }
 
 interface UserProfileExtension {
     fun identify(userId: String? = UUID.randomUUID().toString())
-    fun setProperty(property: UserProperty)
+    fun setUserProperty(property: UserProperty)
 }
 
 interface PropertiesFormatterExtension {

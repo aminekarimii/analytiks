@@ -40,20 +40,20 @@ class MixpanelAnalyticsClient(
         )
     }
 
+    override fun logEvent(name: String) {
+        mixpanelClient.track(name)
+    }
+
     override fun logEvent(name: String, vararg properties: EventProperty) {
-        if (properties.isEmpty()) {
-            mixpanelClient.track(name)
-        } else {
-            val formattedProps = JSONFormatStrategy().invoke(*properties)
-            mixpanelClient.track(name, formattedProps)
-        }
+        val formattedProps = JSONFormatStrategy().invoke(*properties)
+        mixpanelClient.track(name, formattedProps)
     }
 
     override fun identify(userId: String?) {
         Log.d(TAG, " Mixpanel identified")
     }
 
-    override fun setProperty(property: UserProperty) {
+    override fun setUserProperty(property: UserProperty) {
         Log.d(TAG, " Mixpanel Property Set")
     }
 }
