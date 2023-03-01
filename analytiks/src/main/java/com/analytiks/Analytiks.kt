@@ -3,7 +3,7 @@ package com.analytiks
 import android.content.Context
 import com.analytiks.core.BaseAnalytics
 import com.analytiks.core.EventsExtension
-import com.analytiks.core.model.EventProperty
+import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
 
 class Analytiks(
@@ -15,7 +15,7 @@ class Analytiks(
     }
 
     fun logEvent(
-        name: String, vararg properties: EventProperty,
+        name: String, vararg properties: Param,
         excludedAddons: List<BaseAnalytics>? = null
     ) {
         clients
