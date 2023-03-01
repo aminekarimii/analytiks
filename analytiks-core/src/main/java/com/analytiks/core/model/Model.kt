@@ -6,7 +6,7 @@ data class UserProperty(
     val propertyValue: Any?
 )
 
-data class EventProperty(
+data class Param(
     val propertyName: String,
     val propertyValue: String,
 )
