@@ -3,22 +3,17 @@ package com.analityks.addon.azureinsight
 import android.app.Application
 import android.content.Context
 import com.analytiks.core.BaseAnalytics
-import com.analytiks.core.ConfigurationFile
 import com.analytiks.core.EventsExtension
 import com.analytiks.core.formatters.MapFormatStrategy
-import com.analytiks.core.model.EventProperty
+import com.analytiks.core.model.Param
 import com.microsoft.applicationinsights.library.ApplicationInsights
 import com.microsoft.applicationinsights.library.TelemetryClient
 
 
 const val TAG = "AzureInsightAnalyticsClient"
 
-class AzureInsightConfigurationProps(
-    instrumentationKey: String,
-) : ConfigurationFile(instrumentationKey)
-
 class AzureInsightAnalyticsClient(
-    private val configuration: AzureInsightConfigurationProps
+    private val instrumentationKey: String,
 ) : BaseAnalytics, EventsExtension {
 
     private lateinit var mapFormatter: MapFormatStrategy
@@ -31,7 +26,7 @@ class AzureInsightAnalyticsClient(
         ApplicationInsights.setup(
             context,
             context as Application,
-            configuration.token
+            instrumentationKey
         )
     }
 
@@ -39,7 +34,7 @@ class AzureInsightAnalyticsClient(
         telemetryClient.trackEvent(name)
     }
 
-    override fun logEvent(name: String, vararg properties: EventProperty) {
+    override fun logEvent(name: String, vararg properties: Param) {
         telemetryClient.trackEvent(name, mapFormatter(*properties))
     }
 

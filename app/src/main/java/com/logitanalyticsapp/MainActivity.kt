@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
 
         val clients = listOf(
             MixpanelAnalyticsClient(
-                MixpanelConfigurationProps("test-key-goes-here", true)
+                token = "test-key-goes-here",
+                optOutTrackingDefault = true,
             ),
         )
 

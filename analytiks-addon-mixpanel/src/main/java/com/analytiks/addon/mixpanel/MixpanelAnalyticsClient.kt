@@ -3,11 +3,10 @@ package com.analytiks.addon.mixpanel
 import android.content.Context
 import android.util.Log
 import com.analytiks.core.BaseAnalytics
-import com.analytiks.core.ConfigurationFile
 import com.analytiks.core.EventsExtension
 import com.analytiks.core.UserProfileExtension
 import com.analytiks.core.formatters.JSONFormatStrategy
-import com.analytiks.core.model.EventProperty
+import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import org.json.JSONObject
@@ -15,16 +14,12 @@ import org.json.JSONObject
 
 const val TAG = "AnalyticsClient"
 
-class MixpanelConfigurationProps(
-    token: String,
-    val optOutTrackingDefault: Boolean = false,
-    val superProperties: JSONObject? = null,
-    val instanceName: String? = null,
-    val trackAutomaticEvents: Boolean = true,
-) : ConfigurationFile(token)
-
 class MixpanelAnalyticsClient(
-    private val configuration: MixpanelConfigurationProps
+    private val token: String,
+    private val optOutTrackingDefault: Boolean = false,
+    private val superProperties: JSONObject? = null,
+    private val instanceName: String? = null,
+    private val trackAutomaticEvents: Boolean = true,
 ) : BaseAnalytics, EventsExtension, UserProfileExtension {
 
     private lateinit var mixpanelClient: MixpanelAPI
@@ -32,11 +27,11 @@ class MixpanelAnalyticsClient(
     override fun initialize(context: Context) {
         mixpanelClient = MixpanelAPI.getInstance(
             context,
-            configuration.token,
-            configuration.optOutTrackingDefault,
-            configuration.superProperties,
-            configuration.instanceName,
-            configuration.trackAutomaticEvents,
+            this.token,
+            this.optOutTrackingDefault,
+            this.superProperties,
+            this.instanceName,
+            this.trackAutomaticEvents,
         )
     }
 
@@ -44,7 +39,7 @@ class MixpanelAnalyticsClient(
         mixpanelClient.track(name)
     }
 
-    override fun logEvent(name: String, vararg properties: EventProperty) {
+    override fun logEvent(name: String, vararg properties: Param) {
         val formattedProps = JSONFormatStrategy().invoke(*properties)
         mixpanelClient.track(name, formattedProps)
     }
