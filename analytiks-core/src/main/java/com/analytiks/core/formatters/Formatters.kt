@@ -1,5 +1,6 @@
 package com.analytiks.core.formatters
 
+import android.os.Bundle
 import com.analytiks.core.model.Param
 import org.json.JSONObject
 
@@ -26,6 +27,16 @@ class MapFormatStrategy : FormatEventPropertiesStrategy<Map<String, String>>() {
     override fun formatProperties(vararg eventProperties: Param): Map<String, String> {
         return eventProperties.associate { property ->
             property.propertyName to property.propertyName
+        }
+    }
+}
+
+class BundleFormatStrategy : FormatEventPropertiesStrategy<Bundle>() {
+    override fun formatProperties(vararg eventProperties: Param): Bundle {
+        return Bundle().apply {
+            eventProperties.forEach { param ->
+                putString(param.propertyName, param.propertyValue)
+            }
         }
     }
 }
