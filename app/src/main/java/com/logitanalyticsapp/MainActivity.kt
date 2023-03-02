@@ -31,10 +31,12 @@ class MainActivity : AppCompatActivity() {
 
         analytiks.initialize(this)
         analytiks.logEvent(
-            "event_name", Param(propertyName = "val-name", propertyValue = "val-value")
+            name = "event_name",
+            Param("val-name", "val-value"),
+            excludedAddons = listOf(MixpanelAnalyticsClient::class.java)
         )
 
-        binding.fab.setOnClickListener { view ->
+        binding.fab.setOnClickListener {
             analytiks.logEvent(
                 "button-click",
                 Param(propertyName = "val-name", propertyValue = "val-value")
