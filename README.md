@@ -14,13 +14,14 @@ The list of features provided by the library
 - **Reset:** `reset` the plugins and remove the default users configuration.  
 
 ## 10 mobile app analytics
-1. Google Analytics
-2. Firebase Analytics
-3. Mixpanel
-4. Flurry Analytics
-5. Amplitude
-6. App Annie
-7. Localytics
-8. AppsFlyer
-9. Sensor Tower
-10. Onesignal
+Here's a list of the most known Analytic services that we will supoort in our library.  
+- [ ] Google Analytics
+- [ ] Firebase Analytics
+- [ ] Mixpanel
+- [ ] Flurry Analytics
+- [ ] Amplitude
+- [ ] App Annie
+- [ ] Localytics
+- [ ] AppsFlyer
+- [ ] Sensor Tower
+- [ ] Onesignal
