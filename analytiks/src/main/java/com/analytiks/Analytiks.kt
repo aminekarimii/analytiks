@@ -15,12 +15,13 @@ class Analytiks(
     }
 
     fun logEvent(
-        name: String, vararg properties: Param,
-        excludedAddons: List<BaseAnalytics>? = null
+        name: String,
+        vararg properties: Param,
+        excludedAddons: List<Class<out BaseAnalytics>>? = null
     ) {
         clients
             .filter { addon ->
-                excludedAddons?.any { it == addon } == true
+                excludedAddons?.any { it == addon.javaClass } == true
             }
             .filterIsInstance<EventsExtension>()
             .map { it.logEvent(name, *properties) }
