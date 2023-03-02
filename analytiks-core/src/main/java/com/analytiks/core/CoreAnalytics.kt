@@ -21,6 +21,16 @@ interface UserProfileExtension {
     fun setUserProperty(property: UserProperty)
 }
 
-interface PropertiesFormatterExtension {
-    fun formatProps(): Bundle
+/**
+ * An interface for handling the communication with the analytics server. Clients that implement this
+ * interface can use it to flush any pending events, users, or updated user props to the server.
+ */
+interface AnalyticsDataTransmitterExtension {
+
+    /**
+     * Flushes any pending events to the analytics server. This method should be called to ensure that
+     * all events are sent to the server before the client shuts down.
+     */
+    fun pushAll()
 }
+
