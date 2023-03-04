@@ -2,7 +2,7 @@ package com.analityks.addon.azureinsight
 
 import android.app.Application
 import android.content.Context
-import com.analytiks.core.BaseAnalytics
+import com.analytiks.core.CoreAddon
 import com.analytiks.core.EventsExtension
 import com.analytiks.core.formatters.MapFormatStrategy
 import com.analytiks.core.model.Param
@@ -14,7 +14,7 @@ const val TAG = "AzureInsightAnalyticsClient"
 
 class AzureInsightAnalyticsClient(
     private val instrumentationKey: String,
-) : BaseAnalytics, EventsExtension {
+) : CoreAddon, EventsExtension {
 
     private lateinit var mapFormatter: MapFormatStrategy
 
