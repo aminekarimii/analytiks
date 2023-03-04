@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.analytiks.addon.mixpanel'
+    namespace 'com.analytiks.addon.timber'
     compileSdk 32
 
     defaultConfig {
