@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val clients = listOf(
+            TimberLocalClient(),
             MixpanelAnalyticsClient(
                 token = "test-key-goes-here",
                 optOutTrackingDefault = true,
