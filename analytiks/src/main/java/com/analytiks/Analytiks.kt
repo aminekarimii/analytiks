@@ -1,13 +1,13 @@
 package com.analytiks
 
 import android.content.Context
-import com.analytiks.core.CoreAddon
+import com.analytiks.core.BaseAnalytics
 import com.analytiks.core.EventsExtension
 import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
 
 class Analytiks(
-    private val clients: List<CoreAddon>
+    private val clients: List<BaseAnalytics>
 ) {
 
     fun initialize(context: Context) {
@@ -15,9 +15,9 @@ class Analytiks(
     }
 
     fun logEvent(
-        excludedAddons: List<Class<out CoreAddon>>? = null,
         name: String,
-        vararg properties: Param
+        vararg properties: Param,
+        excludedAddons: List<Class<out BaseAnalytics>>? = null
     ) {
         clients
             .filter { addon ->
