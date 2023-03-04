@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.analytiks.Analytiks
 import com.analytiks.addon.mixpanel.MixpanelAnalyticsClient
+import com.analytiks.addon.timber.TimberLocalClient
 import com.analytiks.core.model.Param
 import com.logitanalyticsapp.databinding.ActivityMainBinding
 
@@ -17,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
 
         val clients = listOf(
@@ -28,21 +28,31 @@ class MainActivity : AppCompatActivity() {
             ),
         )
 
-        analytiks = Analytiks(clients)
+        analytiks = Analytiks(clients).also {
+            it.initialize(this@MainActivity)
+        }
 
-        analytiks.initialize(this)
-        analytiks.logEvent(
-            name = "event_name",
-            Param("val-name", "val-value"),
-            excludedAddons = listOf(MixpanelAnalyticsClient::class.java)
-        )
+        analytiks.logFirstEvent()
 
         binding.fab.setOnClickListener {
-            analytiks.logEvent(
-                "button-click",
-                Param(propertyName = "val-name", propertyValue = "val-value")
-            )
+            analytiks.logEventOnClick()
         }
     }
 
+    private fun Analytiks.logFirstEvent() {
+        this.logEvent(
+            name = "event_name",
+            excludedAddons = listOf(MixpanelAnalyticsClient::class.java),
+            properties = arrayOf(
+                Param("val-name", "val-value")
+            )
+        )
+    }
+
+    private fun Analytiks.logEventOnClick() {
+        this.logEvent(
+            name = "button_click",
+            excludedAddons = listOf(MixpanelAnalyticsClient::class.java)
+        )
+    }
 }
