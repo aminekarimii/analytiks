@@ -16,5 +16,6 @@ rootProject.name = "AnalyticsApp"
 include ':app'
 include ':analytiks'
 include ':analytiks-addon-mixpanel'
+include ':analytiks-addon-googleanalytics'
 include ':analytiks-addon-azureinsight'
 include ':analytiks-core'

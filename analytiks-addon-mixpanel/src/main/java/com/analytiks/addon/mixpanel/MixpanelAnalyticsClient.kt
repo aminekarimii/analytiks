@@ -1,8 +1,6 @@
-package com.analytiks.addon.mixpanel
-
 import android.content.Context
 import android.util.Log
-import com.analytiks.core.CoreAddon
+import com.analytiks.core.BaseAnalytics
 import com.analytiks.core.EventsExtension
 import com.analytiks.core.UserProfileExtension
 import com.analytiks.core.formatters.JSONFormatStrategy
@@ -10,7 +8,6 @@ import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import org.json.JSONObject
-
 
 const val TAG = "AnalyticsClient"
 
@@ -20,7 +17,7 @@ class MixpanelAnalyticsClient(
     private val superProperties: JSONObject? = null,
     private val instanceName: String? = null,
     private val trackAutomaticEvents: Boolean = true,
-) : CoreAddon, EventsExtension, UserProfileExtension {
+) : BaseAnalytics, EventsExtension, UserProfileExtension {
 
     private lateinit var mixpanelClient: MixpanelAPI
 
@@ -34,6 +31,8 @@ class MixpanelAnalyticsClient(
             this.trackAutomaticEvents,
         )
     }
+
+    override fun reset() = Unit
 
     override fun logEvent(name: String) {
         mixpanelClient.track(name)

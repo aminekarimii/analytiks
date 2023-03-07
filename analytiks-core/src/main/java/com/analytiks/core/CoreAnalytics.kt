@@ -7,8 +7,10 @@ import com.analytiks.core.model.UserProperty
 import java.util.*
 
 
-interface CoreAddon {
+interface BaseAnalytics {
     fun initialize(context: Context)
+
+    fun reset()
 }
 
 interface EventsExtension {
