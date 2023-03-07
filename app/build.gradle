@@ -44,6 +44,7 @@ dependencies {
     implementation project(':analytiks')
     implementation project(path: ':analytiks-addon-mixpanel')
     implementation project(path: ':analytiks-core')
+    implementation project(path: ':analytiks-addon-timber')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

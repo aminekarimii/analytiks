@@ -7,7 +7,7 @@ import com.analytiks.core.model.UserProperty
 import java.util.*
 
 
-interface BaseAnalytics {
+interface CoreAddon {
     fun initialize(context: Context)
 
     fun reset()

@@ -1,6 +1,6 @@
 import android.content.Context
 import android.util.Log
-import com.analytiks.core.BaseAnalytics
+import com.analytiks.core.CoreAddon
 import com.analytiks.core.EventsExtension
 import com.analytiks.core.UserProfileExtension
 import com.analytiks.core.formatters.JSONFormatStrategy
@@ -17,7 +17,7 @@ class MixpanelAnalyticsClient(
     private val superProperties: JSONObject? = null,
     private val instanceName: String? = null,
     private val trackAutomaticEvents: Boolean = true,
-) : BaseAnalytics, EventsExtension, UserProfileExtension {
+) : CoreAddon, EventsExtension, UserProfileExtension {
 
     private lateinit var mixpanelClient: MixpanelAPI
 
