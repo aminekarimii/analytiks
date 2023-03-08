@@ -21,7 +21,9 @@ class Analytiks(
     ) {
         clients
             .filter { addon ->
-                excludedAddons?.any { it == addon.javaClass } == true
+                excludedAddons?.let { listOfExcludedAddons ->
+                    listOfExcludedAddons.all { it != addon.javaClass }
+                } ?: true
             }
             .filterIsInstance<EventsExtension>()
             .map { it.logEvent(name, *properties) }
