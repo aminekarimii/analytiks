@@ -15,18 +15,19 @@ class Analytiks(
     }
 
     fun logEvent(
-        excludedAddons: List<Class<out CoreAddon>>? = null,
         name: String,
-        vararg properties: Param
+        excludedAddons: Set<Class<out CoreAddon>>? = null,
+        properties: List<Param>? = null
     ) {
-        clients
-            .filter { addon ->
-                excludedAddons?.let { listOfExcludedAddons ->
-                    listOfExcludedAddons.all { it != addon.javaClass }
-                } ?: true
+        clients.asSequence()
+            .filter {
+                excludedAddons == null || it.javaClass !in excludedAddons
             }
             .filterIsInstance<EventsExtension>()
-            .map { it.logEvent(name, *properties) }
+            .forEach {
+                //TODO migrate EventsExtension::logEvent to use List instead of vararg in properties
+                it.logEvent(name, *properties!!.toTypedArray())
+            }
     }
 
     fun userProperty(propertyName: UserProperty) = Unit

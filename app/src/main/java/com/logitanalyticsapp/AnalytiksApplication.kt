@@ -28,7 +28,7 @@ class AnalytiksApplication : Application() {
 
         analytiks.logEvent(
             name = "event_name",
-            properties = arrayOf(
+            properties = listOf(
                 Param("val-name", "val-value")
             )
         )

@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
     private fun Analytiks.logFirstEvent() {
         this.logEvent(
             name = "event_name",
-            excludedAddons = listOf(MixpanelAnalyticsClient::class.java),
-            properties = arrayOf(
+            excludedAddons = setOf(MixpanelAnalyticsClient::class.java),
+            properties = listOf(
                 Param("val-name", "val-value")
             )
         )
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     private fun Analytiks.logEventOnClick() {
         this.logEvent(
             name = "button_click",
-            excludedAddons = listOf(MixpanelAnalyticsClient::class.java)
+            excludedAddons = setOf(MixpanelAnalyticsClient::class.java)
         )
     }
 }
