@@ -1,13 +1,13 @@
 package com.analytiks
 
 import android.content.Context
-import com.analytiks.core.BaseAnalytics
+import com.analytiks.core.CoreAddon
 import com.analytiks.core.EventsExtension
 import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
 
 class Analytiks(
-    private val clients: List<BaseAnalytics>
+    private val clients: List<CoreAddon>
 ) {
 
     fun initialize(context: Context) {
@@ -16,15 +16,18 @@ class Analytiks(
 
     fun logEvent(
         name: String,
-        vararg properties: Param,
-        excludedAddons: List<Class<out BaseAnalytics>>? = null
+        excludedAddons: Set<Class<out CoreAddon>>? = null,
+        properties: List<Param>? = null
     ) {
-        clients
+        clients.asSequence()
             .filter { addon ->
-                excludedAddons?.any { it == addon.javaClass } == true
+                excludedAddons == null || addon.javaClass !in excludedAddons
             }
             .filterIsInstance<EventsExtension>()
-            .map { it.logEvent(name, *properties) }
+            .forEach {
+                //TODO migrate EventsExtension::logEvent to use List instead of vararg in properties
+                it.logEvent(name, *properties?.toTypedArray() ?: emptyArray())
+            }
     }
 
     fun userProperty(propertyName: UserProperty) = Unit

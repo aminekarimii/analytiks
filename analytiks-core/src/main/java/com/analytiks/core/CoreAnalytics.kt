@@ -10,7 +10,7 @@ import com.analytiks.core.model.UserProperty
  * initialized with a context object to set up any necessary configurations and connections to
  * the analytics service.
  */
-interface BaseAnalytics {
+interface CoreAddon {
 
     /**
      * Initializes the analytics client with the given context. This method should be called once

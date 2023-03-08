@@ -15,6 +15,7 @@ dependencyResolutionManagement {
 rootProject.name = "AnalyticsApp"
 include ':app'
 include ':analytiks'
-include ':analytiks-addon-mixpanel'
-include ':analytiks-addon-azureinsight'
+include ':addon:analytiks-mixpanel'
+include ':addon:analytiks-azureinsight'
+include ':addon:analytiks-timber'
 include ':analytiks-core'

@@ -9,7 +9,6 @@ import com.logitanalyticsapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var analytiks: Analytiks
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,31 +16,31 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
 
-        val clients = listOf(
-            MixpanelAnalyticsClient(
-                token = "test-key-goes-here",
-                optOutTrackingDefault = true,
-            ),
-        )
+        val appContainer = (application as AnalytiksApplication).appContainer
 
-        analytiks = Analytiks(clients)
-
-        analytiks.initialize(this)
-        analytiks.logEvent(
-            name = "event_name",
-            Param("val-name", "val-value"),
-            excludedAddons = listOf(MixpanelAnalyticsClient::class.java)
-        )
+        appContainer.analytiks.logFirstEvent()
 
         binding.fab.setOnClickListener {
-            analytiks.logEvent(
-                "button-click",
-                Param(propertyName = "val-name", propertyValue = "val-value")
-            )
+            appContainer.analytiks.logEventOnClick()
         }
     }
 
+    private fun Analytiks.logFirstEvent() {
+        this.logEvent(
+            name = "event_name",
+            excludedAddons = setOf(MixpanelAnalyticsClient::class.java),
+            properties = listOf(
+                Param("val-name", "val-value")
+            )
+        )
+    }
+
+    private fun Analytiks.logEventOnClick() {
+        this.logEvent(
+            name = "button_click",
+            excludedAddons = setOf(MixpanelAnalyticsClient::class.java)
+        )
+    }
 }

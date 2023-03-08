@@ -2,7 +2,7 @@ package com.analytiks.addon.mixpanel
 
 import android.content.Context
 import com.analytiks.core.AnalyticsDataTransmitterExtension
-import com.analytiks.core.BaseAnalytics
+import com.analytiks.core.CoreAddon
 import com.analytiks.core.EventsExtension
 import com.analytiks.core.UserProfileExtension
 import com.analytiks.core.formatters.JSONFormatStrategy
@@ -20,7 +20,7 @@ class MixpanelAnalyticsClient(
     private val superProperties: JSONObject? = null,
     private val instanceName: String? = null,
     private val trackAutomaticEvents: Boolean = true,
-) : BaseAnalytics, EventsExtension, UserProfileExtension, AnalyticsDataTransmitterExtension {
+) : CoreAddon, EventsExtension, UserProfileExtension, AnalyticsDataTransmitterExtension {
 
     private lateinit var mixpanelClient: MixpanelAPI
 
