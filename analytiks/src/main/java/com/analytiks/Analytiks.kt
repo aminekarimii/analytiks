@@ -20,13 +20,13 @@ class Analytiks(
         properties: List<Param>? = null
     ) {
         clients.asSequence()
-            .filter {
-                excludedAddons == null || it.javaClass !in excludedAddons
+            .filter { addon ->
+                excludedAddons == null || addon.javaClass !in excludedAddons
             }
             .filterIsInstance<EventsExtension>()
             .forEach {
                 //TODO migrate EventsExtension::logEvent to use List instead of vararg in properties
-                it.logEvent(name, *properties!!.toTypedArray())
+                it.logEvent(name, *properties?.toTypedArray() ?: emptyArray())
             }
     }
 

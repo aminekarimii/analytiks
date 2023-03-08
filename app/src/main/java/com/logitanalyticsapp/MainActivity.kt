@@ -9,7 +9,6 @@ import com.logitanalyticsapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var analytiks: Analytiks
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,11 +18,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        /*analytiks.logFirstEvent()
+        val appContainer = (application as AnalytiksApplication).appContainer
+
+        appContainer.analytiks.logFirstEvent()
 
         binding.fab.setOnClickListener {
-            analytiks.logEventOnClick()
-        }*/
+            appContainer.analytiks.logEventOnClick()
+        }
     }
 
     private fun Analytiks.logFirstEvent() {
