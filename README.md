@@ -6,6 +6,8 @@ An android library that centralizes analytics services in one place can be a use
 Should be easy as it sounds, a single implementation to start with the base analytics core features, and then you can add each analytic service separately (to preserve library size).
 A debug analytics mode that can log the same properties in the debug console.
 
+![Scheme of the library logic](https://user-images.githubusercontent.com/20410115/224169222-e7cc3ca6-40c8-4fe9-a01d-2e19d817a0af.png)
+
 ## Features [🚧 wip]
 The list of features provided by the library  
 - **initialization:** `init` Initialize the "analytiks" library, along with its sub-libraries, during the initialization process.  
