@@ -1,7 +1,7 @@
 package com.analytiks.addon.mixpanel
 
 import android.content.Context
-import android.util.Log
+import com.analytiks.core.AnalyticsDataTransmitterExtension
 import com.analytiks.core.CoreAddon
 import com.analytiks.core.EventsExtension
 import com.analytiks.core.UserProfileExtension
@@ -12,7 +12,7 @@ import com.mixpanel.android.mpmetrics.MixpanelAPI
 import org.json.JSONObject
 
 
-const val TAG = "AnalyticsClient"
+const val TAG = "MixpanelAnalyticsClient"
 
 class MixpanelAnalyticsClient(
     private val token: String,
@@ -20,7 +20,7 @@ class MixpanelAnalyticsClient(
     private val superProperties: JSONObject? = null,
     private val instanceName: String? = null,
     private val trackAutomaticEvents: Boolean = true,
-) : CoreAddon, EventsExtension, UserProfileExtension {
+) : CoreAddon, EventsExtension, UserProfileExtension, AnalyticsDataTransmitterExtension {
 
     private lateinit var mixpanelClient: MixpanelAPI
 
@@ -44,11 +44,23 @@ class MixpanelAnalyticsClient(
         mixpanelClient.track(name, formattedProps)
     }
 
-    override fun identify(userId: String?) {
-        Log.d(TAG, " Mixpanel identified")
+    override fun identify(userId: String) {
+        mixpanelClient.identify(userId, true)
     }
 
     override fun setUserProperty(property: UserProperty) {
-        Log.d(TAG, " Mixpanel Property Set")
+        if (mixpanelClient.people.isIdentified) {
+            mixpanelClient.people.set(property.propertyName, property.propertyValue)
+        }
+    }
+
+    override fun setUserPropertyOnce(property: UserProperty) {
+        if (mixpanelClient.people.isIdentified) {
+            mixpanelClient.people.setOnce(property.propertyName, property.propertyValue)
+        }
+    }
+
+    override fun pushAll() {
+        mixpanelClient.flush()
     }
 }
