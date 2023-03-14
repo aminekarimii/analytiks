@@ -2,7 +2,7 @@
 A lightweight Analytics 📊 library that identify the user, log events and dispatch the data at one.
 
 ## Description
-An android library that centralizes analytics services in one place can be a useful tool for developers who want to track the usage and performance of their app.
+An android library that centralizes analytics services in one place can be a useful tool for developers who want to track the usage and performance of their app. 
 Should be easy as it sounds, a single implementation to start with the base analytics core features, and then you can add each analytic service separately (to preserve library size).
 A debug analytics mode that can log the same properties in the debug console.
 
