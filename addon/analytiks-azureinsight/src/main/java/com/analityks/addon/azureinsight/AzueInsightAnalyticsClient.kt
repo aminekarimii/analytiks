@@ -30,6 +30,8 @@ class AzureInsightAnalyticsClient(
         )
     }
 
+    override fun reset() = Unit
+
     override fun logEvent(name: String) {
         telemetryClient.trackEvent(name)
     }

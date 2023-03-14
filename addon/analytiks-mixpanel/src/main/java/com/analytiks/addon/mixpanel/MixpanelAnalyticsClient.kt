@@ -1,5 +1,3 @@
-package com.analytiks.addon.mixpanel
-
 import android.content.Context
 import android.util.Log
 import com.analytiks.core.CoreAddon
@@ -10,7 +8,6 @@ import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import org.json.JSONObject
-
 
 const val TAG = "AnalyticsClient"
 
@@ -34,6 +31,8 @@ class MixpanelAnalyticsClient(
             this.trackAutomaticEvents,
         )
     }
+
+    override fun reset() = Unit
 
     override fun logEvent(name: String) {
         mixpanelClient.track(name)

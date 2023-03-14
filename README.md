@@ -27,9 +27,10 @@ Here's a list of the most known Analytic services that we will supoort in our li
 - [ ] AppsFlyer
 - [ ] Sensor Tower
 - [ ] Onesignal
-- [x] Timber - For local event logging  
+- [x] Timber - For local event logging
 
 ## License 🔖
+
 ```
     Apache 2.0 License
 
