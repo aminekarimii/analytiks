@@ -17,8 +17,8 @@ The list of features provided by the library
 
 ## Supported analytics SDKs
 Here's a list of the most known Analytic services that we will supoort in our library.  
-- [ ] Google Analytics
-- [ ] Firebase Analytics
+- [ ] Google/Firebase Analytics
+- [x] Segment
 - [ ] Mixpanel
 - [ ] Flurry Analytics
 - [ ] Amplitude
