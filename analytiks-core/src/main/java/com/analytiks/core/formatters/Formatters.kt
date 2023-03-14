@@ -26,7 +26,7 @@ class JSONFormatStrategy : FormatEventPropertiesStrategy<JSONObject>() {
 class MapFormatStrategy : FormatEventPropertiesStrategy<Map<String, String>>() {
     override fun formatProperties(vararg eventProperties: Param): Map<String, String> {
         return eventProperties.associate { property ->
-            property.propertyName to property.propertyName
+            property.propertyName to property.propertyValue
         }
     }
 }
