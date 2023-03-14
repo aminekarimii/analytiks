@@ -1,5 +1,5 @@
 # Analytiks
-A lightweight Analytics 📊 library that identify the user, log events and dispatch the data at one. 
+A lightweight Analytics 📊 library that identify the user, log events and dispatch the data at one.
 
 ## Description
 An android library that centralizes analytics services in one place can be a useful tool for developers who want to track the usage and performance of their app.
