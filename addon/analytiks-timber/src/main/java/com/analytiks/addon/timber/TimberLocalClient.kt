@@ -23,13 +23,16 @@ class TimberLocalClient : CoreAddon, EventsExtension, UserProfileExtension {
     override fun logEvent(name: String, vararg properties: Param) {
         Timber.tag(TAG).log(Log.INFO, "Event: $name -> props: [$properties]")
     }
-
-    override fun identify(userId: String?) {
+    override fun identify(userId: String) {
         Timber.tag(TAG).log(Log.INFO, "User has been identified by: $userId")
     }
 
     override fun setUserProperty(property: UserProperty) {
-        Timber.tag(TAG).log(Log.INFO, "User properties has updated: $property")
+        Timber.tag(TAG).log(Log.INFO, "User property has been added: $property")
+    }
+
+    override fun setUserPropertyOnce(property: UserProperty) {
+        Timber.tag(TAG).log(Log.INFO, "User property has been added once: $property")
     }
 
 }
