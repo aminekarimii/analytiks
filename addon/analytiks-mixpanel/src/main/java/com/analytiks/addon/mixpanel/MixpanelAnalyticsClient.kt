@@ -35,6 +35,10 @@ class MixpanelAnalyticsClient(
         )
     }
 
+    override fun reset() {
+        mixpanelClient.reset()
+    }
+
     override fun logEvent(name: String) {
         mixpanelClient.track(name)
     }

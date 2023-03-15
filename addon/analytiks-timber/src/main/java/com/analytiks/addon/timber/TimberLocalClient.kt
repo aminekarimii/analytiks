@@ -16,6 +16,10 @@ class TimberLocalClient : CoreAddon, EventsExtension, UserProfileExtension {
         Timber.plant(Timber.DebugTree())
     }
 
+    override fun reset() {
+        Timber.tag(TAG).log(Log.INFO, "Reset called")
+    }
+
     override fun logEvent(name: String) {
         Timber.tag(TAG).log(Log.INFO, "Event: $name")
     }
