@@ -1,12 +1,12 @@
 # Analytiks
-A lightweight Analytics library that identify the user, log events and dispatch the data at one.
+A lightweight Analytics 📊 library that identify the user, log events and dispatch the data at one.
 
 ## Description
-An android library that centralizes analytics services in one place can be a useful tool for developers who want to track the usage and performance of their app.
+An android library that centralizes analytics services in one place can be a useful tool for developers who want to track the usage and performance of their app. 
 Should be easy as it sounds, a single implementation to start with the base analytics core features, and then you can add each analytic service separately (to preserve library size).
 A debug analytics mode that can log the same properties in the debug console.
 
-![Scheme of the library logic](https://user-images.githubusercontent.com/20410115/224169222-e7cc3ca6-40c8-4fe9-a01d-2e19d817a0af.png)
+![Scheme of the library logic](https://user-images.githubusercontent.com/20410115/225161402-d3a7d24f-da0d-4360-abab-fe86c68f0214.png)
 
 ## Features [🚧 wip]
 The list of features provided by the library  
@@ -27,12 +27,12 @@ Here's a list of the most known Analytic services that we will supoort in our li
 - [ ] AppsFlyer
 - [ ] Sensor Tower
 - [ ] Onesignal
-- [x] Timber - For local event logging  
+- [x] Timber - For local event logging
 
 ## License 🔖
+
 ```
     Apache 2.0 License
-
 
     Copyright 2022 KARIMI Amine
 
