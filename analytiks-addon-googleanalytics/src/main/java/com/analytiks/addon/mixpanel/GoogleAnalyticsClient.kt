@@ -2,7 +2,7 @@ package com.analytiks.addon.mixpanel
 
 import android.content.Context
 import android.os.Bundle
-import com.analytiks.core.BaseAnalytics
+import com.analytiks.core.CoreAddon
 import com.analytiks.core.EventsExtension
 import com.analytiks.core.UserProfileExtension
 import com.analytiks.core.formatters.BundleFormatStrategy
@@ -19,7 +19,7 @@ class GoogleAnalyticsClient(
     private val isAnalyticsCollectionEnabled: Boolean = true,
     private val sessionTimeoutDuration: Long? = null,
     private val defaultEventParameters: Bundle? = null,
-) : BaseAnalytics, EventsExtension, UserProfileExtension {
+) : CoreAddon, EventsExtension, UserProfileExtension {
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     val formatter = BundleFormatStrategy()
@@ -40,13 +40,15 @@ class GoogleAnalyticsClient(
         firebaseAnalytics.logEvent(name, formatter(*properties))
     }
 
-    override fun identify(userId: String?) {
+    override fun identify(userId: String) {
         firebaseAnalytics.setUserId(userId)
     }
 
     override fun setUserProperty(property: UserProperty) {
         firebaseAnalytics.setUserProperty(property.propertyName, property.propertyValue?.toString())
     }
+
+    override fun setUserPropertyOnce(property: UserProperty) = Unit
 
     override fun reset() {
         firebaseAnalytics.resetAnalyticsData()

@@ -1,9 +1,9 @@
 package com.logitanalyticsapp
 
-import MixpanelAnalyticsClient
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.analytiks.Analytiks
+import com.analytiks.addon.mixpanel.MixpanelAnalyticsClient
 import com.analytiks.core.model.Param
 import com.logitanalyticsapp.databinding.ActivityMainBinding
 
