@@ -31,12 +31,16 @@ class SegmentAnalyticsClient(
 
             if (recordScreen) this.recordScreenViews()
             if (collectDeviceId) this.collectDeviceId(true)
-            if (tag != null) this.tag(tag)
+            tag?.let { this.tag(it) }
         }.build().also {
             Analytics.setSingletonInstance(it)
         }
 
         segmentAnalytics = Analytics.with(context)
+    }
+
+    override fun reset() {
+        segmentAnalytics.reset()
     }
 
     override fun logEvent(name: String) {
@@ -48,8 +52,8 @@ class SegmentAnalyticsClient(
         segmentAnalytics.track(name, formattedParams)
     }
 
-    override fun identify(userId: String?) {
-        userId?.let { segmentAnalytics.identify(it) }
+    override fun identify(userId: String) {
+        segmentAnalytics.identify(userId)
     }
 
     override fun setUserProperty(property: UserProperty) {
@@ -59,4 +63,6 @@ class SegmentAnalyticsClient(
             }
         )
     }
+
+    override fun setUserPropertyOnce(property: UserProperty) = Unit
 }
