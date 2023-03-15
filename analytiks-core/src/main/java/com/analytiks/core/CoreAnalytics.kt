@@ -20,6 +20,8 @@ interface CoreAddon {
      * @param context the context object to use for initialization.
      */
     fun initialize(context: Context)
+
+    fun reset()
 }
 
 /**
