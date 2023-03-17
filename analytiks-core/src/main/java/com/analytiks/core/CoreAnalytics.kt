@@ -9,6 +9,8 @@ import java.util.*
 
 interface CoreAddon {
     fun initialize(context: Context)
+
+    fun reset()
 }
 
 interface EventsExtension {
