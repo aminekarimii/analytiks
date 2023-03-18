@@ -7,46 +7,44 @@ import com.analytiks.addon.mixpanel.MixpanelAnalyticsClient
 import com.analytiks.addon.timber.TimberLocalClient
 import org.json.JSONObject
 
-sealed class AnalytiksFactory private constructor() {
+object AnalytiksFactory {
 
-    companion object {
-        @JvmStatic
-        fun createAzureInsightAnalyticsClient(instrumentationKey: String): AzureInsightAnalyticsClient {
-            return AzureInsightAnalyticsClient(instrumentationKey)
-        }
+    @JvmStatic
+    fun createAzureInsightAnalyticsClient(instrumentationKey: String): AzureInsightAnalyticsClient {
+        return AzureInsightAnalyticsClient(instrumentationKey)
+    }
 
-        @JvmStatic
-        fun createGoogleAnalyticsClient(
-            isAnalyticsCollectionEnabled: Boolean = true,
-            sessionTimeoutDuration: Long? = null,
-            defaultEventParameters: Bundle? = null,
-        ): GoogleAnalyticsClient {
-            return GoogleAnalyticsClient(
-                isAnalyticsCollectionEnabled, sessionTimeoutDuration, defaultEventParameters
-            )
-        }
+    @JvmStatic
+    fun createGoogleAnalyticsClient(
+        isAnalyticsCollectionEnabled: Boolean = true,
+        sessionTimeoutDuration: Long? = null,
+        defaultEventParameters: Bundle? = null,
+    ): GoogleAnalyticsClient {
+        return GoogleAnalyticsClient(
+            isAnalyticsCollectionEnabled, sessionTimeoutDuration, defaultEventParameters
+        )
+    }
 
-        @JvmStatic
-        fun createMixpanelAnalyticsClient(
-            token: String,
-            optOutTrackingDefault: Boolean = false,
-            superProperties: JSONObject? = null,
-            instanceName: String? = null,
-            trackAutomaticEvents: Boolean = true,
-        ): MixpanelAnalyticsClient {
-            return MixpanelAnalyticsClient(
-                token,
-                optOutTrackingDefault,
-                superProperties,
-                instanceName,
-                trackAutomaticEvents
-            )
-        }
+    @JvmStatic
+    fun createMixpanelAnalyticsClient(
+        token: String,
+        optOutTrackingDefault: Boolean = false,
+        superProperties: JSONObject? = null,
+        instanceName: String? = null,
+        trackAutomaticEvents: Boolean = true,
+    ): MixpanelAnalyticsClient {
+        return MixpanelAnalyticsClient(
+            token,
+            optOutTrackingDefault,
+            superProperties,
+            instanceName,
+            trackAutomaticEvents
+        )
+    }
 
-        @JvmStatic
-        fun createTimberLocalClient(): TimberLocalClient {
-            return TimberLocalClient()
-        }
+    @JvmStatic
+    fun createTimberLocalClient(): TimberLocalClient {
+        return TimberLocalClient()
     }
 
 }
