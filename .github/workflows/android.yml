@@ -1,14 +1,14 @@
 name: Android CI
 
 on:
-  push:
-    branches: [ "dev" ]
-  pull_request:
+  pull_request_review:
+    types: [submitted]
     branches: [ "dev" ]
 
 jobs:
   build:
 
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
 
     steps:
