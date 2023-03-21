@@ -13,13 +13,14 @@ The list of features provided by the library
 - **initialization:** `init` Initialize the "analytiks" library, along with its sub-libraries, during the initialization process.  
 - **Identify user:** `identify` Identify the current user by the given id or a random uuid in case of an empty one.  
 - **Log event:** `event` send/save an event with a name and an optional set of properties.  
-- **Reset:** `reset` the plugins and remove the default users configuration.  
+- **Reset:** `reset` the plugins and remove the default users configuration.
+- **Flush events** `flush` send the recorded local data to the service servers on call.
 
 ## Supported analytics SDKs
 Here's a list of the most known Analytic services that we will supoort in our library.  
-- [ ] Google Analytics
-- [ ] Firebase Analytics
-- [ ] Mixpanel
+- [x] Google/Firebase Analytics
+- [x] Segment
+- [x] Mixpanel
 - [ ] Flurry Analytics
 - [ ] Amplitude
 - [ ] App Annie
@@ -27,7 +28,9 @@ Here's a list of the most known Analytic services that we will supoort in our li
 - [ ] AppsFlyer
 - [ ] Sensor Tower
 - [ ] Onesignal
-- [x] Timber - For local event logging
+- [x] Timber - For local event logging   
+
+➕ Can't find your service? [open an issue](https://github.com/aminekarimii/analytiks/issues/new) with the name and the direct documentation link in the comment section.
 
 ## License 🔖
 
