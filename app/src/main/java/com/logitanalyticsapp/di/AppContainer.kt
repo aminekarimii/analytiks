@@ -6,13 +6,12 @@ import com.analytiks.addon.timber.TimberLocalClient
 import com.analytiks.core.CoreAddon
 
 class AppContainer {
-    private val clients: List<CoreAddon> = listOf(
+    private val clients: Sequence<CoreAddon> = sequenceOf(
         TimberLocalClient(),
         MixpanelAnalyticsClient(
             token = "test-key-goes-here",
             optOutTrackingDefault = true,
-        ),
+        )
     )
-
     val analytiks = Analytiks(clients)
 }

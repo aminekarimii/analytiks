@@ -1,35 +1,92 @@
 package com.analytiks
 
 import android.content.Context
+import com.analytiks.core.AnalyticsDataTransmitterExtension
 import com.analytiks.core.CoreAddon
 import com.analytiks.core.EventsExtension
+import com.analytiks.core.UserProfileExtension
 import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
 
 class Analytiks(
-    private val clients: List<CoreAddon>
-) {
+    private val clients: Sequence<CoreAddon>
+) : CoreAnalytiks {
 
-    fun initialize(context: Context) {
-        clients.map { it.initialize(context) }
+    override fun initialize(context: Context) {
+        clients.forEach { it.initialize(context) }
     }
 
-    fun logEvent(
+    override fun logEvent(name: String, excludedAddons: Set<Class<out CoreAddon>>?) {
+        clients
+            .filter { addon ->
+                excludedAddons == null || addon.javaClass !in excludedAddons
+            }
+            .filterIsInstance<EventsExtension>()
+            .forEach {
+                it.logEvent(name)
+            }
+    }
+
+    override fun logEvent(
         name: String,
-        excludedAddons: Set<Class<out CoreAddon>>? = null,
-        properties: List<Param>? = null
+        properties: List<Param>,
+        excludedAddons: Set<Class<out CoreAddon>>?
     ) {
-        clients.asSequence()
+        clients
             .filter { addon ->
                 excludedAddons == null || addon.javaClass !in excludedAddons
             }
             .filterIsInstance<EventsExtension>()
             .forEach {
                 //TODO migrate EventsExtension::logEvent to use List instead of vararg in properties
-                it.logEvent(name, *properties?.toTypedArray() ?: emptyArray())
+                it.logEvent(name, *properties.toTypedArray())
             }
     }
 
-    fun userProperty(propertyName: UserProperty) = Unit
+    override fun identify(userId: String) {
+        clients
+            .filterIsInstance<UserProfileExtension>()
+            .forEach {
+                it.identify(userId)
+            }
+    }
+
+    override fun setUserProperty(
+        property: UserProperty,
+        excludedAddons: Set<Class<out CoreAddon>>?
+    ) {
+        clients
+            .filter { addon ->
+                excludedAddons == null || addon.javaClass !in excludedAddons
+            }
+            .filterIsInstance<UserProfileExtension>()
+            .forEach {
+                it.setUserProperty(property)
+            }
+    }
+
+    override fun setUserPropertyOnce(
+        property: UserProperty,
+        excludedAddons: Set<Class<out CoreAddon>>?
+    ) {
+        clients
+            .filter { addon ->
+                excludedAddons == null || addon.javaClass !in excludedAddons
+            }
+            .filterIsInstance<UserProfileExtension>()
+            .forEach {
+                it.setUserPropertyOnce(property)
+            }
+    }
+
+    override fun pushAll() {
+        clients
+            .filterIsInstance<AnalyticsDataTransmitterExtension>()
+            .forEach(AnalyticsDataTransmitterExtension::pushAll)
+    }
+
+    override fun reset() {
+        clients.forEach(CoreAddon::reset)
+    }
 
 }
