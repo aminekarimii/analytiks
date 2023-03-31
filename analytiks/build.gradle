@@ -32,5 +32,9 @@ android {
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
-    api project(':analytiks-core')
+    implementation project(':analytiks-core')
+    implementation project(path: ':addon:analytiks-mixpanel')
+    implementation project(path: ':addon:analytiks-azureinsight')
+    implementation project(path: ':addon:analytiks-googleanalytics')
+    implementation project(path: ':addon:analytiks-timber')
 }
