@@ -9,7 +9,7 @@ import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
 
 class Analytiks(
-    private val clients: Sequence<CoreAddon>
+    private val clients: List<CoreAddon>
 ) : CoreAnalytiks {
 
     override fun initialize(context: Context) {
@@ -76,7 +76,9 @@ class Analytiks(
     override fun pushAll() {
         clients
             .filterIsInstance<AnalyticsDataTransmitterExtension>()
-            .forEach(AnalyticsDataTransmitterExtension::pushAll)
+            .forEach {
+                it.pushAll()
+            }
     }
 
     override fun reset() {
