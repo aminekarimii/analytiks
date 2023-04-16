@@ -14,7 +14,7 @@ class AnalytiksTest {
 
     @Test
     fun `excludeAddon should exclude the specified addon`() {
-        // Arrange
+        // GIVEN
         val addons = listOf(
             addon1,
             addon2,
@@ -22,19 +22,19 @@ class AnalytiksTest {
         )
         analytiks = Analytiks(addons)
 
-        // Act
+        // WHEN
         val result = with(analytiks) {
             addons.excludeAddon(setOf(CoreAddon2::class.java))
         }
 
-        // Assert
+        // THEN
         assertEquals(2, result.size)
         assertEquals(listOf(addon1, addon3), result)
     }
 
     @Test
     fun `excludeAddon should return the same list if excludedAddons is null`() {
-        // Arrange
+        // GIVEN
         val addons = listOf(
             addon1,
             addon2,
@@ -42,18 +42,18 @@ class AnalytiksTest {
         )
         analytiks = Analytiks(addons)
 
-        // Act
+        // WHEN
         val result = with(analytiks) {
             addons.excludeAddon(null)
         }
 
-        // Assert
+        // THEN
         assertEquals(addons, result)
     }
 
     @Test
     fun `excludeAddon should return an empty list if all addons are excluded`() {
-        // Arrange
+        // GIVEN
         val addons = listOf(
             addon1,
             addon2,
@@ -61,14 +61,14 @@ class AnalytiksTest {
         )
         analytiks = Analytiks(addons)
 
-        // Act
+        // WHEN
         val result = with(analytiks) {
             addons.excludeAddon(
                 setOf(CoreAddon1::class.java, CoreAddon2::class.java, CoreAddon3::class.java)
             )
         }
 
-        // Assert
+        // THEN
         assertTrue(result.isEmpty())
     }
 }
