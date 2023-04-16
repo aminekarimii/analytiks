@@ -4,43 +4,49 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.analytiks.Analytiks
 import com.analytiks.addon.mixpanel.MixpanelAnalyticsClient
+import com.analytiks.addon.timber.TimberLocalClient
+import com.analytiks.core.CoreAddon
 import com.analytiks.core.model.Param
 import com.logitanalyticsapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var analytiks: Analytiks
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        val appContainer = (application as AnalytiksApplication).appContainer
+        val clients: List<CoreAddon> = listOf(
+            TimberLocalClient(),
+            MixpanelAnalyticsClient(
+                token = "YOUR_TOKEN"
+            )
+        )
 
-        appContainer.analytiks.logFirstEvent()
+        analytiks = Analytiks(clients)
+
+        with(analytiks) {
+            initialize(this@MainActivity.applicationContext)
+            reset()
+        }
+
 
         binding.fab.setOnClickListener {
-            appContainer.analytiks.logEventOnClick()
+            analytiks.logEvent(
+                name = "fab_button_click", properties = listOf(
+                    Param(propertyName = "prop1", propertyValue = "val2")
+                )
+            )
         }
     }
 
-    private fun Analytiks.logFirstEvent() {
-        this.logEvent(
-            name = "event_name",
-            excludedAddons = setOf(MixpanelAnalyticsClient::class.java),
-            properties = listOf(
-                Param("val-name", "val-value")
-            )
-        )
-    }
-
-    private fun Analytiks.logEventOnClick() {
-        this.logEvent(
-            name = "button_click",
-            excludedAddons = setOf(MixpanelAnalyticsClient::class.java)
-        )
+    override fun onPause() {
+        super.onPause()
+        analytiks.pushAll()
     }
 }
