@@ -18,11 +18,12 @@ interface CoreAnalytiks {
     fun identify(userId: String)
     fun setUserProperty(
         property: UserProperty,
-        excludedAddons: Set<Class<out CoreAddon>>?
+        excludedAddons: Set<Class<out CoreAddon>>? = null
     )
+
     fun setUserPropertyOnce(
         property: UserProperty,
-        excludedAddons: Set<Class<out CoreAddon>>?
+        excludedAddons: Set<Class<out CoreAddon>>? = null
     )
 
     fun pushAll()

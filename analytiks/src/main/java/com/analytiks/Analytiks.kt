@@ -9,7 +9,7 @@ import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
 
 class Analytiks(
-    private val clients: Sequence<CoreAddon>
+    private val clients: List<CoreAddon>
 ) : CoreAnalytiks {
 
     override fun initialize(context: Context) {
@@ -33,9 +33,7 @@ class Analytiks(
         excludedAddons: Set<Class<out CoreAddon>>?
     ) {
         clients
-            .filter { addon ->
-                excludedAddons == null || addon.javaClass !in excludedAddons
-            }
+            .excludeAddon(excludedAddons)
             .filterIsInstance<EventsExtension>()
             .forEach {
                 //TODO migrate EventsExtension::logEvent to use List instead of vararg in properties
@@ -56,9 +54,7 @@ class Analytiks(
         excludedAddons: Set<Class<out CoreAddon>>?
     ) {
         clients
-            .filter { addon ->
-                excludedAddons == null || addon.javaClass !in excludedAddons
-            }
+            .excludeAddon(excludedAddons)
             .filterIsInstance<UserProfileExtension>()
             .forEach {
                 it.setUserProperty(property)
@@ -70,9 +66,7 @@ class Analytiks(
         excludedAddons: Set<Class<out CoreAddon>>?
     ) {
         clients
-            .filter { addon ->
-                excludedAddons == null || addon.javaClass !in excludedAddons
-            }
+            .excludeAddon(excludedAddons)
             .filterIsInstance<UserProfileExtension>()
             .forEach {
                 it.setUserPropertyOnce(property)
@@ -82,11 +76,20 @@ class Analytiks(
     override fun pushAll() {
         clients
             .filterIsInstance<AnalyticsDataTransmitterExtension>()
-            .forEach(AnalyticsDataTransmitterExtension::pushAll)
+            .forEach {
+                it.pushAll()
+            }
     }
 
     override fun reset() {
         clients.forEach(CoreAddon::reset)
     }
 
+    fun List<CoreAddon>.excludeAddon(
+        excludedAddons: Set<Class<out CoreAddon>>?
+    ): List<CoreAddon> {
+        return this.filter { addon ->
+            excludedAddons == null || addon.javaClass !in excludedAddons
+        }
+    }
 }
