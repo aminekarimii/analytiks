@@ -47,6 +47,7 @@ dependencies {
     implementation project(':analytiks')
     implementation project(path: ':analytiks-core')
     implementation project(path: ':addon:analytiks-mixpanel')
+    implementation project(path: ':addon:analytiks-segment')
     implementation project(path: ':addon:analytiks-timber')
 
     testImplementation 'junit:junit:4.13.2'

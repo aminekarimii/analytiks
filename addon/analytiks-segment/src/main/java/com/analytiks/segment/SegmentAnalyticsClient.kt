@@ -1,42 +1,39 @@
 package com.analytiks.segment
 
 import android.content.Context
+import com.analytiks.core.AnalyticsDataTransmitterExtension
 import com.analytiks.core.CoreAddon
 import com.analytiks.core.EventsExtension
 import com.analytiks.core.UserProfileExtension
 import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
-import com.analytiks.segment.PropertiesHelper.formatParamsToProperties
-import com.segment.analytics.Analytics
-import com.segment.analytics.Traits
-import java.util.concurrent.TimeUnit
+import com.segment.analytics.kotlin.android.Analytics
+import com.segment.analytics.kotlin.core.Analytics
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 
 class SegmentAnalyticsClient(
     private val token: String,
-    private val recordScreen: Boolean = true,
     private val collectDeviceId: Boolean = true,
-    private val flushIntervalInSeconds: Long? = null,
+    private val trackApplicationLifecycleEvents: Boolean = false,
+    private val useLifecycleObserver: Boolean = false,
+    private val flushIntervalInSeconds: Int? = null,
+    private val flushAt: Int? = null,
     private val tag: String? = null
-) : CoreAddon, EventsExtension, UserProfileExtension {
+) : CoreAddon, EventsExtension, UserProfileExtension, AnalyticsDataTransmitterExtension {
     lateinit var segmentAnalytics: Analytics
 
     override fun initialize(context: Context) {
-        segmentAnalytics = Analytics.Builder(context, token).apply {
-            trackApplicationLifecycleEvents()
+        segmentAnalytics = Analytics(this.token, context) {
+            this.trackApplicationLifecycleEvents =
+                this@SegmentAnalyticsClient.trackApplicationLifecycleEvents
 
-            if (flushIntervalInSeconds != null) this.flushInterval(
-                flushIntervalInSeconds,
-                TimeUnit.SECONDS
-            )
+            this.useLifecycleObserver = this@SegmentAnalyticsClient.useLifecycleObserver
+            this.collectDeviceId = this@SegmentAnalyticsClient.collectDeviceId
 
-            if (recordScreen) this.recordScreenViews()
-            if (collectDeviceId) this.collectDeviceId(true)
-            tag?.let { this.tag(it) }
-        }.build().also {
-            Analytics.setSingletonInstance(it)
+            this@SegmentAnalyticsClient.flushIntervalInSeconds?.let { this.flushInterval = it }
+            this@SegmentAnalyticsClient.flushAt?.let { this.flushAt = it }
         }
-
-        segmentAnalytics = Analytics.with(context)
     }
 
     override fun reset() {
@@ -48,8 +45,11 @@ class SegmentAnalyticsClient(
     }
 
     override fun logEvent(name: String, vararg properties: Param) {
-        val formattedParams = formatParamsToProperties(*properties)
-        segmentAnalytics.track(name, formattedParams)
+        segmentAnalytics.track(name, buildJsonObject {
+            properties.forEach {
+                put(it.propertyName, it.propertyValue)
+            }
+        })
     }
 
     override fun identify(userId: String) {
@@ -57,12 +57,16 @@ class SegmentAnalyticsClient(
     }
 
     override fun setUserProperty(property: UserProperty) {
-        segmentAnalytics.identify(
-            Traits().apply {
-                putValue(property.propertyName, property.propertyValue)
-            }
-        )
+        if (segmentAnalytics.userId() == null) return
+
+        segmentAnalytics.identify(userId = segmentAnalytics.userId()!!, buildJsonObject {
+            put(property.propertyName, property.propertyValue.toString())
+        })
     }
 
     override fun setUserPropertyOnce(property: UserProperty) = Unit
+
+    override fun pushAll() {
+        segmentAnalytics.flush()
+    }
 }
