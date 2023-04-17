@@ -33,6 +33,6 @@ android {
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'com.segment.analytics.android:analytics:4.11.0'
+    implementation 'com.segment.analytics.kotlin:android:1.10.3'
     implementation project(':analytiks-core')
 }
