@@ -7,6 +7,7 @@ import com.analytiks.addon.mixpanel.MixpanelAnalyticsClient
 import com.analytiks.addon.timber.TimberLocalClient
 import com.analytiks.core.CoreAddon
 import com.analytiks.core.model.Param
+import com.analytiks.segment.SegmentAnalyticsClient
 import com.logitanalyticsapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +26,11 @@ class MainActivity : AppCompatActivity() {
             TimberLocalClient(),
             MixpanelAnalyticsClient(
                 token = "YOUR_TOKEN"
+            ),
+            SegmentAnalyticsClient(
+                token = "YOUR_TOKEN",
+                flushIntervalInSeconds = 5,
+                trackApplicationLifecycleEvents = true,
             )
         )
 
