@@ -8,6 +8,16 @@ A debug analytics mode that can log the same properties in the debug console.
 
 ![Scheme of the library logic](https://user-images.githubusercontent.com/20410115/225161402-d3a7d24f-da0d-4360-abab-fe86c68f0214.png)
 
+## Download
+```Groovy
+dependencies {
+    implementation 'com.analytiks:core:1.0.0'
+    implementation 'com.analytiks:firebase:1.0.0' // Optional Firebase Analytics addon
+    implementation 'com.analytiks:amplitude:1.0.0' // Optional Amplitude addon
+    // Add any other optional addons here
+}
+```
+
 ## Features [🚧 wip]
 The list of features provided by the library  
 - **Initialization:** `init` Initialize the "analytiks" library, along with its sub-libraries, during the initialization process.  
