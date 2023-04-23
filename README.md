@@ -30,7 +30,7 @@ dependencies {
 }
 ```
 
-## Setup
+## 🔌 Setup
 1- In your activity, initiate the Analytiks library and keep an object to be used after as following:
 ```kotlin
 private lateinit var analytiks: Analytiks
