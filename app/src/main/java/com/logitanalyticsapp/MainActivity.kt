@@ -3,10 +3,12 @@ package com.logitanalyticsapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.analytiks.Analytiks
+import com.analytiks.addon.googleanalytics.GoogleAnalyticsClient
 import com.analytiks.addon.mixpanel.MixpanelAnalyticsClient
 import com.analytiks.addon.timber.TimberLocalClient
 import com.analytiks.core.CoreAddon
 import com.analytiks.core.model.Param
+import com.analytiks.core.model.UserProperty
 import com.analytiks.segment.SegmentAnalyticsClient
 import com.logitanalyticsapp.databinding.ActivityMainBinding
 
@@ -31,14 +33,20 @@ class MainActivity : AppCompatActivity() {
                 token = "YOUR_TOKEN",
                 flushIntervalInSeconds = 5,
                 trackApplicationLifecycleEvents = true,
-            )
+            ),
+            GoogleAnalyticsClient(isAnalyticsCollectionEnabled = true)
         )
 
         analytiks = Analytiks(clients)
 
         with(analytiks) {
             initialize(this@MainActivity.applicationContext)
-            reset()
+            setUserProperty(
+                property = UserProperty(
+                    propertyName = "prop1",
+                    propertyValue = "test1"
+                )
+            )
         }
 
 

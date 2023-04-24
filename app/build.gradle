@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -49,6 +50,7 @@ dependencies {
     implementation project(path: ':addon:analytiks-mixpanel')
     implementation project(path: ':addon:analytiks-segment')
     implementation project(path: ':addon:analytiks-timber')
+    implementation project(path: ':addon:analytiks-googleanalytics')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
