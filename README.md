@@ -1,8 +1,12 @@
 # Analytiks
-[![Release](https://jitpack.io/v/jitpack/android-example.svg)](https://jitpack.io/#jitpack/android-example)
-![Group 54 (1)](https://user-images.githubusercontent.com/20410115/228402805-3309d17a-0bc5-4404-90f8-20c9b30e33a9.png)
+<p align="center">
+  <a href="https://github.com/skydoves/PowerSpinner/actions"><img alt="Build Status" src="https://github.com/aminekarimii/analytiks/workflows/Android%20CI/badge.svg"/></a>
+  <a href="https://jitpack.io/#aminekarimii/Analytiks"><img alt="JitPack version" src="https://jitpack.io/v/aminekarimii/Analytiks.svg"/></a>
+</p>  
 
-## Description
+![Analytiks cover illustration](https://user-images.githubusercontent.com/20410115/228402805-3309d17a-0bc5-4404-90f8-20c9b30e33a9.png)
+
+## ✏️ Description
 An android library that centralizes analytics services in one place can be a useful tool for developers who want to track the usage and performance of their app. 
 Should be easy as it sounds, a single implementation to start with the base analytics core features, and then you can add each analytic service separately (to preserve library size).
 A debug analytics mode that can log the same properties in the debug console.
