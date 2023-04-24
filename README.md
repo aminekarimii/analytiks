@@ -28,8 +28,8 @@ and in your app level ```build.gradle``` file, add:
 dependencies {
     implementation 'com.analytiks:core:{analytiks-version}'
     // You can add each addon separately as following:
-    implementation 'com.analytiks.addon:analytiks-firebase:{analytiks-version}' // Optional Firebase Analytics addon
-    implementation 'com.analytiks.addon:analytiks-amplitude:{analytiks-version}' // Optional Amplitude addon
+    implementation 'com.analytiks.addon:analytiks-googleanalytics:{analytiks-version}' // Optional Firebase Analytics addon
+    implementation 'com.analytiks.addon:analytiks-segment:{analytiks-version}' // Optional Amplitude addon
     // Add any other optional addons here
 }
 ```
@@ -86,6 +86,7 @@ Here's a list of the most known Analytic services that we will supoort in our li
 | Sensor Tower  | 🚧  | - | - |
 | Onesignal  | 🚧  | - | - |
 | Timber - For local event logging  | ✅  | - | <a href="https://github.com/JakeWharton/timber">Timber Github</a> | 
+| Your Custom Addon  | ✅  | - | <a href="./analytiks-core/.gitignore">Timber Github</a> |
 
 ➕ Can't find your service? [open an issue](https://github.com/aminekarimii/analytiks/issues/new) with the name and the direct documentation link in the comment section.
 
