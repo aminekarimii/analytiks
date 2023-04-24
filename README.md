@@ -69,17 +69,19 @@ The list of features provided by the library
 
 ## Supported analytics SDKs
 Here's a list of the most known Analytic services that we will supoort in our library.  
-- [x] Google/Firebase Analytics
-- [x] Segment
-- [x] Mixpanel
-- [ ] Flurry Analytics
-- [ ] Amplitude
-- [ ] App Annie
-- [ ] Localytics
-- [ ] AppsFlyer
-- [ ] Sensor Tower
-- [ ] Onesignal
-- [x] Timber - For local event logging   
+| Service   |     Status    | Implementation | Official documentation |
+| --------- | ------------- | -------------- | ------------ |
+| Google/Firebase Analytics  | ✅  | - | <a href="https://firebase.google.com/docs/analytics/get-started?platform=android">Firebase Analytics doc</a> |
+| Segment  | ✅  | - | <a href="https://segment.com/docs/connections/sources/catalog/libraries/mobile/kotlin-android/" >Segment doc</a> |
+| Mixpanel  | ✅  | - | <a href="https://developer.mixpanel.com/docs/android">Mixpanel doc</a> |
+| Flurry Analytics  | 🚧  | - | - |
+| Amplitude  | 🚧  | - | - |
+| App Annie  | 🚧  | - | - |
+| Localytics  | 🚧  | - | - |
+| AppsFlyer  | 🚧  | - | - |
+| Sensor Tower  | 🚧  | - | - |
+| Onesignal  | 🚧  | - | - |
+| Timber - For local event logging  | ✅  | - | <a href="https://github.com/JakeWharton/timber">Timber Github</a> | 
 
 ➕ Can't find your service? [open an issue](https://github.com/aminekarimii/analytiks/issues/new) with the name and the direct documentation link in the comment section.
 
