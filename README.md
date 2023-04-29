@@ -26,10 +26,10 @@ allprojects {
 and in your app level ```build.gradle``` file, add:
 ```gradle
 dependencies {
-    implementation 'com.analytiks:core:{analytiks-version}'
+	  implementation 'com.github.aminekarimii.analytiks:analytiks:{LATEST-VERSION}'
     // You can add each addon separately as following:
-    implementation 'com.analytiks.addon:analytiks-googleanalytics:{analytiks-version}' // Optional Firebase Analytics addon
-    implementation 'com.analytiks.addon:analytiks-segment:{analytiks-version}' // Optional Amplitude addon
+    implementation 'com.github.aminekarimii.analytiks:analytiks-googleanalytics:{LATEST-VERSION}' // Optional Firebase Analytics addon
+    implementation 'com.github.aminekarimii.analytiks:analytiks-segment:{LATEST-VERSION}' // Optional Segment addon
     // Add any other optional addons here
 }
 ```
