@@ -1,4 +1,4 @@
-# Analytiks
+# <p align="center"> 📊Analytiks</p>
 <p align="center">
   <a href="https://github.com/skydoves/PowerSpinner/actions"><img alt="Build Status" src="https://github.com/aminekarimii/analytiks/workflows/Android%20CI/badge.svg"/></a>
   <a href="https://jitpack.io/#aminekarimii/Analytiks"><img alt="JitPack version" src="https://jitpack.io/v/aminekarimii/Analytiks.svg"/></a>
@@ -8,7 +8,7 @@
 
 ## ✏️ Description
 An android library that centralizes analytics services in one place can be a useful tool for developers who want to track the usage and performance of their app. 
-Should be easy as it sounds, a single implementation to start with the base analytics core features, and then you can add each analytic service separately (to preserve library size).
+Should be easy as it sounds, a single implementation to start with the base analytics core features, and then you can add each analytics service separately (to preserve library size).
 A debug analytics mode that can log the same properties in the debug console.
 
 ![Scheme of the library logic](https://user-images.githubusercontent.com/20410115/225161402-d3a7d24f-da0d-4360-abab-fe86c68f0214.png)
@@ -20,17 +20,20 @@ allprojects {
     repositories {
          ...
          maven { url 'https://jitpack.io' }
-     }
+    }
  }
 ```
 and in your app level ```build.gradle``` file, add:
 ```gradle
 dependencies {
-	  implementation 'com.github.aminekarimii.analytiks:analytiks:{LATEST-VERSION}'
+    implementation 'com.github.aminekarimii.analytiks:analytiks:{LATEST-VERSION}'
+    
     // You can add each addon separately as following:
     implementation 'com.github.aminekarimii.analytiks:analytiks-googleanalytics:{LATEST-VERSION}' // Optional Firebase Analytics addon
     implementation 'com.github.aminekarimii.analytiks:analytiks-segment:{LATEST-VERSION}' // Optional Segment addon
-    // Add any other optional addons here
+ 
+    // Add any other optional addons here using this pattern:
+    // com.github.aminekarimii.analytiks:analytiks-<ADDON-NAME>:<LATEST-VERSION>
 }
 ```
 
@@ -62,16 +65,16 @@ analytiks.logEvent("your_event_name")
 analytiks.pushAll()
 ```
 
-## Features [🚧 wip]
+## 🪄 Features [🚧 wip]
 The list of features provided by the library  
 - **Initialization:** `init` Initialize the "analytiks" library, along with its sub-libraries, during the initialization process.  
 - **Log event:** `event` send/save an event with a name and an optional set of properties.
 - **Identify user:** `identify` Identify the current user by the given id or a random uuid in case of an empty one.
 - **Set user property:** `setUserProperty` Sets a key value property to the identified user.
 - **Reset:** `reset` the plugins and remove the default users configuration.
-- **Flush events** `flush` send the recorded local data to the service servers on call.
+- **Flush events** `pushAll` send the recorded local data to the service servers on call.
 
-## Supported analytics SDKs
+## 🗃 Supported analytics SDKs
 Here's a list of the most known Analytic services that we will supoort in our library.  
 | Service   |     Status    | Implementation | Official documentation |
 | --------- | ------------- | -------------- | ------------ |
