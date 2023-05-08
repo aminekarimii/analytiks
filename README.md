@@ -62,7 +62,7 @@ analytiks.initialize(this.applicationContext)
 3- You're good to go!
 ```kotlin
 analytiks.logEvent("your_event_name")
-analytiks.pushAll()
+// ...
 ```
 
 ## 🪄 Features [🚧 wip]
