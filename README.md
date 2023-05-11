@@ -75,7 +75,7 @@ The list of features provided by the library
 - **Flush events** `pushAll` send the recorded local data to the service servers on call.
 
 ## 🗃 Supported analytics SDKs
-Here's a list of the most known Analytic services that we will supoort in our library.  
+Here's a list of the most known analytics services that we will support in our library.  
 | Service   |     Status    | Implementation | Official documentation |
 | --------- | ------------- | -------------- | ------------ |
 | Google/Firebase Analytics  | ✅  | - | <a href="https://firebase.google.com/docs/analytics/get-started?platform=android">Firebase Analytics doc</a> |
