@@ -1,4 +1,9 @@
-# Mixpanel Add-on implementation
+
+<h1 align="center">Mixpanel Add-on implementation</h1></br>
+<p align="center">
+   <img src="https://github.com/aminekarimii/analytiks/assets/20410115/f5b648d4-529a-4309-8e9d-2409b47457da" width="20%" />
+</p>
+
 ## Configuration
 | Field Name            | Description                                                         | Default Value        |
 |-----------------------|---------------------------------------------------------------------|----------------------|
