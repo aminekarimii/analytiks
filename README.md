@@ -80,7 +80,7 @@ Here's a list of the most known analytics services that we will support in our l
 | --------- | ------------- | -------------- | ------------ |
 | Google/Firebase Analytics  | ✅  | - | <a href="https://firebase.google.com/docs/analytics/get-started?platform=android">Firebase Analytics doc</a> |
 | Segment  | ✅  | - | <a href="https://segment.com/docs/connections/sources/catalog/libraries/mobile/kotlin-android/" >Segment doc</a> |
-| Mixpanel  | ✅  | - | <a href="https://developer.mixpanel.com/docs/android">Mixpanel doc</a> |
+| Mixpanel  | ✅  | <a href="https://github.com/aminekarimii/analytiks/blob/aminekarimii-patch-1/addon/analytiks-mixpanel/README.md">Mixpanel Addon Doc</a>| <a href="https://developer.mixpanel.com/docs/android">Mixpanel doc</a> |
 | Flurry Analytics  | 🚧  | - | - |
 | Amplitude  | 🚧  | - | - |
 | App Annie  | 🚧  | - | - |
