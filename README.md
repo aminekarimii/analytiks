@@ -88,7 +88,7 @@ Here's a list of the most known analytics services that we will support in our l
 | AppsFlyer  | 🚧  | - | - |
 | Sensor Tower  | 🚧  | - | - |
 | Onesignal  | 🚧  | - | - |
-| Timber - For local event logging  | ✅  | - | <a href="https://github.com/JakeWharton/timber">Timber Github</a> | 
+| Timber - For local event logging  | ✅  | - | <a href="https://github.com/JakeWharton/timber">github/JakeWharton/timber</a> | 
 | Your Custom Addon  | ✅  | - | <a href="https://github.com/aminekarimii/analytiks/tree/aminekarimii-patch-update-readme/analytiks-core">Instructions</a> |
 
 ➕ Can't find your service? [open an issue](https://github.com/aminekarimii/analytiks/issues/new) with the name and the direct documentation link in the comment section.
