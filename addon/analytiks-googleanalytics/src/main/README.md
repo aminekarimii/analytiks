@@ -19,7 +19,7 @@ implementation 'com.github.aminekarimii.analytiks:analytiks-googleanalytics:0.1.
 ```
 2. Create your own client
 ``` kotlin
-val googleAnalytics = class GoogleAnalyticsClient(
+val googleAnalytics = GoogleAnalyticsClient(
    isAnalyticsCollectionEnabled = true,
    sessionTimeoutDuration = 300L,
    defaultEventParameters = null
