@@ -65,7 +65,7 @@ analytiks.logEvent("your_event_name")
 // ...
 ```
 
-## 🪄 Features [🚧 wip]
+## 🪄 Features
 The list of features provided by the library  
 - **Initialization:** `init` Initialize the "analytiks" library, along with its sub-libraries, during the initialization process.  
 - **Log event:** `event` send/save an event with a name and an optional set of properties.
@@ -89,7 +89,7 @@ Here's a list of the most known analytics services that we will support in our l
 | Sensor Tower  | 🚧  | - | - |
 | Onesignal  | 🚧  | - | - |
 | Timber - For local event logging  | ✅  | - | <a href="https://github.com/JakeWharton/timber">github/JakeWharton/timber</a> | 
-| Your Custom Addon  | ✅  | - | <a href="https://github.com/aminekarimii/analytiks/tree/aminekarimii-patch-update-readme/analytiks-core">Instructions</a> |
+| Your Custom Addon  | ✅  | - | <a href="./analytiks-core">Instructions</a> |
 
 ➕ Can't find your service? [open an issue](https://github.com/aminekarimii/analytiks/issues/new) with the name and the direct documentation link in the comment section.
 
