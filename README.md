@@ -87,7 +87,6 @@ Here's a list of the most known analytics services that we will support in our l
 | Localytics  | 🚧  | - | - |
 | AppsFlyer  | 🚧  | - | - |
 | App Center Analytics  | 🚧  | - | - |
-| Sensor Tower  | 🚧  | - | - |
 | Onesignal  | 🚧  | - | - |
 | Timber - For local event logging  | ✅  | - | <a href="https://github.com/JakeWharton/timber">github/JakeWharton/timber</a> | 
 | Your Custom Addon  | ✅  | - | <a href="./analytiks-core">Instructions</a> |
