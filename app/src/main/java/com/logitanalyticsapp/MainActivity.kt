@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val clients: List<CoreAddon> = listOf(
+            CustomAnalytiksAddon(),
             TimberLocalClient(),
             MixpanelAnalyticsClient(
                 token = "YOUR_TOKEN"
