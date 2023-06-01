@@ -62,10 +62,10 @@ analytiks.initialize(this.applicationContext)
 3- You're good to go!
 ```kotlin
 analytiks.logEvent("your_event_name")
-analytiks.pushAll()
+// ...
 ```
 
-## 🪄 Features [🚧 wip]
+## 🪄 Features
 The list of features provided by the library  
 - **Initialization:** `init` Initialize the "analytiks" library, along with its sub-libraries, during the initialization process.  
 - **Log event:** `event` send/save an event with a name and an optional set of properties.
@@ -75,21 +75,21 @@ The list of features provided by the library
 - **Flush events** `pushAll` send the recorded local data to the service servers on call.
 
 ## 🗃 Supported analytics SDKs
-Here's a list of the most known Analytic services that we will supoort in our library.  
+Here's a list of the most known analytics services that we will support in our library.  
 | Service   |     Status    | Implementation | Official documentation |
 | --------- | ------------- | -------------- | ------------ |
-| Google/Firebase Analytics  | ✅  | - | <a href="https://firebase.google.com/docs/analytics/get-started?platform=android">Firebase Analytics doc</a> |
-| Segment  | ✅  | - | <a href="https://segment.com/docs/connections/sources/catalog/libraries/mobile/kotlin-android/" >Segment doc</a> |
-| Mixpanel  | ✅  | - | <a href="https://developer.mixpanel.com/docs/android">Mixpanel doc</a> |
+| Google/Firebase Analytics  | ✅  | <a href="./addon/analytiks-googleanalytics/README.md">Firebase/Google Addon doc</a>  | <a href="https://firebase.google.com/docs/analytics/get-started?platform=android">Firebase Analytics doc</a> |
+| Segment  | ✅  | <a href="./addon/analytiks-segment/README.md">Segment Addon doc</a> | <a href="https://segment.com/docs/connections/sources/catalog/libraries/mobile/kotlin-android/" >Segment doc</a> |
+| Mixpanel  | ✅  | <a href="./addon/analytiks-mixpanel/README.md">Mixpanel Addon doc</a>| <a href="https://developer.mixpanel.com/docs/android">Mixpanel doc</a> |
 | Flurry Analytics  | 🚧  | - | - |
 | Amplitude  | 🚧  | - | - |
 | App Annie  | 🚧  | - | - |
 | Localytics  | 🚧  | - | - |
 | AppsFlyer  | 🚧  | - | - |
-| Sensor Tower  | 🚧  | - | - |
+| App Center Analytics  | 🚧  | - | - |
 | Onesignal  | 🚧  | - | - |
-| Timber - For local event logging  | ✅  | - | <a href="https://github.com/JakeWharton/timber">Timber Github</a> | 
-| Your Custom Addon  | ✅  | - | <a href="https://github.com/aminekarimii/analytiks/tree/aminekarimii-patch-update-readme/analytiks-core">Instructions</a> |
+| Timber - For local event logging  | ✅  | - | <a href="https://github.com/JakeWharton/timber">github/JakeWharton/timber</a> | 
+| Your Custom Addon  | ✅  | - | <a href="./analytiks-core">Instructions</a> |
 
 ➕ Can't find your service? [open an issue](https://github.com/aminekarimii/analytiks/issues/new) with the name and the direct documentation link in the comment section.
 
