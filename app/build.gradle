@@ -51,6 +51,7 @@ dependencies {
     implementation project(path: ':addon:analytiks-segment')
     implementation project(path: ':addon:analytiks-timber')
     implementation project(path: ':addon:analytiks-googleanalytics')
+    implementation project(path: ':addon:analytiks-amplitude')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
