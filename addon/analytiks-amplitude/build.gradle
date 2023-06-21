@@ -30,7 +30,6 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.7.0'
-    api project(':analytiks-core')
+    implementation project(':analytiks-core')
     implementation 'com.amplitude:analytics-android:1.8.2'
 }
