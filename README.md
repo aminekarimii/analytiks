@@ -1,6 +1,6 @@
 # <p align="center"> 📊Analytiks</p>
 <p align="center">
-  <a href="https://github.com/skydoves/PowerSpinner/actions"><img alt="Build Status" src="https://github.com/aminekarimii/analytiks/workflows/Android%20CI/badge.svg"/></a>
+  <a href="https://github.com/aminekarimii/analytiks/actions"><img alt="Build Status" src="https://github.com/aminekarimii/analytiks/workflows/Android%20CI/badge.svg"/></a>
   <a href="https://jitpack.io/#aminekarimii/Analytiks"><img alt="JitPack version" src="https://jitpack.io/v/aminekarimii/Analytiks.svg"/></a>
 </p>  
 
