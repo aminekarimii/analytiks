@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
         gradlePluginPortal()
         google()
         mavenCentral()
@@ -8,6 +9,7 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
         google()
         mavenCentral()
     }
@@ -21,4 +23,3 @@ include ':addon:analytiks-googleanalytics'
 include ':addon:analytiks-timber'
 include ':analytiks-core'
 include ':addon:analytiks-segment'
-include ':addon:analytiks-amplitude'

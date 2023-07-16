@@ -1,4 +1,4 @@
-package com.analytiks.addon.googleanalytics
+package com.analytiks.addon.mixpanel
 
 import android.content.Context
 import android.os.Bundle

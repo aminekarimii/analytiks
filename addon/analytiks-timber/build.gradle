@@ -2,6 +2,26 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
+ext {
+    PUBLISH_GROUP_ID = 'io.github.aminekarimii'
+    PUBLISH_VERSION = '1.0.0'
+    PUBLISH_ARTIFACT_ID = 'analytiks-addon-timber'
+    PUBLISH_DESCRIPTION = 'Analytics SDK'
+    PUBLISH_URL = 'https://github.com/aminekarimii/analytiks'
+    PUBLISH_LICENSE_NAME = 'Apache 2.0 License'
+    PUBLISH_LICENSE_URL =
+            'https://github.com/aminekarimii/analytiks/blob/dev/LICENSE'
+    PUBLISH_DEVELOPER_ID = 'aminekarimii'
+    PUBLISH_DEVELOPER_NAME = 'Amine Karimi'
+    PUBLISH_DEVELOPER_EMAIL = 'aminekarimi1998@gmail.com'
+    PUBLISH_SCM_CONNECTION =
+            'scm:git:github.com/aminekarimii/analytiks.git'
+    PUBLISH_SCM_DEVELOPER_CONNECTION =
+            'scm:git:ssh://github.com/aminekarimii/analytiks.git'
+    PUBLISH_SCM_URL =
+            'https://github.com/aminekarimii/analytiks/tree/master'
+}
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
 android {
     namespace 'com.analytiks.addon.timber'
