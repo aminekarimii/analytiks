@@ -3,14 +3,10 @@ package com.logitanalyticsapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.analytiks.Analytiks
-import com.analytiks.addon.amplitude.AmplitudeClient
-import com.analytiks.addon.amplitude.ServerGeoZone
-import com.analytiks.addon.googleanalytics.GoogleAnalyticsClient
 import com.analytiks.addon.mixpanel.MixpanelAnalyticsClient
 import com.analytiks.addon.timber.TimberLocalClient
 import com.analytiks.core.CoreAddon
 import com.analytiks.core.model.Param
-import com.analytiks.core.model.UserProperty
 import com.analytiks.segment.SegmentAnalyticsClient
 import com.logitanalyticsapp.databinding.ActivityMainBinding
 
@@ -27,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val clients: List<CoreAddon> = listOf(
-            CustomAnalytiksAddon(),
             TimberLocalClient(),
             MixpanelAnalyticsClient(
                 token = "YOUR_TOKEN"
@@ -36,12 +31,6 @@ class MainActivity : AppCompatActivity() {
                 token = "YOUR_TOKEN",
                 flushIntervalInSeconds = 5,
                 trackApplicationLifecycleEvents = true,
-            ),
-            GoogleAnalyticsClient(isAnalyticsCollectionEnabled = true),
-            AmplitudeClient(
-                token = "YOUR_TOKEN",
-                // It is recommended to check your server zone and set it.
-                serverGeoZone = ServerGeoZone.US
             )
         )
 
@@ -49,12 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         with(analytiks) {
             initialize(this@MainActivity.applicationContext)
-            setUserProperty(
-                property = UserProperty(
-                    propertyName = "prop1",
-                    propertyValue = "test1"
-                )
-            )
+            reset()
         }
 
 
