@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.analytiks.Analytiks
 import com.analytiks.addon.amplitude.AmplitudeClient
 import com.analytiks.addon.amplitude.ServerGeoZone
-import com.analytiks.addon.googleanalytics.GoogleAnalyticsClient
+import com.analytiks.addon.mixpanel.GoogleAnalyticsClient
 import com.analytiks.addon.mixpanel.MixpanelAnalyticsClient
 import com.analytiks.addon.timber.TimberLocalClient
 import com.analytiks.core.CoreAddon
