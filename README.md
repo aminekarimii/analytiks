@@ -1,4 +1,7 @@
-# Analytiks
+# <p align="center"> 📊Analytiks</p>
+<p align="center">
+  <a href="https://github.com/aminekarimii/analytiks/actions"><img alt="Build Status" src="https://github.com/aminekarimii/analytiks/workflows/Android%20CI/badge.svg"/></a>
+</p>  
 
 ![Group 54 (1)](https://user-images.githubusercontent.com/20410115/228402805-3309d17a-0bc5-4404-90f8-20c9b30e33a9.png)
 
