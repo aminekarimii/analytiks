@@ -1,6 +1,5 @@
 # Analytiks
 
-[![Release](https://jitpack.io/v/jitpack/android-example.svg)](https://jitpack.io/#jitpack/android-example)
 ![Group 54 (1)](https://user-images.githubusercontent.com/20410115/228402805-3309d17a-0bc5-4404-90f8-20c9b30e33a9.png)
 
 ## Description
@@ -14,27 +13,20 @@ A debug analytics mode that can log the same properties in the debug console.
 ![Scheme of the library logic](https://user-images.githubusercontent.com/20410115/225161402-d3a7d24f-da0d-4360-abab-fe86c68f0214.png)
 
 ## 📥 Download
+[![Release](https://img.shields.io/maven-central/v/io.github.aminekarimii/analytiks)](https://img.shields.io/maven-central/v/io.github.aminekarimii/analytiks)
 
-Add it in your root ```build.gradle``` at the end of repositories:
-
-```gradle 
-allprojects {
-    repositories {
-         ...
-         maven { url 'https://jitpack.io' }
-     }
- }
-```
-
-and in your app level ```build.gradle``` file, add:
+In your app level ```build.gradle``` file, add:
 
 ```gradle
 dependencies {
-    implementation 'com.analytiks:core:{analytiks-version}'
-    // You can add each addon separately as following:
-    implementation 'com.analytiks.addon:analytiks-firebase:{analytiks-version}' // Optional Firebase Analytics addon
-    implementation 'com.analytiks.addon:analytiks-amplitude:{analytiks-version}' // Optional Amplitude addon
-    // Add any other optional addons here
+    implementation 'io.github.aminekarimii:analytiks:VERSION'
+    implementation 'io.github.aminekarimii:analytiks-core:VERSION'
+
+    // You can add each Addon separately as following:
+    implementation 'io.github.aminekarimii:analytiks-addon-googleanalytics:VERSION'
+    implementation 'io.github.aminekarimii:analytiks-addon-mixpanel:VERSION'
+    implementation 'io.github.aminekarimii:analytiks-addon-timber:VERSION'
+    implementation 'io.github.aminekarimii:analytiks-addon-segment:VERSION'
 }
 ```
 
