@@ -5,26 +5,28 @@
 </p>
 
 ## Configuration
-| Field Name                   | Description                                        | Default Value    |
-|------------------------------|----------------------------------------------------|------------------|
-| isAnalyticsCollectionEnabled | Indicates whether analytics collection is enabled. | true             |
-| sessionTimeoutDuration       | Duration of the session timeout in milliseconds.   | null             |
-| defaultEventParameters       | Default event parameters for tracking events.      | null             |
+| Field Name                 | Description                                    | Default Value |
+|----------------------------|------------------------------------------------|---------------|
+| token                      | The token used for tracking events.            | -             |
+| serverGeoZone              | The server geo zone for Amplitude server.      | ServerGeoZone.EU |
+| optOut                     | Indicates whether opt-out is enabled.         | false         |
+| minTimeBetweenSessionsMillis | Minimum time between sessions in milliseconds. | 10000         |
 
 Note: The default values mentioned above can be overridden by providing custom values during initialization.
 ## Create Add-on
-1. Download Google analytics add-on:
+1. Download Amplitude analytics add-on:
 ```gradle
-implementation 'com.github.aminekarimii.analytiks:analytiks-googleanalytics:0.1.0-beta'
+implementation 'io.github.aminekarimii:analytiks-amplitude:1.0.0'
 ```
-2. Create your own client
+2. Create your own client:
 ``` kotlin
-val googleAnalytics = GoogleAnalyticsClient(
-   isAnalyticsCollectionEnabled = true,
-   sessionTimeoutDuration = 300L,
-   defaultEventParameters = null
+class AmplitudeClient(
+    token: "TOUR_TOKEN",
+    serverGeoZone = ServerGeoZone.EU,
+    optOut = false,
+    minTimeBetweenSessionsMillis = 10000
 )
 ```
 
 ### Check the official documentation for more details: 
-➡️ [Official firebase analytics](https://firebase.google.com/docs/analytics/get-started?platform=android)
+➡️ [Official amplitude analytics](https://www.docs.developers.amplitude.com/data/sdks/sdk-quickstart/)
