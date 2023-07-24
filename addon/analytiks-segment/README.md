@@ -19,7 +19,7 @@ Note: The default values mentioned above can be overridden by providing custom v
 ## Create Add-on
 1. Download Segment add-on:
 ```gradle
-implementation 'com.github.aminekarimii.analytiks:analytiks-segment:0.1.0-beta'
+implementation 'io.github.aminekarimii:analytiks-segment:1.0.0'
 ```
 2. Create your own Segment client:
 ``` kotlin

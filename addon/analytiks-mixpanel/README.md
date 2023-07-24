@@ -17,7 +17,7 @@ Note: The default values mentioned above can be overridden by providing custom v
 ## Create Add-on
 1. Download Mixpanel add-on:
 ```gradle
-implementation 'com.github.aminekarimii.analytiks:analytiks-mixpanel:0.1.0-beta'
+implementation 'io.github.aminekarimii:analytiks-mixpanel:1.0.0'
 ```
 2. Create your own mixpanel client
 ``` kotlin
