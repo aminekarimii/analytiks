@@ -8,6 +8,7 @@ import com.analytiks.addon.timber.TimberLocalClient
 import com.analytiks.core.CoreAddon
 import com.analytiks.core.model.Param
 import com.analytiks.segment.SegmentAnalyticsClient
+import com.analytiks.addon.appvisor.ui.MainActivity
 import com.logitanalyticsapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+
+        MainActivity.createShortcut(this.applicationContext)
 
         val clients: List<CoreAddon> = listOf(
             TimberLocalClient(),
