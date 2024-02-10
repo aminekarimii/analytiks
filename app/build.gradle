@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'com.logitanalyticsapp'
-    compileSdk 32
+    compileSdk rootProject.compileSdk
 
     defaultConfig {
         applicationId "com.logitanalyticsapp"
         minSdk 21
-        targetSdk 32
+        targetSdk rootProject.targetSdk
         versionCode 1
         versionName "1.0"
 
