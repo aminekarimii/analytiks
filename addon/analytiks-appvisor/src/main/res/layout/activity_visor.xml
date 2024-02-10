@@ -5,9 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <!-- textview with 16sp size  -->
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:textSize="16sp"
+        android:layout_margin="16dp"
+        android:text="Recorded Events:" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/visorsRecyclerView"
+        android:layout_below="@id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
 
 </RelativeLayout>

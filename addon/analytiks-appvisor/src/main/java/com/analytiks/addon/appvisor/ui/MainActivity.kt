@@ -8,20 +8,38 @@ import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.analytiks.addon.appvisor.R
 import com.analytiks.addon.appvisor.databinding.ActivityVisorBinding
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVisorBinding
+    private val adapter: EventsAdapter by lazy {
+        EventsAdapter()
+    }
+    private val appVisorDataController: AppVisorDataController by lazy {
+        AppVisorDataController()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityVisorBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
+        binding.visorsRecyclerView.layoutManager = layoutManager
+        binding.visorsRecyclerView.adapter = adapter
 
+        appVisorDataController.events.observe(this) {
+            adapter.addEvent(it.last())
+        }
+
+        binding.textView.setOnClickListener {
+            appVisorDataController.addEvent("Event ${appVisorDataController.events.value?.size ?: 0}")
+        }
     }
 
     companion object {
