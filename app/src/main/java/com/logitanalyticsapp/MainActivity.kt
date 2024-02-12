@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.analytiks.Analytiks
 import com.analytiks.addon.appvisor.ui.MainActivity
 import com.analytiks.addon.mixpanel.MixpanelAnalyticsClient
-import com.analytiks.addon.timber.TimberLocalClient
-import com.analytiks.core.CoreAddon
 import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
 import com.analytiks.segment.SegmentAnalyticsClient
@@ -26,20 +24,22 @@ class MainActivity : AppCompatActivity() {
 
         MainActivity.createShortcut(this.applicationContext)
 
-        val clients: List<CoreAddon> = listOf(
-            CustomAnalytiksAddon(),
-            TimberLocalClient(),
-            MixpanelAnalyticsClient(
-                token = "YOUR_TOKEN"
-            ),
-            SegmentAnalyticsClient(
-                token = "YOUR_TOKEN",
-                flushIntervalInSeconds = 5,
-                trackApplicationLifecycleEvents = true,
+        analytiks = Analytiks.Builder()
+            .addClient(CustomAnalytiksAddon())
+            .addClient(
+                MixpanelAnalyticsClient(
+                    token = "YOUR_TOKEN"
+                )
             )
-        )
-
-        analytiks = Analytiks(clients)
+            .addClient(
+                SegmentAnalyticsClient(
+                    token = "YOUR_TOKEN",
+                    flushIntervalInSeconds = 5,
+                    trackApplicationLifecycleEvents = true,
+                )
+            )
+            .addInterceptor(MainActivity.initialize())
+            .build()
 
         with(analytiks) {
             initialize(this@MainActivity.applicationContext)
