@@ -2,15 +2,38 @@ package com.analytiks
 
 import android.content.Context
 import com.analytiks.core.AnalyticsDataTransmitterExtension
+import com.analytiks.core.AnalytiksAppVisorInterceptor
 import com.analytiks.core.CoreAddon
 import com.analytiks.core.EventsExtension
 import com.analytiks.core.UserProfileExtension
 import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
 
-class Analytiks(
-    private val clients: List<CoreAddon>
+class Analytiks private constructor(
+    private val clients: List<CoreAddon>,
+    private var interceptor: AnalytiksAppVisorInterceptor?
 ) : CoreAnalytiks {
+
+    /*
+    * AnalytiksBuilder is a builder class for that holds the clients and the App Visor Interceptor.
+    * */
+    class Builder {
+        private val clients = mutableListOf<CoreAddon>()
+        private var analytiksAppVisorInterceptor: AnalytiksAppVisorInterceptor? = null
+
+        fun addInterceptor(interceptor: AnalytiksAppVisorInterceptor) = apply {
+            analytiksAppVisorInterceptor = interceptor
+        }
+
+        fun addClient(client: CoreAddon) = apply {
+            clients.add(client)
+        }
+
+        fun build(): Analytiks {
+            return Analytiks(clients, analytiksAppVisorInterceptor)
+        }
+    }
+
 
     override fun initialize(context: Context) {
         clients.forEach { it.initialize(context) }
