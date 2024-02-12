@@ -18,6 +18,10 @@ import com.analytiks.addon.appvisor.databinding.ActivityVisorBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVisorBinding
+    private val interceptor: LoggingAnalytiksInterceptor by lazy {
+        initialize()
+    }
+
     private val adapter: EventsAdapter by lazy {
         EventsAdapter()
     }
@@ -44,10 +48,10 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
 
-        /**
-         * Create a shortcut to launch Chucker UI.
-         * @param context An Android [Context].
-         */
+        fun initialize(): LoggingAnalytiksInterceptor {
+            return LoggingAnalytiksInterceptor()
+        }
+
         fun createShortcut(context: Context) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
                 return
