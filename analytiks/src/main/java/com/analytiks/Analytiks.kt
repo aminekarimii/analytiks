@@ -40,14 +40,16 @@ class Analytiks private constructor(
     }
 
     override fun logEvent(name: String, excludedAddons: Set<Class<out CoreAddon>>?) {
-        clients
-            .filter { addon ->
-                excludedAddons == null || addon.javaClass !in excludedAddons
-            }
-            .filterIsInstance<EventsExtension>()
-            .forEach {
-                it.logEvent(name)
-            }
+        interceptAndLog("logEvent") {
+            clients
+                .filter { addon ->
+                    excludedAddons == null || addon.javaClass !in excludedAddons
+                }
+                .filterIsInstance<EventsExtension>()
+                .forEach {
+                    it.logEvent(name)
+                }
+        }
     }
 
     override fun logEvent(
@@ -55,13 +57,15 @@ class Analytiks private constructor(
         properties: List<Param>,
         excludedAddons: Set<Class<out CoreAddon>>?
     ) {
-        clients
-            .excludeAddon(excludedAddons)
-            .filterIsInstance<EventsExtension>()
-            .forEach {
-                //TODO migrate EventsExtension::logEvent to use List instead of vararg in properties
-                it.logEvent(name, *properties.toTypedArray())
-            }
+        interceptAndLog("logEvent") {
+            clients
+                .excludeAddon(excludedAddons)
+                .filterIsInstance<EventsExtension>()
+                .forEach {
+                    //TODO migrate EventsExtension::logEvent to use List instead of vararg in properties
+                    it.logEvent(name, *properties.toTypedArray())
+                }
+        }
     }
 
     override fun identify(userId: String) {
@@ -114,5 +118,11 @@ class Analytiks private constructor(
         return this.filter { addon ->
             excludedAddons == null || addon.javaClass !in excludedAddons
         }
+    }
+
+
+    private fun interceptAndLog(methodName: String, block: () -> Unit) {
+        interceptor?.intercept(methodName)
+        block()
     }
 }
