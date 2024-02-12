@@ -58,15 +58,14 @@ class MainActivity : AppCompatActivity() {
             }
 
             val shortcutManager = context.getSystemService<ShortcutManager>() ?: return
-            if (shortcutManager.dynamicShortcuts.any { it.id == "SHORTCUT_ID" }) {
+            if (shortcutManager.dynamicShortcuts.any { it.id == "APP_VISOR_ID" }) {
                 return
             }
 
-
             val shortcut =
-                ShortcutInfo.Builder(context, "SHORTCUT_ID")
-                    .setShortLabel("chucker_shortcut_label")
-                    .setLongLabel("chucker_shortcut_label")
+                ShortcutInfo.Builder(context, "APP_VISOR_ID")
+                    .setShortLabel("Analytiks Visor")
+                    .setLongLabel("Analytiks App visor - Analyze your app events")
                     .setIcon(Icon.createWithResource(context, R.mipmap.ic_launcher))
                     .setIntent(getLaunchIntent(context).setAction(Intent.ACTION_VIEW))
                     .build()
