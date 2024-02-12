@@ -18,6 +18,8 @@
         android:id="@+id/visorsRecyclerView"
         android:layout_below="@id/textView"
         android:layout_width="match_parent"
+        tools:itemCount="20"
+        tools:listitem="@layout/item_event"
         android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
