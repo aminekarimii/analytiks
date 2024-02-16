@@ -28,7 +28,7 @@ class EventsAdapter : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
 
     class EventViewHolder(itemView: ItemEventBinding) : RecyclerView.ViewHolder(itemView.root) {
         private val eventName = itemView.eventName
-        private val eventDateTime = itemView.eventName
+        private val eventDateTime = itemView.eventDate
         private val currentTime: Date = Calendar.getInstance().time
 
         fun bind(event: String) {

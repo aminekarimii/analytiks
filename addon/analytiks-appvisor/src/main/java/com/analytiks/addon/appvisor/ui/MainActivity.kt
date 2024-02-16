@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         AppVisorDataCollector.getInstance().getEvents().observe(this) {logs ->
-            logs.forEach {
+            logs.last().let {
                 val loggableText = when (it.type) {
                     is EventLog.Event -> {
                         (it.type as EventLog.Event).properties.joinToString { param -> "${param.propertyName} : ${param.propertyValue}" }
