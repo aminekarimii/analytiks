@@ -1,14 +1,17 @@
 package com.analytiks.addon.appvisor.ui
 
-import android.util.Log
 import com.analytiks.core.AnalytiksAppVisorInterceptor
+import com.analytiks.core.EventLog
+import com.analytiks.core.VisorEvent
 
-class LoggingAnalytiksInterceptor : AnalytiksAppVisorInterceptor {
+class LoggingAnalytiksInterceptor(
+    private val collector: AppVisorDataCollector
+) : AnalytiksAppVisorInterceptor {
 
-    override fun intercept(methodName: String) {
+    override fun intercept(methodName: VisorEvent) {
         println("Method called: $methodName")
-        if (methodName == "logEvent") {
-            Log.d("GlobalTag", "logEvent called");
+        if (methodName.type is EventLog.Event) {
+            collector.addEvent(methodName)
         }
     }
 }

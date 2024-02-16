@@ -4,8 +4,10 @@ import android.content.Context
 import com.analytiks.core.AnalyticsDataTransmitterExtension
 import com.analytiks.core.AnalytiksAppVisorInterceptor
 import com.analytiks.core.CoreAddon
+import com.analytiks.core.EventLog
 import com.analytiks.core.EventsExtension
 import com.analytiks.core.UserProfileExtension
+import com.analytiks.core.VisorEvent
 import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
 
@@ -122,7 +124,14 @@ class Analytiks private constructor(
 
 
     private fun interceptAndLog(methodName: String, block: () -> Unit) {
-        interceptor?.intercept(methodName)
+        interceptor?.intercept(
+            VisorEvent(
+                EventLog.Event(
+                    listOf(Param(methodName, "hello"))
+                )
+            )
+        )
+
         block()
     }
 }
