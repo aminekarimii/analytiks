@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.analytiks.addon.appvisor.databinding.ItemEventBinding
+import java.util.Calendar
+import java.util.Date
 
 class EventsAdapter : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
     private val events = mutableListOf<String>()
@@ -26,8 +28,12 @@ class EventsAdapter : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
 
     class EventViewHolder(itemView: ItemEventBinding) : RecyclerView.ViewHolder(itemView.root) {
         private val eventName = itemView.eventName
+        private val eventDateTime = itemView.eventName
+        private val currentTime: Date = Calendar.getInstance().time
+
         fun bind(event: String) {
             eventName.text = event
+            eventDateTime.text = currentTime.toString()
         }
     }
 }

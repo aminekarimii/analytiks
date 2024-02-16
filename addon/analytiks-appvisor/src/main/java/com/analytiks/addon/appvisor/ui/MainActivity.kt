@@ -19,11 +19,6 @@ import com.analytiks.core.EventLog
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVisorBinding
-
-    private val interceptor: LoggingAnalytiksInterceptor by lazy {
-        initialize()
-    }
-
     private val adapter by lazy { EventsAdapter() }
     private val appVisorDataController by lazy { AppVisorDataController() }
 
