@@ -36,7 +36,6 @@ class Analytiks private constructor(
         }
     }
 
-
     override fun initialize(context: Context) {
         clients.forEach { it.initialize(context) }
     }
@@ -111,7 +110,9 @@ class Analytiks private constructor(
     }
 
     override fun reset() {
-        clients.forEach(CoreAddon::reset)
+        interceptAndLog(EventLog.Reset) {
+            clients.forEach(CoreAddon::reset)
+        }
     }
 
     fun List<CoreAddon>.excludeAddon(
@@ -121,7 +122,6 @@ class Analytiks private constructor(
             excludedAddons == null || addon.javaClass !in excludedAddons
         }
     }
-
 
     private fun interceptAndLog(methodName: EventLog, block: () -> Unit) {
         interceptor?.intercept(VisorEvent(methodName))
