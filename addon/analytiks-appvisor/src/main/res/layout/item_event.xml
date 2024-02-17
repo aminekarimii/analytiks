@@ -26,6 +26,14 @@
             tools:text="Event Name" />
 
         <TextView
+            android:id="@+id/eventParams"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:text="Event Name" />
+
+        <TextView
             android:id="@+id/client"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
