@@ -31,11 +31,11 @@ class MainActivity : AppCompatActivity() {
         binding.visorsRecyclerView.adapter = adapter
 
         appVisorController.events.observe(this) {
-            adapter.addEvent(it.last())
+            adapter.submitList(it)
         }
 
         AppVisorDataCollector.getInstance().getEvents().observe(this) { logs ->
-            logs.last().let {
+            logs.forEach {
                 val loggableText = when (it.type) {
                     is EventLog.Event -> {
                         (it.type as EventLog.Event).properties.joinToString { param -> "${param.propertyName} : ${param.propertyValue}" }

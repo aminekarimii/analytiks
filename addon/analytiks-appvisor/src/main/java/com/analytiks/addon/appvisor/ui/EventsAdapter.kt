@@ -10,9 +10,15 @@ import java.util.Date
 class EventsAdapter : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
     private val events = mutableListOf<String>()
 
-    fun addEvent(event: String) {
-        events.add(event)
-        notifyItemInserted(events.lastIndex)
+    fun submitList(events: List<String>) {
+        this.clear()
+        this.events.addAll(events)
+        notifyItemRangeChanged(0, this.events.lastIndex)
+    }
+
+    fun clear() {
+        events.clear()
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
