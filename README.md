@@ -44,13 +44,16 @@ private lateinit var analytiks: Analytiks
 override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     // ...
-    val clients = listOf(
-        TimberLocalClient(),
-        MixpanelAnalyticsClient(token = "YOUR_TOKEN")
-        // Your addons
-    )
-
-    analytiks = Analytiks(clients)
+    analytiks = Analytiks.Builder()
+        .addClient(CustomAnalytiksAddon())
+        .addClient(MixpanelAnalyticsClient(token = "YOUR_TOKEN"))
+        .addClient(
+            SegmentAnalyticsClient(
+                token = "YOUR_TOKEN",
+                flushIntervalInSeconds = 5,
+                trackApplicationLifecycleEvents = true,
+            )
+        )
 }
 ```
 
