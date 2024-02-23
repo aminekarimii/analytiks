@@ -11,14 +11,9 @@ class EventsAdapter : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
     private val events = mutableListOf<String>()
 
     fun submitList(events: List<String>) {
-        this.clear()
+        this.events.clear()
         this.events.addAll(events)
         notifyItemRangeChanged(0, this.events.lastIndex)
-    }
-
-    fun clear() {
-        events.clear()
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
@@ -33,11 +28,13 @@ class EventsAdapter : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
     override fun getItemCount(): Int = events.size
 
     class EventViewHolder(itemView: ItemEventBinding) : RecyclerView.ViewHolder(itemView.root) {
+        private val eventItemLayout = itemView.eventItemLayout
         private val eventName = itemView.eventName
         private val eventDateTime = itemView.eventDate
         private val currentTime: Date = Calendar.getInstance().time
 
         fun bind(event: String) {
+            eventItemLayout.setOnClickListener {  }
             eventName.text = event
             eventDateTime.text = currentTime.toString()
         }

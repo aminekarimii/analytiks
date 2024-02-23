@@ -16,5 +16,6 @@ sealed class EventLog {
 }
 
 data class VisorEvent(
+    val clients: List<String>,
     val type: EventLog,
 )
