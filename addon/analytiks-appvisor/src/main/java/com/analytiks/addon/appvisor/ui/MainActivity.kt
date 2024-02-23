@@ -20,7 +20,6 @@ import com.analytiks.core.EventLog
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVisorBinding
     private val adapter by lazy { EventsAdapter() }
-    private val appVisorController: AppVisorController by lazy { AppVisorController() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,27 +29,12 @@ class MainActivity : AppCompatActivity() {
         binding.visorsRecyclerView.layoutManager = layoutManager
         binding.visorsRecyclerView.adapter = adapter
 
-        appVisorController.events.observe(this) {
-            adapter.submitList(it)
-        }
-
         AppVisorDataCollector.getInstance().getEvents().observe(this) { logs ->
-            logs.forEach {
-                val loggableText = when (it.type) {
-                    is EventLog.Event -> {
-                        (it.type as EventLog.Event).properties.joinToString { param -> "${param.propertyName} : ${param.propertyValue}" }
-                    }
-
-                    EventLog.Reset -> "Reset"
-
-                    EventLog.InitializeService -> TODO()
-                    EventLog.PushEvents -> TODO()
-                    EventLog.UserIdentification -> TODO()
-                    EventLog.UserPropertyUpdate -> TODO()
-                    else -> "No properties"
-                }
-                appVisorController.addEvent(loggableText)
+            if (binding.clientsList.text.isEmpty()) {
+                // binding.clientsList.text = logs.firstOrNull()?.clients?.joinToString { it }
             }
+
+            adapter.submitList(logs)
         }
     }
 
