@@ -37,7 +37,9 @@ class Analytiks private constructor(
     }
 
     override fun initialize(context: Context) {
-        clients.forEach { it.initialize(context) }
+        interceptAndLog(EventLog.InitializeService) {
+            clients.forEach { it.initialize(context) }
+        }
     }
 
     override fun logEvent(name: String, excludedAddons: Set<Class<out CoreAddon>>?) {
@@ -70,43 +72,51 @@ class Analytiks private constructor(
     }
 
     override fun identify(userId: String) {
-        clients
-            .filterIsInstance<UserProfileExtension>()
-            .forEach {
-                it.identify(userId)
-            }
+        interceptAndLog(EventLog.UserIdentification) {
+            clients
+                .filterIsInstance<UserProfileExtension>()
+                .forEach {
+                    it.identify(userId)
+                }
+        }
     }
 
     override fun setUserProperty(
         property: UserProperty,
         excludedAddons: Set<Class<out CoreAddon>>?
     ) {
-        clients
-            .excludeAddon(excludedAddons)
-            .filterIsInstance<UserProfileExtension>()
-            .forEach {
-                it.setUserProperty(property)
-            }
+        interceptAndLog(EventLog.UserPropertyUpdate) {
+            clients
+                .excludeAddon(excludedAddons)
+                .filterIsInstance<UserProfileExtension>()
+                .forEach {
+                    it.setUserProperty(property)
+                }
+        }
     }
 
     override fun setUserPropertyOnce(
         property: UserProperty,
         excludedAddons: Set<Class<out CoreAddon>>?
     ) {
-        clients
-            .excludeAddon(excludedAddons)
-            .filterIsInstance<UserProfileExtension>()
-            .forEach {
-                it.setUserPropertyOnce(property)
-            }
+        interceptAndLog(EventLog.UserPropertyUpdate) {
+            clients
+                .excludeAddon(excludedAddons)
+                .filterIsInstance<UserProfileExtension>()
+                .forEach {
+                    it.setUserPropertyOnce(property)
+                }
+        }
     }
 
     override fun pushAll() {
-        clients
-            .filterIsInstance<AnalyticsDataTransmitterExtension>()
-            .forEach {
-                it.pushAll()
-            }
+        interceptAndLog(EventLog.PushEvents) {
+            clients
+                .filterIsInstance<AnalyticsDataTransmitterExtension>()
+                .forEach {
+                    it.pushAll()
+                }
+        }
     }
 
     override fun reset() {
@@ -115,16 +125,25 @@ class Analytiks private constructor(
         }
     }
 
+    private fun interceptAndLog(
+        methodName: EventLog,
+        excludedClients:  Set<Class<out CoreAddon>>? = null,
+        block: () -> Unit
+    ) {
+        interceptor?.intercept(
+            VisorEvent(
+                clients = clients.excludeAddon(excludedClients).map { it.javaClass.simpleName },
+                type = methodName,
+            )
+        )
+        block()
+    }
+
     fun List<CoreAddon>.excludeAddon(
         excludedAddons: Set<Class<out CoreAddon>>?
     ): List<CoreAddon> {
         return this.filter { addon ->
             excludedAddons == null || addon.javaClass !in excludedAddons
         }
-    }
-
-    private fun interceptAndLog(methodName: EventLog, block: () -> Unit) {
-        interceptor?.intercept(VisorEvent(methodName))
-        block()
     }
 }
