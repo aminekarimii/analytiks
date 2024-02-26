@@ -1,13 +1,11 @@
 package com.analytiks.core
 
-import com.analytiks.core.model.Param
-
 interface AnalytiksAppVisorInterceptor {
     fun intercept(event: VisorEvent)
 }
 
 sealed class EventLog {
-    class Event(val name:String, val properties: List<Param>) : EventLog()
+    class Event(val name: String) : EventLog()
     object Reset : EventLog()
     object InitializeService : EventLog()
     object UserIdentification : EventLog()

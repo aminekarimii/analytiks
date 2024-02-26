@@ -43,7 +43,7 @@ class Analytiks private constructor(
     }
 
     override fun logEvent(name: String, excludedAddons: Set<Class<out CoreAddon>>?) {
-        interceptAndLog(EventLog.Event(name, emptyList()), excludedAddons) {
+        interceptAndLog(EventLog.Event(name), excludedAddons) {
             clients
                 .filter { addon ->
                     excludedAddons == null || addon.javaClass !in excludedAddons
@@ -60,7 +60,7 @@ class Analytiks private constructor(
         properties: List<Param>,
         excludedAddons: Set<Class<out CoreAddon>>?
     ) {
-        interceptAndLog(EventLog.Event(name, properties), excludedAddons) {
+        interceptAndLog(EventLog.Event(name), excludedAddons) {
             clients
                 .excludeAddon(excludedAddons)
                 .filterIsInstance<EventsExtension>()
@@ -132,8 +132,8 @@ class Analytiks private constructor(
     ) {
         interceptor?.intercept(
             VisorEvent(
-                clients = clients.excludeAddon(excludedClients).map { it.javaClass.simpleName },
                 type = methodName,
+                clients = clients.excludeAddon(excludedClients).map { it.javaClass.simpleName },
             )
         )
         block()
