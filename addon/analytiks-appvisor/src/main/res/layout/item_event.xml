@@ -4,26 +4,21 @@
     android:id="@+id/eventItemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp">
+    android:layout_marginHorizontal="16dp"
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
-        android:paddingBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"
+            android:layout_weight="0.4"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:text="Event" />
 
             <TextView
                 android:id="@+id/eventName"
@@ -36,7 +31,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"
+            android:layout_weight="0.6"
             android:orientation="vertical">
 
             <TextView

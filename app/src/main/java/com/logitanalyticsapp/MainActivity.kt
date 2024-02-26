@@ -6,6 +6,7 @@ import com.analytiks.Analytiks
 import com.analytiks.addon.appvisor.ui.MainActivity
 import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
+import com.analytiks.segment.SegmentAnalyticsClient
 import com.logitanalyticsapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         analytiks.initialize(this@MainActivity.applicationContext)
         analytiks.setUserProperty(
+            excludedAddons = setOf(SegmentAnalyticsClient::class.java),
             property = UserProperty(
                 propertyName = "prop1",
                 propertyValue = "test1"
