@@ -11,52 +11,74 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="8dp">
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:id="@+id/eventName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="#212121"
                 android:textSize="16sp"
-                tools:text="Event Name" />
-        </LinearLayout>
+                tools:text="Events pushed" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/eventDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="viewEnd"
-                android:textSize="16sp"
-                tools:text="date" />
-
-            <TextView
-                android:id="@+id/eventParams"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:visibility="gone"
-                tools:text="Event Name" />
-
-            <TextView
-                android:id="@+id/client"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:visibility="gone"
-                tools:text="mixpanel" />
+                android:layout_weight="0.6"
+                android:textAlignment="textEnd"
+                android:textColor="#BDBDBD"
+                android:textSize="12sp"
+                tools:text="22:08 Monday 14, 2024" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="mixpanel_logo"
+                android:src="@drawable/mixpanel_logo" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="mixpanel_logo"
+                android:src="@drawable/segment_logo" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="mixpanel_logo"
+                android:src="@drawable/amplitude_logo" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="mixpanel_logo"
+                android:src="@drawable/baseline_keyboard_arrow_right_24" />
+        </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
