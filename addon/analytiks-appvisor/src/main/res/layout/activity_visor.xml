@@ -17,40 +17,11 @@
         android:text="Recorded Events:"
         android:textSize="16sp" />
 
-    <LinearLayout
-        android:id="@+id/clientsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="clients:"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/clientsList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            tools:text="clients:"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/visorsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/clientsLayout"
+        android:layout_below="@id/textView"
         tools:itemCount="20"
         tools:listitem="@layout/item_event">
 

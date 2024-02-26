@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.analytiks.addon.appvisor.R
 import com.analytiks.addon.appvisor.databinding.ActivityVisorBinding
-import com.analytiks.core.EventLog
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,10 +29,6 @@ class MainActivity : AppCompatActivity() {
         binding.visorsRecyclerView.adapter = adapter
 
         AppVisorDataCollector.getInstance().getEvents().observe(this) { logs ->
-            if (binding.clientsList.text.isEmpty()) {
-                binding.clientsList.text = logs.firstOrNull()?.displayClients
-            }
-
             adapter.submitList(logs)
         }
     }
