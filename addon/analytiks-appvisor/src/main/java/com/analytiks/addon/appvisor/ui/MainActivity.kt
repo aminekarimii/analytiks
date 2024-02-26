@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         AppVisorDataCollector.getInstance().getEvents().observe(this) { logs ->
             if (binding.clientsList.text.isEmpty()) {
-                // binding.clientsList.text = logs.firstOrNull()?.clients?.joinToString { it }
+                binding.clientsList.text = logs.firstOrNull()?.displayClients
             }
 
             adapter.submitList(logs)

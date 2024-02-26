@@ -6,33 +6,15 @@ import com.analytiks.core.EventLog
 import com.analytiks.core.VisorEvent
 
 class AppVisorDataCollector private constructor() {
-    private val _events = MutableLiveData<List<String>>()
-    private val events: LiveData<List<String>> = _events
+    private val _events = MutableLiveData<List<VisorHistoryUi>>()
+    private val events: LiveData<List<VisorHistoryUi>> = _events
 
     fun addEvent(event: VisorEvent) {
-        val formattedEvent = formatEvent(event)
-        _events.value = _events.value?.plus(formattedEvent) ?: listOf(formattedEvent)
+        _events.value = _events.value?.plus(VisorHistoryUi.from(event)) ?: listOf(VisorHistoryUi.from(event))
     }
 
-    fun getEvents(): LiveData<List<String>> {
+    fun getEvents(): LiveData<List<VisorHistoryUi>> {
         return events
-    }
-
-
-    private fun formatEvent(event: VisorEvent): String {
-        return when (event.type) {
-            is EventLog.Event -> {
-                (event.type as EventLog.Event).properties.joinToString { param -> "${param.propertyName} : ${param.propertyValue}" }
-            }
-
-            EventLog.Reset -> "Reset"
-
-            EventLog.InitializeService -> "Service initialized"
-            EventLog.PushEvents -> "Push events"
-            EventLog.UserIdentification -> "User identified"
-            EventLog.UserPropertyUpdate -> "User property updated"
-            else -> "No properties"
-        }
     }
 
     companion object {

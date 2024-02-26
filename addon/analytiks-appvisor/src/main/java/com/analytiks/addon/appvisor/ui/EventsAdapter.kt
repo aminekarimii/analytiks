@@ -8,9 +8,9 @@ import java.util.Calendar
 import java.util.Date
 
 class EventsAdapter : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
-    private val events = mutableListOf<String>()
+    private val events = mutableListOf<VisorHistoryUi>()
 
-    fun submitList(events: List<String>) {
+    fun submitList(events: List<VisorHistoryUi>) {
         this.events.clear()
         this.events.addAll(events)
         notifyItemRangeChanged(0, this.events.lastIndex)
@@ -31,12 +31,11 @@ class EventsAdapter : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
         private val eventItemLayout = itemView.eventItemLayout
         private val eventName = itemView.eventName
         private val eventDateTime = itemView.eventDate
-        private val currentTime: Date = Calendar.getInstance().time
 
-        fun bind(event: String) {
+        fun bind(event: VisorHistoryUi) {
             eventItemLayout.setOnClickListener {  }
-            eventName.text = event
-            eventDateTime.text = currentTime.toString()
+            eventName.text = event.event
+            eventDateTime.text = event.date
         }
     }
 }
