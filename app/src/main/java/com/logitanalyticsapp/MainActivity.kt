@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.analytiks.Analytiks
 import com.analytiks.addon.appvisor.ui.MainActivity
-import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
 import com.analytiks.segment.SegmentAnalyticsClient
 import com.logitanalyticsapp.databinding.ActivityMainBinding
@@ -37,11 +36,12 @@ class MainActivity : AppCompatActivity() {
         )
 
         binding.fab.setOnClickListener {
-            analytiks.logEvent(
+            analytiks.reset()
+            /*analytiks.logEvent(
                 name = "fab_button_click", properties = listOf(
                     Param(propertyName = "prop1", propertyValue = "val2")
                 )
-            )
+            )*/
         }
     }
 

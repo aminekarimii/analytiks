@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-const val DATE_FORMAT = "dd MMM yyyy 'at' HH:mm:ss"
+const val DATE_FORMAT = "HH:mm MMM dd, yyyy"
 
 data class VisorHistoryUi(
     val clients: List<String>,
@@ -22,7 +22,7 @@ data class VisorHistoryUi(
             val eventHistory = when (event.type) {
                 is EventLog.Event -> (event.type as EventLog.Event).name
                 EventLog.Reset -> "Reset Addons"
-                EventLog.InitializeService -> "Initialized at\n<b>${getCurrentDate()}</b>"
+                EventLog.InitializeService -> "Service Initialized"
                 EventLog.PushEvents -> "Events Pushed"
                 EventLog.UserIdentification -> "User identified"
                 EventLog.UserPropertyUpdate -> "User property updated"

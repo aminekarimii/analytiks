@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.analytiks.addon.appvisor.databinding.ItemEventBinding
-import java.util.Calendar
-import java.util.Date
+import com.analytiks.addon.appvisor.databinding.ItemInitializationBinding
+import com.analytiks.addon.appvisor.ui.VisorHistoryUi.Companion.getCurrentDate
 
-class EventsAdapter : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
+class EventsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val events = mutableListOf<VisorHistoryUi>()
 
     fun submitList(events: List<VisorHistoryUi>) {
@@ -16,13 +16,40 @@ class EventsAdapter : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
         notifyItemRangeChanged(0, this.events.lastIndex)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        val binding = ItemEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return EventViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            0 -> {
+                val binding = ItemEventBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                EventViewHolder(binding)
+            }
+
+            else -> {
+                val binding = ItemInitializationBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                InitializationViewHolder(binding)
+            }
+        }
     }
 
-    override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        holder.bind(events[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is EventViewHolder -> holder.bind(events[position])
+            is InitializationViewHolder -> holder.bind(events[position].date)
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (events[position].event) {
+            "Reset Addons" -> 1
+            else -> 0
+        }
     }
 
     override fun getItemCount(): Int = events.size
@@ -31,11 +58,24 @@ class EventsAdapter : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
         private val eventItemLayout = itemView.eventItemLayout
         private val eventName = itemView.eventName
         private val eventDateTime = itemView.eventDate
+        private val icons = listOf(itemView.imag1, itemView.imag3, itemView.imag2)
 
         fun bind(event: VisorHistoryUi) {
-            eventItemLayout.setOnClickListener {  }
+            eventItemLayout.setOnClickListener { }
             eventName.text = event.event
             eventDateTime.text = event.date
+            event.addonIcons.mapIndexed { index, icon ->
+                icons[index].setImageResource(icon)
+            }
+        }
+    }
+
+    class InitializationViewHolder(itemView: ItemInitializationBinding) :
+        RecyclerView.ViewHolder(itemView.root) {
+        private val initDate = itemView.initDate
+
+        fun bind(date: String) {
+            initDate.text = getCurrentDate()
         }
     }
 }
