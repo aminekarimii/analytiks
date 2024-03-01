@@ -9,7 +9,10 @@ class AppVisorDataCollector private constructor() {
     private val events: LiveData<List<VisorHistoryUi>> = _events
 
     fun addEvent(event: VisorEvent) {
-        _events.value = _events.value?.plus(VisorHistoryUi.from(event)) ?: listOf(VisorHistoryUi.from(event))
+        // add events to the first of the list
+        val currentList = _events.value?.toMutableList() ?: mutableListOf()
+        currentList.add(0, VisorHistoryUi.from(event))
+        _events.value = currentList
     }
 
     fun getEvents(): LiveData<List<VisorHistoryUi>> {
