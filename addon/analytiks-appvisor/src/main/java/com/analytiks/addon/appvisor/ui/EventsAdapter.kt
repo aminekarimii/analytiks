@@ -6,6 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.analytiks.addon.appvisor.databinding.ItemEventBinding
 import com.analytiks.addon.appvisor.databinding.ItemInitializationBinding
 import com.analytiks.addon.appvisor.ui.VisorHistoryUi.Companion.getCurrentDate
+import com.analytiks.core.EventLog
+
+enum class ViewType {
+    Content, Initialization, Push
+}
 
 class EventsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val events = mutableListOf<VisorHistoryUi>()
@@ -18,7 +23,8 @@ class EventsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            0 -> {
+            ViewType.Content.ordinal,
+            ViewType.Push.ordinal -> {
                 val binding = ItemEventBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -47,9 +53,10 @@ class EventsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return when (events[position].event) {
-            "Reset Addons" -> 1
-            else -> 0
-        }
+            EventLog.InitializeService -> ViewType.Initialization
+            EventLog.PushEvents -> ViewType.Push
+            else -> ViewType.Content
+        }.ordinal
     }
 
     override fun getItemCount(): Int = events.size
@@ -62,7 +69,7 @@ class EventsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun bind(event: VisorHistoryUi) {
             eventItemLayout.setOnClickListener { }
-            eventName.text = event.event
+            eventName.text = event.event.message
             eventDateTime.text = event.date
             event.addonIcons.mapIndexed { index, icon ->
                 icons[index].setImageResource(icon)

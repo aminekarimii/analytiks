@@ -11,7 +11,7 @@ const val DATE_FORMAT = "HH:mm MMM dd, yyyy"
 
 data class VisorHistoryUi(
     val clients: List<String>,
-    val event: String,
+    val event: EventLog,
     val date: String = getCurrentDate()
 ) {
     val addonIcons: List<Int>
@@ -19,18 +19,9 @@ data class VisorHistoryUi(
 
     companion object {
         fun from(event: VisorEvent): VisorHistoryUi {
-            val eventHistory = when (event.type) {
-                is EventLog.Event -> (event.type as EventLog.Event).name
-                EventLog.Reset -> "Reset Addons"
-                EventLog.InitializeService -> "Service Initialized"
-                EventLog.PushEvents -> "Events Pushed"
-                EventLog.UserIdentification -> "User identified"
-                EventLog.UserPropertyUpdate -> "User property updated"
-            }
-
             return VisorHistoryUi(
                 clients = event.clients,
-                event = eventHistory
+                event = event.type
             )
         }
 

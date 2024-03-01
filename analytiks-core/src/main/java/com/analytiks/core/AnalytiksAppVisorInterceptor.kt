@@ -4,13 +4,13 @@ interface AnalytiksAppVisorInterceptor {
     fun intercept(event: VisorEvent)
 }
 
-sealed class EventLog {
+sealed class EventLog(val message: String? = null) {
     class Event(val name: String) : EventLog()
-    object Reset : EventLog()
-    object InitializeService : EventLog()
-    object UserIdentification : EventLog()
-    object UserPropertyUpdate : EventLog()
-    object PushEvents : EventLog()
+    object Reset : EventLog("Reset Addons")
+    object InitializeService : EventLog("Service Initialized")
+    object UserIdentification : EventLog("User identified")
+    object UserPropertyUpdate : EventLog("User property updated")
+    object PushEvents : EventLog("Events Pushed")
 }
 
 data class VisorEvent(
