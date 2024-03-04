@@ -5,7 +5,7 @@ interface AnalytiksAppVisorInterceptor {
 }
 
 sealed class EventLog(val message: String? = null) {
-    class Event(val name: String) : EventLog()
+    class Event(val name: String) : EventLog("Event: $name")
     object Reset : EventLog("Reset Addons")
     object InitializeService : EventLog("Service Initialized")
     object UserIdentification : EventLog("User identified")
