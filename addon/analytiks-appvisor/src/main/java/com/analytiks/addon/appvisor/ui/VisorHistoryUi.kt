@@ -37,7 +37,7 @@ data class VisorHistoryUi(
             "AmplitudeAnalyticsClient" -> R.drawable.amplitude_logo
             "MixpanelAnalyticsClient" -> R.drawable.mixpanel_logo
             "SegmentAnalyticsClient" -> R.drawable.segment_logo
-            else -> android.R.drawable.btn_star
+            else -> R.drawable.bar_chart
         }
     }
 }
