@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">analytiks-appvisor</string>
+    <string name="events_pushed">Events pushed</string>
+    <string name="title_recorded_events">Your Events History</string>
+    <string name="label_initialized_at">Initialized at</string>
 </resources>

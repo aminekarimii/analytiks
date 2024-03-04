@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.Material3.DayNight"
     tools:context=".ui.MainActivity">
 
     <!-- textview with 16sp size  -->
@@ -10,12 +11,11 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Recorded Events:"
-        android:textSize="16sp" />
+        android:textAppearance="?attr/textAppearanceTitleLarge"
+        android:layout_marginBottom="24dp"
+        android:text="@string/title_recorded_events" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/visorsRecyclerView"

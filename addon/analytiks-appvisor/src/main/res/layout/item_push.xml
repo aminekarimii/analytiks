@@ -9,19 +9,31 @@
     android:focusable="true"
     android:paddingHorizontal="18dp">
 
-    <ImageView
+    <RelativeLayout
         android:id="@+id/divider"
-        android:layout_width="2dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="3dp"
-        android:background="#EEEEEE"
-        android:importantForAccessibility="no" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no"
+            android:src="@drawable/oval_shape" />
+
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:background="#EEEEEE"
+            android:importantForAccessibility="no" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="14dp"
         android:layout_marginBottom="0dp"
         android:layout_toEndOf="@+id/divider"
         android:orientation="vertical">
@@ -37,9 +49,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
+                android:text="@string/events_pushed"
                 android:textColor="#212121"
-                android:textAppearance="?attr/textAppearanceListItem"
-                tools:text="Events pushed" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
 
             <TextView
                 android:id="@+id/eventDate"
@@ -95,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:contentDescription="mixpanel_logo"
+            android:importantForAccessibility="no"
             android:src="@drawable/baseline_keyboard_arrow_right_24" />
     </RelativeLayout>
 </RelativeLayout>

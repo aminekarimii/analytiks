@@ -18,12 +18,15 @@ import com.analytiks.addon.appvisor.databinding.ActivityVisorBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVisorBinding
-    private val adapter by lazy { EventsAdapter() }
+    private val adapter by lazy {
+        EventsAdapter {}
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityVisorBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         binding.visorsRecyclerView.layoutManager = layoutManager
         binding.visorsRecyclerView.adapter = adapter
