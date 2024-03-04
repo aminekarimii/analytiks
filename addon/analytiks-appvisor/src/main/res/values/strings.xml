@@ -7,4 +7,5 @@
     <string name="empty_state_description">Read the documentation carefully to setup Analytiks in a good way.</string>
     <string name="empty_state_title">There is no event</string>
     <string name="intent_queries_not_found_description">No application can handle this request. Please install a web browser or check your URL.</string>
+    <string name="analytiks_link_label"><u>Analytiks Readme</u>.</string>
 </resources>

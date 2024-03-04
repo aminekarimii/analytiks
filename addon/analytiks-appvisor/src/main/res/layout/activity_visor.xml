@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:autoLink="web"
-                android:text="Analytiks"
+                android:text="@string/analytiks_link_label"
                 android:textAppearance="?attr/textAppearanceLabelLarge"
                 android:textColor="@color/link_color"
                 android:textSize="16sp" />
