@@ -5,9 +5,11 @@ import android.content.Intent
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.graphics.drawable.Icon
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +35,20 @@ class MainActivity : AppCompatActivity() {
 
         AppVisorDataCollector.getInstance().getEvents().observe(this) { logs ->
             adapter.submitList(logs)
+        }
+
+        binding.tvLink.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.setData(Uri.parse("https://github.com/aminekarimii/analytiks/blob/dev/README.md"))
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
+            } else {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.intent_queries_not_found_description),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 

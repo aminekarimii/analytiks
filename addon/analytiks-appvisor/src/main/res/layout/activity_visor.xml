@@ -13,19 +13,72 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        android:textAppearance="?attr/textAppearanceTitleLarge"
         android:layout_marginBottom="24dp"
-        android:text="@string/title_recorded_events" />
+        android:text="@string/title_recorded_events"
+        android:textAppearance="?attr/textAppearanceTitleLarge" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/visorsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
+        android:visibility="gone"
         tools:itemCount="20"
-        tools:listitem="@layout/item_event">
+        tools:listitem="@layout/item_event" />
 
-    </androidx.recyclerview.widget.RecyclerView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="20dp"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvNoEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_state_title"
+            android:textAppearance="?attr/textAppearanceTitleLarge" />
+
+        <TextView
+            android:id="@+id/tvInstruction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/empty_state_description"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="38dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvGitHubLinkLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/github_link"
+                android:textColor="#BDBDBD"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:autoLink="web"
+                android:text="Analytiks"
+                android:textAppearance="?attr/textAppearanceLabelLarge"
+                android:textColor="@color/link_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
