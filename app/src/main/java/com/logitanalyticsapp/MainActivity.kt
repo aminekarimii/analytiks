@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        MainActivity.createShortcut(this.applicationContext)
+        AppVisor.createShortcut(this.applicationContext)
 
         analytiks.initialize(this@MainActivity.applicationContext)
         analytiks.setUserProperty(

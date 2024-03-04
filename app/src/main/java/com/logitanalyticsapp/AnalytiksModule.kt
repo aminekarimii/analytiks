@@ -1,7 +1,7 @@
 package com.logitanalyticsapp
 
 import com.analytiks.Analytiks
-import com.analytiks.addon.appvisor.ui.MainActivity
+import com.analytiks.addon.appvisor.ui.AppVisorActivity
 import com.analytiks.addon.mixpanel.MixpanelAnalyticsClient
 import com.analytiks.segment.SegmentAnalyticsClient
 import dagger.Module
@@ -16,6 +16,7 @@ object AnalytiksModule {
 
     @Provides
     fun provideAnalytiksBuilder() = Analytiks.Builder()
+        .addInterceptor(AppVisorActivity.initialize())
         .addClient(CustomAnalytiksAddon())
         .addClient(MixpanelAnalyticsClient(token = "YOUR_TOKEN"))
         .addClient(
@@ -25,7 +26,6 @@ object AnalytiksModule {
                 trackApplicationLifecycleEvents = true,
             )
         )
-        .addInterceptor(MainActivity.initialize())
 
     @Provides
     @Singleton
