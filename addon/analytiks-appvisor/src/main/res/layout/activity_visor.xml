@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.Material3.DayNight"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.AppVisorActivity">
 
     <!-- textview with 16sp size  -->
     <TextView
@@ -22,17 +22,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
-        android:visibility="gone"
         tools:itemCount="20"
+        android:clipToPadding="true"
+        android:paddingBottom="16dp"
         tools:listitem="@layout/item_event" />
 
 
     <LinearLayout
+        android:id="@+id/emptyStateLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/textView"
         android:gravity="center_vertical"
         android:orientation="vertical"
+        android:visibility="gone"
         android:layout_marginHorizontal="20dp"
         android:padding="16dp">
 
