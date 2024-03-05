@@ -3,7 +3,6 @@ package com.logitanalyticsapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.analytiks.Analytiks
-import com.analytiks.addon.appvisor.ui.helper.AppVisor
 import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
 import com.logitanalyticsapp.databinding.ActivityMainBinding
@@ -24,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        AppVisor.createShortcut(this.applicationContext)
 
         analytiks.initialize(this@MainActivity.applicationContext)
 

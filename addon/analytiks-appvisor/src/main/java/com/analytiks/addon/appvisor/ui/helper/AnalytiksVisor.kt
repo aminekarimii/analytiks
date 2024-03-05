@@ -11,7 +11,7 @@ import androidx.core.content.getSystemService
 import com.analytiks.addon.appvisor.R
 import com.analytiks.addon.appvisor.ui.AppVisorActivity
 
-public object AppVisor {
+public object AnalytiksVisor {
     private const val APP_VISOR_ID = "appVisorId"
 
     fun createShortcut(context: Context) {
