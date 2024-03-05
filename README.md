@@ -5,7 +5,7 @@
 
 ![Group 54 (1)](https://user-images.githubusercontent.com/20410115/228402805-3309d17a-0bc5-4404-90f8-20c9b30e33a9.png)
 
-## Description
+## 💭 Overview
 
 An android library that centralizes analytics services in one place can be a useful tool for
 developers who want to track the usage and performance of their app.
@@ -35,7 +35,7 @@ dependencies {
 
 ## 🔌 Setup
 
-1- In your activity, initiate the Analytiks library and keep an object to be used after as
+1. In your activity, initiate the Analytiks library and keep an object to be used after as
 following:
 
 ```kotlin
@@ -57,31 +57,81 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
-2- Initialize the addons
+2. Initialize the addons
 
 ```kotlin
 analytiks.initialize(this.applicationContext)
 ```
 
-3- You're good to go!
+3. You're good to go!
 
 ```kotlin
 analytiks.logEvent("your_event_name")
 analytiks.pushAll()
 ```
 
-## Features [🚧 wip]
+## 🧪 Features
 
 The list of features provided by the library
 
 - **Initialization:** `init` Initialize the "analytiks" library, along with its sub-libraries,
   during the initialization process.
 - **Log event:** `event` send/save an event with a name and an optional set of properties.
-- **Identify user:** `identify` Identify the current user by the given id or a random uuid in case
+- **Identify user:** `identify` Identify the current user by the given ID or a random UUID in case
   of an empty one.
 - **Set user property:** `setUserProperty` Sets a key value property to the identified user.
-- **Reset:** `reset` the plugins and remove the default users configuration.
-- **Flush events** `flush` send the recorded local data to the service servers on call.
+- **Reset:** `reset` the plugins and remove the default user's configuration.
+- **Flush events** `flush` sends the recorded local data to the service servers on call.
+
+## 🔍 AnalytiksVisor
+<details>
+<summary><strong> Events App Log Shortcut</strong> (click to expand) </summary>
+
+The latest update introduces an internal application, `analytiks-addon-appvisor`. This addition provides developers with a streamlined interface to visualize, share, and manage application events efficiently. 
+
+### Key Features
+
+- **Event Visualization**: Easily view all recorded events within your application in a simple and intuitive UI.
+## 🚧 Comming up
+- **Event Sharing**: Share specific events as text directly from the app visor, facilitating seamless collaboration among team members.
+- **New Event Notifications**: Receive notifications for new events to stay updated on your app's activity without constant manual checks.
+
+### Getting Started
+
+To integrate this feature into your application, follow the steps below:
+
+1. **Add Dependency**: Ensure your `build.gradle` file includes the `analytiks-addon-appvisor` module as a dependency:
+
+```groovy
+dependencies {
+    implementation 'io.github.aminekarimii:analytiks-addon-appvisor:{LATEST_VERSION}'
+}
+```
+
+2. **Initialization**: Initialize AnalytiksVisor and add the interceptor to your Analytiks configuration:
+
+```kotlin
+Analytiks.Builder()
+    .addInterceptor(AppVisorActivity.initialize())
+    // ...
+    .build()
+```
+
+3. **Create Shortcut**: to create AnalytiksVisor Shortcut, add:
+
+```kotlin
+class AnalytiksApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        AnalytiksVisor.createShortcut(this)
+    }
+}
+```
+
+### Video Demo
+
+</details>
+
 
 ## 🗃 Supported analytics SDKs
 Here's a list of the most known analytics services that we will support in our library.  
