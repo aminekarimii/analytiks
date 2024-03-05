@@ -85,14 +85,13 @@ The list of features provided by the library
 
 ## 🔍 AnalytiksVisor
 <details>
-<summary><strong> Events App Log Shortcut</strong> (click to expand) </summary>
-
-The latest update introduces an internal application, `analytiks-addon-appvisor`. This addition provides developers with a streamlined interface to visualize, share, and manage application events efficiently. 
+<summary><strong> Events App Log Shortcut</strong> (expand) </summary>
+See what's happening in your app in real-time with Analytiks AppVisor. It's essentially your go-to for tracking events, serving as a local logger to make sure everything's logged just right, from the initialization to the events push with the exact date & time.
 
 ### Key Features
 
 - **Event Visualization**: Easily view all recorded events within your application in a simple and intuitive UI.
-## 🚧 Comming up
+#### 🚧 Coming up
 - **Event Sharing**: Share specific events as text directly from the app visor, facilitating seamless collaboration among team members.
 - **New Event Notifications**: Receive notifications for new events to stay updated on your app's activity without constant manual checks.
 
@@ -129,6 +128,7 @@ class AnalytiksApplication : Application() {
 ```
 
 ### Video Demo
+[Screen_recording_20240305_234527.webm](https://github.com/aminekarimii/analytiks/assets/20410115/944a0f7e-da56-4f64-907a-8df0d803e3b7)
 
 </details>
 
