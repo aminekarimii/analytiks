@@ -25,7 +25,17 @@ class TimberLocalClient : CoreAddon, EventsExtension, UserProfileExtension {
     }
 
     override fun logEvent(name: String, vararg properties: Param) {
-        Timber.tag(TAG).log(Log.INFO, "Event: $name -> props: [$properties]")
+        val logMessage = if (properties.isNotEmpty()) {
+            val propertyStrings = properties.mapIndexed { index, param ->
+                "${index + 1}. ${param.propertyName} : ${param.propertyValue}"
+            }.joinToString("\n")
+
+            "***** Event: $name -> props:\n$propertyStrings\n*****"
+        } else {
+            "***** Event: $name (No properties) *****"
+        }
+
+        Timber.tag(TAG).log(Log.INFO, logMessage)
     }
     override fun identify(userId: String) {
         Timber.tag(TAG).log(Log.INFO, "User has been identified by: $userId")
