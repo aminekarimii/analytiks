@@ -34,9 +34,11 @@ data class VisorHistoryUi(
 
     private fun getAddonLogoIcon(client: String): Int {
         return when (client) {
+            "GoogleAnalyticsClient" -> R.drawable.google_analytics_logo
             "AmplitudeAnalyticsClient" -> R.drawable.amplitude_logo
             "MixpanelAnalyticsClient" -> R.drawable.mixpanel_logo
             "SegmentAnalyticsClient" -> R.drawable.segment_logo
+            "AzureInsightAnalyticsClient" -> R.drawable.microsoft_azure_logo
             else -> R.drawable.bar_chart
         }
     }
