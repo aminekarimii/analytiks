@@ -28,7 +28,7 @@ android {
     compileSdk rootProject.compileSdk
 
     defaultConfig {
-        minSdk 24
+        minSdk 21
         targetSdk rootProject.targetSdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
