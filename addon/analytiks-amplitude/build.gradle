@@ -3,6 +3,11 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+ext {
+    PUBLISH_ARTIFACT_ID = 'analytiks-core'
+}
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
+
 android {
     namespace 'com.analytiks.addon.amplitude'
      compileSdk rootProject.compileSdk
@@ -14,10 +19,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    ext {
-        PUBLISH_ARTIFACT_ID = 'analytiks-core'
-    }
-    apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
     buildTypes {
         release {
