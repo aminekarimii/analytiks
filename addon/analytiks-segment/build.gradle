@@ -3,13 +3,19 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+ext {
+    PUBLISH_ARTIFACT_ID = 'analytiks-addon-segment'
+}
+
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
+
 android {
     namespace 'com.analytiks.segment'
-    compileSdk 33
+    compileSdk rootProject.compileSdk
 
     defaultConfig {
         minSdk 21
-        targetSdk 33
+        targetSdk rootProject.targetSdk
         versionCode 1
         versionName "1.0"
 

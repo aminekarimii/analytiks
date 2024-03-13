@@ -15,7 +15,7 @@ Note: The default values mentioned above can be overridden by providing custom v
 ## Create Add-on
 1. Download Google analytics add-on:
 ```gradle
-implementation 'com.github.aminekarimii.analytiks:analytiks-googleanalytics:0.1.0-beta'
+implementation 'io.github.aminekarimii:analytiks-googleanalytics:1.0.0'
 ```
 2. Create your own client
 ``` kotlin

@@ -12,6 +12,8 @@ import com.segment.analytics.kotlin.core.Analytics
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 
+const val TAG = "SegmentAnalyticsClient"
+
 class SegmentAnalyticsClient(
     private val token: String,
     private val collectDeviceId: Boolean = true,

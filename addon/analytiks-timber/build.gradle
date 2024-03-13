@@ -2,14 +2,18 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
+ext {
+    PUBLISH_ARTIFACT_ID = 'analytiks-addon-timber'
+}
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
 android {
     namespace 'com.analytiks.addon.timber'
-    compileSdk 32
+    compileSdk rootProject.compileSdk
 
     defaultConfig {
         minSdk 21
-        targetSdk 32
+        targetSdk rootProject.targetSdk
         versionCode 1
         versionName "1.0"
 

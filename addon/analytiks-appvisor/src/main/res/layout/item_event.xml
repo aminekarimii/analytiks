@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/eventItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingHorizontal="18dp">
+
+    <ImageView
+        android:id="@+id/divider"
+        android:layout_width="2dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="3dp"
+        android:background="#EEEEEE"
+        android:importantForAccessibility="no" />
+
+    <LinearLayout
+        android:id="@+id/test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/divider"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/eventName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="#212121"
+                android:textAppearance="?attr/textAppearanceListItem"
+                tools:text="Events pushed" />
+
+            <TextView
+                android:id="@+id/eventDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:textAlignment="textEnd"
+                android:textAppearance="?attr/textAppearanceLabelMedium"
+                android:textColor="#BDBDBD"
+                tools:text="22:08 Monday 14, 2024" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imag1"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="8dp"
+                android:importantForAccessibility="no"
+                tools:src="@drawable/bar_chart" />
+
+            <ImageView
+                android:id="@+id/imag2"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="8dp"
+                android:importantForAccessibility="no"
+                tools:src="@drawable/segment_logo" />
+
+            <ImageView
+                android:id="@+id/imag3"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="8dp"
+                android:importantForAccessibility="no"
+                tools:src="@drawable/amplitude_logo" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/test"
+        android:layout_toEndOf="@id/divider">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="mixpanel_logo"
+            android:src="@drawable/baseline_keyboard_arrow_right_24" />
+    </RelativeLayout>
+</RelativeLayout>
