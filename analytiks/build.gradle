@@ -26,11 +26,11 @@ apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
 android {
     namespace 'com.analytks'
-    compileSdk 32
+    compileSdk rootProject.compileSdk
 
     defaultConfig {
         minSdk 21
-        targetSdk 32
+        targetSdk rootProject.targetSdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"

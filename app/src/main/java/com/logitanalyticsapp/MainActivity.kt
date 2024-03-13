@@ -3,22 +3,19 @@ package com.logitanalyticsapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.analytiks.Analytiks
-import com.analytiks.addon.amplitude.AmplitudeClient
-import com.analytiks.addon.amplitude.ServerGeoZone
-import com.analytiks.addon.mixpanel.GoogleAnalyticsClient
-import com.analytiks.addon.mixpanel.MixpanelAnalyticsClient
-import com.analytiks.addon.timber.TimberLocalClient
-import com.analytiks.core.CoreAddon
 import com.analytiks.core.model.Param
 import com.analytiks.core.model.UserProperty
-import com.analytiks.segment.SegmentAnalyticsClient
 import com.logitanalyticsapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var analytiks: Analytiks
 
+    @Inject
+    lateinit var analytiks: Analytiks
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,42 +23,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        val clients: List<CoreAddon> = listOf(
-            CustomAnalytiksAddon(),
-            TimberLocalClient(),
-            MixpanelAnalyticsClient(
-                token = "YOUR_TOKEN"
-            ),
-            SegmentAnalyticsClient(
-                token = "YOUR_TOKEN",
-                flushIntervalInSeconds = 5,
-                trackApplicationLifecycleEvents = true,
-            ),
-            GoogleAnalyticsClient(isAnalyticsCollectionEnabled = true),
-            AmplitudeClient(
-                token = "YOUR_TOKEN",
-                // It is recommended to check your server zone and set it.
-                serverGeoZone = ServerGeoZone.US
-            )
-        )
 
-        analytiks = Analytiks(clients)
+        analytiks.initialize(this@MainActivity.applicationContext)
 
-        with(analytiks) {
-            initialize(this@MainActivity.applicationContext)
-            setUserProperty(
-                property = UserProperty(
-                    propertyName = "prop1",
-                    propertyValue = "test1"
-                )
-            )
+        binding.content.logReset.setOnClickListener {
+            analytiks.reset()
         }
 
+        binding.content.logSimpleEventButton.setOnClickListener {
+            analytiks.logEvent(name = "click_button")
+        }
 
-        binding.fab.setOnClickListener {
-            analytiks.logEvent(
-                name = "fab_button_click", properties = listOf(
-                    Param(propertyName = "prop1", propertyValue = "val2")
+        binding.content.logEventWithProps.setOnClickListener {
+            analytiks.logEvent(name = "click_properties_button", listOf(Param("param1", "value1")))
+        }
+
+        binding.content.logProperties.setOnClickListener {
+            analytiks.setUserProperty(
+                property = UserProperty(
+                    propertyName = "email",
+                    propertyValue = "test123@gmail.com"
                 )
             )
         }

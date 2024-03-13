@@ -1,0 +1,78 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+ext {
+    PUBLISH_GROUP_ID = 'io.github.aminekarimii'
+    PUBLISH_VERSION = '1.1.0'
+    PUBLISH_ARTIFACT_ID = 'analytiks-addon-appvisor'
+    PUBLISH_DESCRIPTION = 'Analytics SDK'
+    PUBLISH_URL = 'https://github.com/aminekarimii/analytiks'
+    PUBLISH_LICENSE_NAME = 'Apache 2.0 License'
+    PUBLISH_LICENSE_URL =
+            'https://github.com/aminekarimii/analytiks/blob/dev/LICENSE'
+    PUBLISH_DEVELOPER_ID = 'aminekarimii'
+    PUBLISH_DEVELOPER_NAME = 'Amine Karimi'
+    PUBLISH_DEVELOPER_EMAIL = 'aminekarimi1998@gmail.com'
+    PUBLISH_SCM_CONNECTION =
+            'scm:git:github.com/aminekarimii/analytiks.git'
+    PUBLISH_SCM_DEVELOPER_CONNECTION =
+            'scm:git:ssh://github.com/aminekarimii/analytiks.git'
+    PUBLISH_SCM_URL =
+            'https://github.com/aminekarimii/analytiks/tree/master'
+}
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
+
+android {
+    namespace 'com.analytiks.addon.appvisor'
+    compileSdk rootProject.compileSdk
+
+    defaultConfig {
+        minSdk 21
+        targetSdk rootProject.targetSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.1'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    implementation project(':analytiks-core')
+}

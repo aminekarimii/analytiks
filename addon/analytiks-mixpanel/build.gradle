@@ -25,11 +25,11 @@ apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
 android {
     namespace 'com.analytiks.addon.mixpanel'
-    compileSdk 32
+    compileSdk rootProject.compileSdk
 
     defaultConfig {
         minSdk 21
-        targetSdk 32
+        targetSdk rootProject.targetSdk
         versionCode 1
         versionName "1.0"
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="18dp">
+
+    <ImageView
+        android:id="@+id/divider"
+        android:layout_width="2dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="3dp"
+        android:paddingBottom="20dp"
+        android:background="#EEEEEE"
+        android:importantForAccessibility="no" />
+
+    <LinearLayout
+        android:layout_toEndOf="@+id/divider"
+        android:id="@id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_initialized_at"
+            android:textAlignment="center"
+            android:textColor="#BDBDBD"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/initDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#BDBDBD"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="22:08 Monday 14, 2024" />
+    </LinearLayout>
+</RelativeLayout>

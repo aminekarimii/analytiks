@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">analytiks-appvisor</string>
+    <string name="events_pushed">Events pushed</string>
+    <string name="title_recorded_events">Your Events History</string>
+    <string name="label_initialized_at">Initialized at</string>
+    <string name="github_link">Github link</string>
+    <string name="empty_state_description">Read the documentation carefully to setup Analytiks in a good way.</string>
+    <string name="empty_state_title">There is no event</string>
+    <string name="intent_queries_not_found_description">No application can handle this request. Please install a web browser or check your URL.</string>
+    <string name="analytiks_link_label"><u>Analytiks Readme</u>.</string>
+</resources>

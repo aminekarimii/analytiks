@@ -25,11 +25,11 @@ apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
 android {
     namespace 'com.analityks.addon.azureinsight'
-    compileSdk 33
+    compileSdk rootProject.compileSdk
 
     defaultConfig {
-        minSdk 24
-        targetSdk 33
+        minSdk 21
+        targetSdk rootProject.targetSdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
