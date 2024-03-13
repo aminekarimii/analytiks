@@ -14,6 +14,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    ext {
+        PUBLISH_ARTIFACT_ID = 'analytiks-core'
+    }
+    apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
+
     buildTypes {
         release {
             minifyEnabled false
