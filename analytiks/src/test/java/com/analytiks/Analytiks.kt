@@ -1,6 +1,5 @@
 package com.analytiks
 
-import com.analytiks.core.CoreAddon
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
@@ -20,7 +19,11 @@ class AnalytiksTest {
             addon2,
             addon3,
         )
-        analytiks = Analytiks(addons)
+        analytiks = Analytiks.Builder()
+            .addClient(addon1)
+            .addClient(addon2)
+            .addClient(addon3)
+            .build()
 
         // WHEN
         val result = with(analytiks) {
@@ -40,7 +43,11 @@ class AnalytiksTest {
             addon2,
             addon3,
         )
-        analytiks = Analytiks(addons)
+        analytiks = Analytiks.Builder()
+            .addClient(addon1)
+            .addClient(addon2)
+            .addClient(addon3)
+            .build()
 
         // WHEN
         val result = with(analytiks) {
@@ -59,7 +66,11 @@ class AnalytiksTest {
             addon2,
             addon3,
         )
-        analytiks = Analytiks(addons)
+        analytiks = Analytiks.Builder()
+            .addClient(addon1)
+            .addClient(addon2)
+            .addClient(addon3)
+            .build()
 
         // WHEN
         val result = with(analytiks) {
