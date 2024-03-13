@@ -152,6 +152,15 @@ Here's a list of the most known analytics services that we will support in our l
 
 ➕ Can't find your service? [open an issue](https://github.com/aminekarimii/analytiks/issues/new) with the name and the direct documentation link in the comment section.
 
+## 📫 Contact Information
+
+For any questions, suggestions, or discussions regarding the "Analytiks" library, feel free to reach out through the following channels:
+
+- **Email:** [aminekarimi1998@gmail.com](mailto:aminekarimi1998@gmail.com)
+- **LinkedIn:** [aminekarimi](https://www.linkedin.com/in/aminekarimi)
+- **Twitter:** [@aminekarimii](https://twitter.com/aminekarimii)
+- **GitHub:** [aminekarimii](https://github.com/aminekarimii)
+
 ## License 🔖
 
 ```
