@@ -1,0 +1,40 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+ext {
+    PUBLISH_ARTIFACT_ID = 'analytiks-appsflyer'
+}
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
+
+android {
+    namespace 'com.analytiks.addon.appsflyer'
+    compileSdk rootProject.compileSdk
+
+    defaultConfig {
+        minSdk 21
+        targetSdk rootProject.targetSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation project(':analytiks-core')
+    implementation 'com.appsflyer:af-android-sdk:6.17.0'
+}
