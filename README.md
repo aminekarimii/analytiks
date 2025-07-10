@@ -144,7 +144,7 @@ Here's a list of the most known analytics services that we will support in our l
 | Amplitude  | ✅ | <a href="./addon/analytiks-amplitude/README.md">Amplitude Addon doc</a> | <a href="https://www.docs.developers.amplitude.com/data/sdks/sdk-quickstart/">Amplitude doc</a> |
 | App Annie  | 🚧  | - | - |
 | Localytics  | 🚧  | - | - |
-| AppsFlyer  | 🚧  | - | - |
+| AppsFlyer  | ✅ | <a href="./addon/analytiks-appsflyer/README.md">AppsFlyer Addon doc</a> | <a href="https://dev.appsflyer.com/hc/docs/android-sdk">AppsFlyer doc</a> |
 | App Center Analytics  | 🚧  | - | - |
 | Onesignal  | 🚧  | - | - |
 | Timber - For local event logging  | ✅  | - | <a href="https://github.com/JakeWharton/timber">github/JakeWharton/timber</a> | 
