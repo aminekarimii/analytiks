@@ -2,7 +2,42 @@
 
 This guide explains how to publish individual modules or all modules to Maven Central.
 
-## Prerequisites
+## Publishing Methods
+
+There are two ways to publish modules:
+
+1. **GitHub Actions (Recommended)** - Automated publishing via CI/CD
+2. **Local Publishing** - Manual publishing from your machine
+
+For GitHub Actions setup, see [.github/RELEASE_SETUP.md](.github/RELEASE_SETUP.md).
+
+## GitHub Actions Publishing (Recommended)
+
+### Quick Start
+
+1. **Set up GitHub Secrets** (one-time setup):
+   - See [.github/RELEASE_SETUP.md](.github/RELEASE_SETUP.md) for detailed instructions
+   - Required secrets: `SIGNING_KEY_ID`, `SIGNING_PASSWORD`, `SIGNING_KEY_BASE64`, `CENTRAL_PORTAL_USERNAME`, `CENTRAL_PORTAL_PASSWORD`
+
+2. **Publish via GitHub Actions**:
+   - Go to **Actions** tab → **Release to Maven Central**
+   - Click **Run workflow**
+   - Select module to publish
+   - Click **Run workflow**
+
+3. **Or publish via Git tag**:
+   ```bash
+   git tag v1.2.0
+   git push origin v1.2.0
+   ```
+
+See [.github/RELEASE_SETUP.md](.github/RELEASE_SETUP.md) for complete setup instructions.
+
+---
+
+## Local Publishing
+
+### Prerequisites
 
 1. **Signing Key**: Ensure you have a valid PGP signing key configured in `local.properties`:
    ```properties
@@ -58,16 +93,17 @@ publish.bat core
 ### Core Modules
 - `analytiks-core` - Core analytics functionality
 - `analytiks` - Main analytics library
+- `analytiks-bom` - Bill of Materials for version management
 
 ### Addon Modules
 - `analytiks-appsflyer` - AppsFlyer integration
-- `analytiks-amplitude` - Amplitude integration
-- `analytiks-appvisor` - AppVisor integration
-- `analytiks-azureinsight` - Azure Application Insights integration
-- `analytiks-googleanalytics` - Google Analytics integration
-- `analytiks-mixpanel` - Mixpanel integration
-- `analytiks-segment` - Segment integration
-- `analytiks-timber` - Timber logging integration
+- `analytiks-addon-amplitude` - Amplitude integration
+- `analytiks-addon-appvisor` - AppVisor integration
+- `analytiks-addon-azureinsight` - Azure Application Insights integration
+- `analytiks-addon-googleanalytics` - Google Analytics integration
+- `analytiks-addon-mixpanel` - Mixpanel integration
+- `analytiks-addon-segment` - Segment integration
+- `analytiks-addon-timber` - Timber logging integration
 
 ## Publishing Workflow
 
@@ -238,6 +274,33 @@ You can integrate the publishing scripts into your CI/CD pipeline:
 | `./gradlew publishModule -PmoduleName=<module>` | Publish a specific module |
 | `./gradlew publishAllAddons` | Publish all addon modules |
 | `./gradlew publishCore` | Publish core modules |
+
+## Bill of Materials (BOM)
+
+The Analytiks BOM provides centralized version management for all modules. See [analytiks-bom/README.md](analytiks-bom/README.md) for detailed usage instructions.
+
+### Publishing the BOM
+
+```bash
+# Using batch script
+publish.bat analytiks-bom
+
+# Using Gradle
+./gradlew publishModule -PmoduleName=analytiks-bom
+```
+
+### Using the BOM in Projects
+
+```kotlin
+dependencies {
+    // Import the BOM
+    implementation(platform("io.github.aminekarimii:analytiks-bom:1.2.0"))
+
+    // Add modules without version numbers
+    implementation("io.github.aminekarimii:analytiks-core")
+    implementation("io.github.aminekarimii:analytiks-appsflyer")
+}
+```
 
 ## Support
 

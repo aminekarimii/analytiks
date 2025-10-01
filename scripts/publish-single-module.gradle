@@ -17,7 +17,8 @@ tasks.register('publishModule') {
                   Core modules:
                     - analytiks-core
                     - analytiks
-                  
+                    - analytiks-bom
+
                   Addon modules:
                     - analytiks-appsflyer
                     - analytiks-amplitude
@@ -37,7 +38,7 @@ tasks.register('publishModule') {
         def moduleProject = null
         
         // Find the module project
-        if (moduleName == 'analytiks-core' || moduleName == 'analytiks') {
+        if (moduleName == 'analytiks-core' || moduleName == 'analytiks' || moduleName == 'analytiks-bom') {
             moduleProject = project.findProject(":${moduleName}")
         } else if (moduleName.startsWith('analytiks-')) {
             moduleProject = project.findProject(":addon:${moduleName}")
