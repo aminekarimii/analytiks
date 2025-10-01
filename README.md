@@ -18,6 +18,31 @@ A debug analytics mode that can log the same properties in the debug console.
 ## 📥 Download
 [![Release](https://img.shields.io/maven-central/v/io.github.aminekarimii/analytiks)](https://img.shields.io/maven-central/v/io.github.aminekarimii/analytiks)
 
+### Option 1: Using BOM (Recommended)
+
+The BOM (Bill of Materials) manages versions for all Analytiks modules:
+
+```gradle
+dependencies {
+    // Import the BOM
+    implementation platform('io.github.aminekarimii:analytiks-bom:1.2.0')
+
+    // Add modules without version numbers
+    implementation 'io.github.aminekarimii:analytiks-core'
+    implementation 'io.github.aminekarimii:analytiks'
+
+    // Add addons as needed
+    implementation 'io.github.aminekarimii:analytiks-appsflyer'
+    implementation 'io.github.aminekarimii:analytiks-amplitude'
+    implementation 'io.github.aminekarimii:analytiks-googleanalytics'
+    implementation 'io.github.aminekarimii:analytiks-mixpanel'
+    implementation 'io.github.aminekarimii:analytiks-timber'
+    implementation 'io.github.aminekarimii:analytiks-segment'
+}
+```
+
+### Option 2: Manual Version Management
+
 In your app level ```build.gradle``` file, add:
 
 ```gradle
@@ -26,10 +51,12 @@ dependencies {
     implementation 'io.github.aminekarimii:analytiks-core:VERSION'
 
     // You can add each Addon separately as following:
-    implementation 'io.github.aminekarimii:analytiks-addon-googleanalytics:VERSION'
-    implementation 'io.github.aminekarimii:analytiks-addon-mixpanel:VERSION'
-    implementation 'io.github.aminekarimii:analytiks-addon-timber:VERSION'
-    implementation 'io.github.aminekarimii:analytiks-addon-segment:VERSION'
+    implementation 'io.github.aminekarimii:analytiks-appsflyer:VERSION'
+    implementation 'io.github.aminekarimii:analytiks-amplitude:VERSION'
+    implementation 'io.github.aminekarimii:analytiks-googleanalytics:VERSION'
+    implementation 'io.github.aminekarimii:analytiks-mixpanel:VERSION'
+    implementation 'io.github.aminekarimii:analytiks-timber:VERSION'
+    implementation 'io.github.aminekarimii:analytiks-segment:VERSION'
 }
 ```
 
