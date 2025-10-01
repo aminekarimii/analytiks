@@ -225,6 +225,7 @@ analytiks.reset()
 | **Amplitude** | ✅ Available | [Setup Guide](./addon/analytiks-amplitude/README.md) | [Amplitude Docs](https://www.docs.developers.amplitude.com/data/sdks/sdk-quickstart/) |
 | **Timber (Local Logging)** | ✅ Available | Built-in | [Timber GitHub](https://github.com/JakeWharton/timber) |
 | **Custom Analytics** | ✅ Available | [Create Custom Addon](./analytiks-core) | - |
+| **AppsFlyer**  | ✅ | <a href="./addon/analytiks-appsflyer/README.md">AppsFlyer Addon doc</a> | <a href="https://dev.appsflyer.com/hc/docs/android-sdk">AppsFlyer doc</a> |
 | **Flurry Analytics** | 🚧 Coming Soon | - | - |
 | **CleverTap** | 🚧 Coming Soon | - | - |
 | **MoEngage** | 🚧 Coming Soon | - | - |
@@ -280,7 +281,6 @@ class MyApplication : Application() {
 
 ## 🔨 Advanced Usage
 
-### Creating Custom Analytics Providers
 
 You can create custom analytics providers by implementing the `AnalyticsClient` interface:
 
