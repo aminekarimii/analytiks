@@ -79,6 +79,7 @@ dependencies {
     implementation 'io.github.aminekarimii:analytiks-addon-amplitude'
     implementation 'io.github.aminekarimii:analytiks-addon-googleanalytics'
     implementation 'io.github.aminekarimii:analytiks-addon-mixpanel'
+    implementation 'io.github.aminekarimii:analytiks-addon-sentry'
     implementation 'io.github.aminekarimii:analytiks-addon-timber'
     implementation 'io.github.aminekarimii:analytiks-addon-segment'
 }
@@ -100,6 +101,7 @@ dependencies {
     implementation 'io.github.aminekarimii:analytiks-addon-segment:1.4.0'
     implementation 'io.github.aminekarimii:analytiks-addon-amplitude:1.4.0'
     implementation 'io.github.aminekarimii:analytiks-appsflyer:1.4.0'
+    implementation 'io.github.aminekarimii:analytiks-addon-sentry:1.4.0'
     implementation 'io.github.aminekarimii:analytiks-addon-timber:1.4.0'
     implementation 'io.github.aminekarimii:analytiks-addon-appvisor:1.4.0'
 }
@@ -226,14 +228,14 @@ analytiks.reset()
 | **Segment** | ✅ Available | [Setup Guide](./addon/analytiks-segment/README.md) | [Segment Docs](https://segment.com/docs/connections/sources/catalog/libraries/mobile/kotlin-android/) |
 | **Mixpanel** | ✅ Available | [Setup Guide](./addon/analytiks-mixpanel/README.md) | [Mixpanel Docs](https://developer.mixpanel.com/docs/android) |
 | **Amplitude** | ✅ Available | [Setup Guide](./addon/analytiks-amplitude/README.md) | [Amplitude Docs](https://www.docs.developers.amplitude.com/data/sdks/sdk-quickstart/) |
+| **AppsFlyer** | ✅ Available | [Setup Guide](./addon/analytiks-appsflyer/README.md) | [AppsFlyer Docs](https://dev.appsflyer.com/hc/docs/android-sdk) |
+| **Sentry** | ✅ Available | [Setup Guide](./addon/analytiks-sentry/README.md) | [Sentry Docs](https://docs.sentry.io/platforms/android/) |
 | **Timber (Local Logging)** | ✅ Available | Built-in | [Timber GitHub](https://github.com/JakeWharton/timber) |
 | **Custom Analytics** | ✅ Available | [Create Custom Addon](./analytiks-core) | - |
-| **AppsFlyer**  | ✅ | <a href="./addon/analytiks-appsflyer/README.md">AppsFlyer Addon doc</a> | <a href="https://dev.appsflyer.com/hc/docs/android-sdk">AppsFlyer doc</a> |
 | **Flurry Analytics** | 🚧 Coming Soon | - | - |
 | **CleverTap** | 🚧 Coming Soon | - | - |
 | **MoEngage** | 🚧 Coming Soon | - | - |
 | **Adjust** | 🚧 Coming Soon | - | - |
-| **AppsFlyer** | 🚧 Coming Soon | - | - |
 
 ### Request New Integrations
 Can't find your analytics service? [Open an issue](https://github.com/aminekarimii/analytiks/issues/new) with the service name and documentation link.
