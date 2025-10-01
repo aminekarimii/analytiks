@@ -1,22 +1,69 @@
-# <p align="center"> 📊Analytiks</p>
-<p align="center">
-  <a href="https://github.com/aminekarimii/analytiks/actions"><img alt="Build Status" src="https://github.com/aminekarimii/analytiks/workflows/Android%20CI/badge.svg"/></a>
-</p>  
+# <p align="center">📊 Analytiks</p>
 
-![Group 54 (1)](https://user-images.githubusercontent.com/20410115/228402805-3309d17a-0bc5-4404-90f8-20c9b30e33a9.png)
+<p align="center">
+  <strong>A unified Android analytics library that centralizes multiple analytics services</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/aminekarimii/analytiks/actions">
+    <img alt="Build Status" src="https://github.com/aminekarimii/analytiks/workflows/Android%20CI/badge.svg"/>
+  </a>
+  <a href="https://maven-badges.herokuapp.com/maven-central/io.github.aminekarimii/analytiks">
+    <img alt="Maven Central" src="https://img.shields.io/maven-central/v/io.github.aminekarimii/analytiks">
+  </a>
+  <a href="https://github.com/aminekarimii/analytiks/blob/main/LICENSE">
+    <img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg">
+  </a>
+</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/20410115/228402805-3309d17a-0bc5-4404-90f8-20c9b30e33a9.png" alt="Analytiks Banner" width="80%">
+</p>
+
+---
+
+## 📋 Table of Contents
+
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [Installation](#-installation)
+- [Quick Start](#-quick-start)
+- [Core Features](#-core-features)
+- [Supported Analytics SDKs](#-supported-analytics-sdks)
+- [AnalytiksVisor - Event Monitoring](#-analytiksvisor---event-monitoring)
+- [Advanced Usage](#-advanced-usage)
+- [Contributing](#-contributing)
+- [Contact](#-contact)
+- [License](#-license)
+
+---
 
 ## 💭 Overview
 
-An android library that centralizes analytics services in one place can be a useful tool for
-developers who want to track the usage and performance of their app.
-Should be easy as it sounds, a single implementation to start with the base analytics core features,
-and then you can add each analytic service separately (to preserve library size).
-A debug analytics mode that can log the same properties in the debug console.
+Analytiks is a powerful Android library designed to simplify analytics integration by centralizing multiple analytics services into a single, unified interface. Instead of managing multiple SDKs and their different APIs, Analytiks provides a consistent way to track events, identify users, and manage analytics across your entire application.
 
-![Scheme of the library logic](https://user-images.githubusercontent.com/20410115/225161402-d3a7d24f-da0d-4360-abab-fe86c68f0214.png)
+### Why Analytiks?
 
-## 📥 Download
-[![Release](https://img.shields.io/maven-central/v/io.github.aminekarimii/analytiks)](https://img.shields.io/maven-central/v/io.github.aminekarimii/analytiks)
+- **Single Implementation**: Write once, use with multiple analytics providers
+- **Modular Architecture**: Add only the analytics services you need
+- **Debug-Friendly**: Built-in logging for development and testing
+- **Lightweight**: Minimal impact on your app's size and performance
+- **Easy Migration**: Switch between analytics providers without code changes
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/20410115/225161402-d3a7d24f-da0d-4360-abab-fe86c68f0214.png" alt="Library Architecture" width="70%">
+</p>
+
+---
+
+## ✨ Key Features
+
+- 🔧 **Easy Integration** - Single API for multiple analytics services
+- 📦 **Modular Design** - Add only the providers you need
+- 🐛 **Debug Mode** - Console logging for development
+- 🚀 **Performance Optimized** - Minimal overhead and smart batching
+- 🔄 **Provider Agnostic** - Switch providers without changing your code
+- 📱 **Real-time Monitoring** - Built-in event viewer with AnalytiksVisor
 
 ### Option 1: Using BOM (Recommended)
 
@@ -45,108 +92,204 @@ dependencies {
 
 In your app level ```build.gradle``` file, add:
 
+## 📥 Installation
+
+Add the following dependencies to your app-level `build.gradle` file:
+
+### Core Library
 ```gradle
 dependencies {
     implementation 'io.github.aminekarimii:analytiks:VERSION'
     implementation 'io.github.aminekarimii:analytiks-core:VERSION'
-
-    // You can add each Addon separately as following:
-    implementation 'io.github.aminekarimii:analytiks-appsflyer:VERSION'
-    implementation 'io.github.aminekarimii:analytiks-amplitude:VERSION'
-    implementation 'io.github.aminekarimii:analytiks-googleanalytics:VERSION'
-    implementation 'io.github.aminekarimii:analytiks-mixpanel:VERSION'
-    implementation 'io.github.aminekarimii:analytiks-timber:VERSION'
-    implementation 'io.github.aminekarimii:analytiks-segment:VERSION'
 }
 ```
 
-## 🔌 Setup
+### Analytics Providers (Add as needed)
+```gradle
+dependencies {
+    // Google Analytics / Firebase
+    implementation 'io.github.aminekarimii:analytiks-addon-googleanalytics:VERSION'
+    
+    // Mixpanel
+    implementation 'io.github.aminekarimii:analytiks-addon-mixpanel:VERSION'
+    
+    // Segment
+    implementation 'io.github.aminekarimii:analytiks-addon-segment:VERSION'
+    
+    // Amplitude
+    implementation 'io.github.aminekarimii:analytiks-addon-amplitude:VERSION'
+    
+    // Local Logging (Timber)
+    implementation 'io.github.aminekarimii:analytiks-addon-timber:VERSION'
+    
+    // Event Monitoring UI
+    implementation 'io.github.aminekarimii:analytiks-addon-appvisor:VERSION'
+}
+```
 
-1. In your activity, initiate the Analytiks library and keep an object to be used after as
-following:
+> **Note**: Replace `VERSION` with the latest version available on [Maven Central](https://search.maven.org/search?q=g:io.github.aminekarimii).
+
+---
+
+## 🚀 Quick Start
+
+### 1. Initialize Analytiks
+
+In your `Activity` or `Application` class:
 
 ```kotlin
-private lateinit var analytiks: Analytiks
+class MainActivity : AppCompatActivity() {
+    private lateinit var analytiks: Analytiks
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        
+        // Build your analytics configuration
+        analytiks = Analytiks.Builder()
+            .addClient(GoogleAnalyticsClient()) // Firebase Analytics
+            .addClient(MixpanelAnalyticsClient(token = "YOUR_MIXPANEL_TOKEN"))
+            .addClient(
+                SegmentAnalyticsClient(
+                    token = "YOUR_SEGMENT_TOKEN",
+                    flushIntervalInSeconds = 5,
+                    trackApplicationLifecycleEvents = true
+                )
+            )
+            .addClient(TimberAnalyticsClient()) // For debug logging
+            .build()
+    }
+}
+```
+
+### 2. Initialize the Library
+
+```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    // ...
-    analytiks = Analytiks.Builder()
-        .addClient(CustomAnalytiksAddon())
-        .addClient(MixpanelAnalyticsClient(token = "YOUR_TOKEN"))
-        .addClient(
-            SegmentAnalyticsClient(
-                token = "YOUR_TOKEN",
-                flushIntervalInSeconds = 5,
-                trackApplicationLifecycleEvents = true,
-            )
-        )
+    // ... configuration above
+    
+    // Initialize all configured analytics providers
+    analytiks.initialize(applicationContext)
 }
 ```
 
-2. Initialize the addons
+### 3. Start Tracking Events
 
 ```kotlin
-analytiks.initialize(this.applicationContext)
-```
+// Track a simple event
+analytiks.logEvent("user_signup")
 
-3. You're good to go!
+// Track an event with properties
+analytiks.logEvent(
+    eventName = "purchase_completed",
+    properties = mapOf(
+        "product_id" to "12345",
+        "price" to 29.99,
+        "currency" to "USD"
+    )
+)
 
-```kotlin
-analytiks.logEvent("your_event_name")
+// Identify a user
+analytiks.identify(userId = "user_12345")
+
+// Set user properties
+analytiks.setUserProperty("subscription_type", "premium")
+
+// Send all queued events immediately
 analytiks.pushAll()
 ```
 
-## 🧪 Features
+---
 
-The list of features provided by the library
+## 🔧 Core Features
 
-- **Initialization:** `init` Initialize the "analytiks" library, along with its sub-libraries,
-  during the initialization process.
-- **Log event:** `event` send/save an event with a name and an optional set of properties.
-- **Identify user:** `identify` Identify the current user by the given ID or a random UUID in case
-  of an empty one.
-- **Set user property:** `setUserProperty` Sets a key value property to the identified user.
-- **Reset:** `reset` the plugins and remove the default user's configuration.
-- **Flush events** `flush` sends the recorded local data to the service servers on call.
+### Event Tracking
+```kotlin
+// Simple event
+analytiks.logEvent("button_clicked")
 
-## 🔍 AnalytiksVisor
-<details>
-<summary><strong> Events App Log Shortcut</strong> (expand) </summary>
-See what's happening in your app in real-time with Analytiks AppVisor. It's essentially your go-to for tracking events, serving as a local logger to make sure everything's logged just right, from the initialization to the events push with the exact date & time.
-
-### Key Features
-
-- **Event Visualization**: Easily view all recorded events within your application in a simple and intuitive UI.
-#### 🚧 Coming up
-- **Event Sharing**: Share specific events as text directly from the app visor, facilitating seamless collaboration among team members.
-- **New Event Notifications**: Receive notifications for new events to stay updated on your app's activity without constant manual checks.
-
-### Getting Started
-
-To integrate this feature into your application, follow the steps below:
-
-1. **Add Dependency**: Ensure your `build.gradle` file includes the `analytiks-addon-appvisor` module as a dependency:
-
-```groovy
-dependencies {
-    implementation 'io.github.aminekarimii:analytiks-addon-appvisor:{LATEST_VERSION}'
-}
+// Event with custom properties
+analytiks.logEvent("video_played", mapOf(
+    "video_id" to "abc123",
+    "duration" to 120,
+    "quality" to "HD"
+))
 ```
 
-2. **Initialization**: Initialize AnalytiksVisor and add the interceptor to your Analytiks configuration:
-
+### User Management
 ```kotlin
-Analytiks.Builder()
+// Identify user with custom ID
+analytiks.identify("user_12345")
+
+// Identify with auto-generated UUID
+analytiks.identify()
+
+// Set user properties
+analytiks.setUserProperty("age", 25)
+analytiks.setUserProperty("plan", "premium")
+```
+
+### Data Management
+```kotlin
+// Force send all queued events
+analytiks.flush()
+
+// Reset user data and clear queue
+analytiks.reset()
+```
+
+---
+
+## 🗃 Supported Analytics SDKs
+
+| Service | Status | Implementation Guide | Official Documentation |
+|---------|--------|---------------------|------------------------|
+| **Google Analytics/Firebase** | ✅ Available | [Setup Guide](./addon/analytiks-googleanalytics/README.md) | [Firebase Docs](https://firebase.google.com/docs/analytics/get-started?platform=android) |
+| **Segment** | ✅ Available | [Setup Guide](./addon/analytiks-segment/README.md) | [Segment Docs](https://segment.com/docs/connections/sources/catalog/libraries/mobile/kotlin-android/) |
+| **Mixpanel** | ✅ Available | [Setup Guide](./addon/analytiks-mixpanel/README.md) | [Mixpanel Docs](https://developer.mixpanel.com/docs/android) |
+| **Amplitude** | ✅ Available | [Setup Guide](./addon/analytiks-amplitude/README.md) | [Amplitude Docs](https://www.docs.developers.amplitude.com/data/sdks/sdk-quickstart/) |
+| **Timber (Local Logging)** | ✅ Available | Built-in | [Timber GitHub](https://github.com/JakeWharton/timber) |
+| **Custom Analytics** | ✅ Available | [Create Custom Addon](./analytiks-core) | - |
+| **AppsFlyer**  | ✅ | <a href="./addon/analytiks-appsflyer/README.md">AppsFlyer Addon doc</a> | <a href="https://dev.appsflyer.com/hc/docs/android-sdk">AppsFlyer doc</a> |
+| **Flurry Analytics** | 🚧 Coming Soon | - | - |
+| **CleverTap** | 🚧 Coming Soon | - | - |
+| **MoEngage** | 🚧 Coming Soon | - | - |
+| **Adjust** | 🚧 Coming Soon | - | - |
+| **AppsFlyer** | 🚧 Coming Soon | - | - |
+
+### Request New Integrations
+Can't find your analytics service? [Open an issue](https://github.com/aminekarimii/analytiks/issues/new) with the service name and documentation link.
+
+---
+
+## 🔍 AnalytiksVisor - Event Monitoring
+
+AnalytiksVisor provides real-time event monitoring and debugging capabilities, allowing you to see exactly what analytics events are being tracked in your application.
+
+### Features
+- **📊 Real-time Event Visualization** - Monitor events as they happen
+- **🕐 Timestamp Tracking** - Precise event timing information
+- **📋 Event Details** - Complete event properties and metadata
+- **🚧 Coming Soon**: Event sharing and push notifications
+
+### Setup
+
+1. **Add the dependency**:
+```gradle
+implementation 'io.github.aminekarimii:analytiks-addon-appvisor:VERSION'
+```
+
+2. **Initialize with interceptor**:
+```kotlin
+analytiks = Analytiks.Builder()
     .addInterceptor(AppVisorActivity.initialize())
-    // ...
+    .addClient(/* your analytics clients */)
     .build()
 ```
 
-3. **Create Shortcut**: to create AnalytiksVisor Shortcut, add:
-
+3. **Create app shortcut** (optional):
 ```kotlin
-class AnalytiksApplication : Application() {
+class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         AnalytiksVisor.createShortcut(this)
@@ -154,57 +297,110 @@ class AnalytiksApplication : Application() {
 }
 ```
 
-### Video Demo
-[Screen_recording_20240305_234527.webm](https://github.com/aminekarimii/analytiks/assets/20410115/944a0f7e-da56-4f64-907a-8df0d803e3b7)
+### Demo
+<div align="center">
+  <video src="https://github.com/aminekarimii/analytiks/assets/20410115/944a0f7e-da56-4f64-907a-8df0d803e3b7" controls width="70%"></video>
+</div>
 
-</details>
+---
+
+## 🔨 Advanced Usage
 
 
-## 🗃 Supported analytics SDKs
-Here's a list of the most known analytics services that we will support in our library.  
-| Service   |     Status    | Implementation | Official documentation |
-| --------- | ------------- | -------------- | ------------ |
-| Google/Firebase Analytics  | ✅  | <a href="./addon/analytiks-googleanalytics/README.md">Firebase/Google Addon doc</a>  | <a href="https://firebase.google.com/docs/analytics/get-started?platform=android">Firebase Analytics doc</a> |
-| Segment  | ✅  | <a href="./addon/analytiks-segment/README.md">Segment Addon doc</a> | <a href="https://segment.com/docs/connections/sources/catalog/libraries/mobile/kotlin-android/" >Segment doc</a> |
-| Mixpanel  | ✅  | <a href="./addon/analytiks-mixpanel/README.md">Mixpanel Addon doc</a>| <a href="https://developer.mixpanel.com/docs/android">Mixpanel doc</a> |
-| Flurry Analytics  | 🚧  | - | - |
-| Amplitude  | ✅ | <a href="./addon/analytiks-amplitude/README.md">Amplitude Addon doc</a> | <a href="https://www.docs.developers.amplitude.com/data/sdks/sdk-quickstart/">Amplitude doc</a> |
-| App Annie  | 🚧  | - | - |
-| Localytics  | 🚧  | - | - |
-| AppsFlyer  | ✅ | <a href="./addon/analytiks-appsflyer/README.md">AppsFlyer Addon doc</a> | <a href="https://dev.appsflyer.com/hc/docs/android-sdk">AppsFlyer doc</a> |
-| App Center Analytics  | 🚧  | - | - |
-| Onesignal  | 🚧  | - | - |
-| Timber - For local event logging  | ✅  | - | <a href="https://github.com/JakeWharton/timber">github/JakeWharton/timber</a> | 
-| Your Custom Addon  | ✅  | - | <a href="./analytiks-core">Instructions</a> |
+You can create custom analytics providers by implementing the `AnalyticsClient` interface:
 
-➕ Can't find your service? [open an issue](https://github.com/aminekarimii/analytiks/issues/new) with the name and the direct documentation link in the comment section.
+```kotlin
+class CustomAnalyticsClient : AnalyticsClient {
+    override fun initialize(context: Context) {
+        // Initialize your custom analytics SDK
+    }
+    
+    override fun logEvent(eventName: String, properties: Map<String, Any>?) {
+        // Implement event logging
+    }
+    
+    override fun identify(userId: String) {
+        // Implement user identification
+    }
+    
+    override fun setUserProperty(key: String, value: Any) {
+        // Implement user property setting
+    }
+    
+    override fun flush() {
+        // Implement force flush
+    }
+    
+    override fun reset() {
+        // Implement reset functionality
+    }
+}
+```
 
-## 📫 Contact Information
+### Debug Mode
 
-For any questions, suggestions, or discussions regarding the "Analytiks" library, feel free to reach out through the following channels:
+Enable debug logging in development builds:
 
-- **Email:** [aminekarimi1998@gmail.com](mailto:aminekarimi1998@gmail.com)
-- **LinkedIn:** [aminekarimi](https://www.linkedin.com/in/aminekarimi)
-- **Twitter:** [@aminekarimii](https://twitter.com/aminekarimii)
-- **GitHub:** [aminekarimii](https://github.com/aminekarimii)
+```kotlin
+analytiks = Analytiks.Builder()
+    .addClient(TimberAnalyticsClient()) // Logs to console
+    .build()
+```
 
-## License 🔖
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how you can help:
+
+1. **Fork the repository**
+2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
+3. **Commit your changes** (`git commit -m 'Add amazing feature'`)
+4. **Push to the branch** (`git push origin feature/amazing-feature`)
+5. **Open a Pull Request**
+
+### Development Setup
+```bash
+git clone https://github.com/aminekarimii/analytiks.git
+cd analytiks
+./gradlew build
+```
+
+---
+
+## 📫 Contact
+
+**Amine Karimi** - Library Creator & Maintainer
+
+- 📧 **Email**: [aminekarimi1998@gmail.com](mailto:aminekarimi1998@gmail.com)
+- 💼 **LinkedIn**: [aminekarimi](https://www.linkedin.com/in/aminekarimi)
+- 🐦 **Twitter**: [@aminekarimii](https://twitter.com/aminekarimii)
+- 🐙 **GitHub**: [aminekarimii](https://github.com/aminekarimii)
+
+---
+
+## 📄 License
 
 ```
-    Apache 2.0 License
+Apache License 2.0
 
-    Copyright 2022 KARIMI Amine
+Copyright 2022 KARIMI Amine
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+   http://www.apache.org/licenses/LICENSE-2.0
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 ```
+
+---
+
+<p align="center">
+  <strong>⭐ If you find Analytiks helpful, please consider giving it a star on GitHub! ⭐</strong>
+</p>
