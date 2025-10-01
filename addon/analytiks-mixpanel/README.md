@@ -14,12 +14,26 @@
 | trackAutomaticEvents  | Controls automatic event tracking (e.g., screen views, app opens).  | true                 |
 
 Note: The default values mentioned above can be overridden by providing custom values during initialization.
-## Create Add-on
-1. Download Mixpanel add-on:
+## Installation
+
+### Using BOM (Recommended)
 ```gradle
-implementation 'io.github.aminekarimii:analytiks-mixpanel:1.0.0'
+dependencies {
+    // Import the BOM - automatically includes analytiks-core and analytiks
+    implementation platform('io.github.aminekarimii:analytiks-bom:1.4.0')
+
+    // Add Mixpanel addon (version managed by BOM)
+    implementation 'io.github.aminekarimii:analytiks-addon-mixpanel'
+}
 ```
-2. Create your own mixpanel client
+
+### Manual Version Management
+```gradle
+implementation 'io.github.aminekarimii:analytiks-addon-mixpanel:1.4.0'
+```
+
+## Create Add-on
+Create your own mixpanel client
 ``` kotlin
 val mixpanel = MixpanelAnalyticsClient(
    token: "YOUR_TOKEN",

@@ -12,12 +12,26 @@
 | defaultEventParameters       | Default event parameters for tracking events.      | null             |
 
 Note: The default values mentioned above can be overridden by providing custom values during initialization.
-## Create Add-on
-1. Download Google analytics add-on:
+## Installation
+
+### Using BOM (Recommended)
 ```gradle
-implementation 'io.github.aminekarimii:analytiks-googleanalytics:1.0.0'
+dependencies {
+    // Import the BOM - automatically includes analytiks-core and analytiks
+    implementation platform('io.github.aminekarimii:analytiks-bom:1.4.0')
+
+    // Add Google Analytics addon (version managed by BOM)
+    implementation 'io.github.aminekarimii:analytiks-addon-googleanalytics'
+}
 ```
-2. Create your own client
+
+### Manual Version Management
+```gradle
+implementation 'io.github.aminekarimii:analytiks-addon-googleanalytics:1.4.0'
+```
+
+## Create Add-on
+Create your own client
 ``` kotlin
 val googleAnalytics = GoogleAnalyticsClient(
    isAnalyticsCollectionEnabled = true,

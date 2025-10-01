@@ -13,11 +13,21 @@ This addon integrates AppsFlyer SDK with the Analytiks analytics framework.
 
 ### 1. Add dependency
 
-Add the AppsFlyer addon to your app's `build.gradle`:
-
+#### Using BOM (Recommended)
 ```gradle
 dependencies {
-    implementation project(':addon:analytiks-appsflyer')
+    // Import the BOM - automatically includes analytiks-core and analytiks
+    implementation platform('io.github.aminekarimii:analytiks-bom:1.4.0')
+
+    // Add AppsFlyer addon (version managed by BOM)
+    implementation 'io.github.aminekarimii:analytiks-appsflyer'
+}
+```
+
+#### Manual Version Management
+```gradle
+dependencies {
+    implementation 'io.github.aminekarimii:analytiks-appsflyer:1.4.0'
 }
 ```
 

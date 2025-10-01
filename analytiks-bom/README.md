@@ -55,7 +55,7 @@ dependencies {
         <dependency>
             <groupId>io.github.aminekarimii</groupId>
             <artifactId>analytiks-bom</artifactId>
-            <version>1.3.0</version>
+            <version>1.4.0</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -109,10 +109,10 @@ To upgrade all Analytiks modules, simply change the BOM version:
 
 ```kotlin
 // Before
-implementation(platform("io.github.aminekarimii:analytiks-bom:1.3.0"))
+implementation(platform("io.github.aminekarimii:analytiks-bom:1.4.0"))
 
 // After - all modules automatically upgrade
-implementation(platform("io.github.aminekarimii:analytiks-bom:1.4.0"))
+implementation(platform("io.github.aminekarimii:analytiks-bom:1.5.0"))
 ```
 
 ### Reduced Configuration
@@ -124,12 +124,12 @@ If you need to use a different version for a specific module, you can still spec
 
 ```kotlin
 dependencies {
-    implementation(platform("io.github.aminekarimii:analytiks-bom:1.3.0"))
+    implementation(platform("io.github.aminekarimii:analytiks-bom:1.4.0"))
 
     // Core modules are automatically included with BOM version
 
     // Override addon with specific version if needed
-    implementation("io.github.aminekarimii:analytiks-appsflyer:1.2.0")
+    implementation("io.github.aminekarimii:analytiks-appsflyer:1.3.0")
 }
 ```
 

@@ -16,12 +16,26 @@
 
 Note: The default values mentioned above can be overridden by providing custom values during initialization.
 
-## Create Add-on
-1. Download Segment add-on:
+## Installation
+
+### Using BOM (Recommended)
 ```gradle
-implementation 'io.github.aminekarimii:analytiks-segment:1.0.0'
+dependencies {
+    // Import the BOM - automatically includes analytiks-core and analytiks
+    implementation platform('io.github.aminekarimii:analytiks-bom:1.4.0')
+
+    // Add Segment addon (version managed by BOM)
+    implementation 'io.github.aminekarimii:analytiks-addon-segment'
+}
 ```
-2. Create your own Segment client:
+
+### Manual Version Management
+```gradle
+implementation 'io.github.aminekarimii:analytiks-addon-segment:1.4.0'
+```
+
+## Create Add-on
+Create your own Segment client:
 ``` kotlin
 val segment = SegmentAnalyticsClient(
     token = "YOUR_TOKEN",

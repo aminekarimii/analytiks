@@ -72,7 +72,7 @@ The BOM (Bill of Materials) automatically includes core modules and manages vers
 ```gradle
 dependencies {
     // Import the BOM - automatically includes analytiks-core and analytiks
-    implementation platform('io.github.aminekarimii:analytiks-bom:1.3.0')
+    implementation platform('io.github.aminekarimii:analytiks-bom:1.4.0')
 
     // Core modules are automatically included!
     // No need to add analytiks-core and analytiks explicitly
@@ -89,44 +89,26 @@ dependencies {
 
 ### Option 2: Manual Version Management
 
-In your app level ```build.gradle``` file, add:
+If you prefer to manage versions manually:
 
-## 📥 Installation
-
-Add the following dependencies to your app-level `build.gradle` file:
-
-### Core Library
 ```gradle
 dependencies {
-    implementation 'io.github.aminekarimii:analytiks:VERSION'
-    implementation 'io.github.aminekarimii:analytiks-core:VERSION'
+    // Core libraries
+    implementation 'io.github.aminekarimii:analytiks:1.4.0'
+    implementation 'io.github.aminekarimii:analytiks-core:1.4.0'
+
+    // Analytics Providers (Add as needed)
+    implementation 'io.github.aminekarimii:analytiks-addon-googleanalytics:1.4.0'
+    implementation 'io.github.aminekarimii:analytiks-addon-mixpanel:1.4.0'
+    implementation 'io.github.aminekarimii:analytiks-addon-segment:1.4.0'
+    implementation 'io.github.aminekarimii:analytiks-addon-amplitude:1.4.0'
+    implementation 'io.github.aminekarimii:analytiks-appsflyer:1.4.0'
+    implementation 'io.github.aminekarimii:analytiks-addon-timber:1.4.0'
+    implementation 'io.github.aminekarimii:analytiks-addon-appvisor:1.4.0'
 }
 ```
 
-### Analytics Providers (Add as needed)
-```gradle
-dependencies {
-    // Google Analytics / Firebase
-    implementation 'io.github.aminekarimii:analytiks-addon-googleanalytics:VERSION'
-    
-    // Mixpanel
-    implementation 'io.github.aminekarimii:analytiks-addon-mixpanel:VERSION'
-    
-    // Segment
-    implementation 'io.github.aminekarimii:analytiks-addon-segment:VERSION'
-    
-    // Amplitude
-    implementation 'io.github.aminekarimii:analytiks-addon-amplitude:VERSION'
-    
-    // Local Logging (Timber)
-    implementation 'io.github.aminekarimii:analytiks-addon-timber:VERSION'
-    
-    // Event Monitoring UI
-    implementation 'io.github.aminekarimii:analytiks-addon-appvisor:VERSION'
-}
-```
-
-> **Note**: Replace `VERSION` with the latest version available on [Maven Central](https://search.maven.org/search?q=g:io.github.aminekarimii).
+> **Note**: Check [Maven Central](https://search.maven.org/search?q=g:io.github.aminekarimii) for the latest version.
 
 ---
 
@@ -274,8 +256,18 @@ AnalytiksVisor provides real-time event monitoring and debugging capabilities, a
 ### Setup
 
 1. **Add the dependency**:
+
+Using BOM (Recommended):
 ```gradle
-implementation 'io.github.aminekarimii:analytiks-addon-appvisor:VERSION'
+dependencies {
+    implementation platform('io.github.aminekarimii:analytiks-bom:1.4.0')
+    implementation 'io.github.aminekarimii:analytiks-addon-appvisor'
+}
+```
+
+Or with manual version:
+```gradle
+implementation 'io.github.aminekarimii:analytiks-addon-appvisor:1.4.0'
 ```
 
 2. **Initialize with interceptor**:
