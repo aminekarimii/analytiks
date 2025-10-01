@@ -74,7 +74,7 @@ tasks.register('publishModule') {
 
         println """
         ╔════════════════════════════════════════════════════════════════╗
-        ║  ✅ Successfully published ${moduleName.padRight(33)} ║
+        ║  ✅ Successfully published ${moduleName.padRight(33)}
         ╚════════════════════════════════════════════════════════════════╝
 
         📝 Next Steps:
@@ -105,7 +105,22 @@ tasks.register('publishAndReleaseModule') {
         }
 
         def moduleName = project.property('moduleName')
+        def moduleProject = null
+
+        if (moduleName == 'analytiks-core' || moduleName == 'analytiks' || moduleName == 'analytiks-bom') {
+            moduleProject = project.findProject(":${moduleName}")
+        } else if (moduleName.startsWith('analytiks-')) {
+            moduleProject = project.findProject(":addon:${moduleName}")
+        } else {
+            throw new GradleException("❌ Module '${moduleName}' not found!")
+        }
+
+        if (moduleProject == null) {
+            throw new GradleException("❌ Module '${moduleName}' not found!")
+        }
+
         def gradleCommand = System.getProperty('os.name').toLowerCase().contains('windows') ? 'gradlew.bat' : './gradlew'
+        def modulePath = moduleProject.path
 
         println """
         ╔════════════════════════════════════════════════════════════════╗
@@ -113,15 +128,14 @@ tasks.register('publishAndReleaseModule') {
         ╚════════════════════════════════════════════════════════════════╝
         """.stripIndent()
 
-        println "📦 Publishing ${moduleName}..."
-        project.exec {
-            commandLine gradleCommand, "publishModule", "-PmoduleName=${moduleName}"
-            workingDir project.rootDir
-        }
+        println "📦 Building and publishing ${moduleName} to Sonatype..."
+        println "🔒 Then closing and releasing staging repository..."
+        println ""
+        println "⚠️  Running in single Gradle invocation to preserve staging repository..."
+        println ""
 
-        println "🔒 Closing and releasing staging repository..."
         project.exec {
-            commandLine gradleCommand, 'closeAndReleaseStagingRepositories'
+            commandLine gradleCommand, "${modulePath}:build", "${modulePath}:publishToSonatype", "closeAndReleaseStagingRepositories"
             workingDir project.rootDir
         }
 
