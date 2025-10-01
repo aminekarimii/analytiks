@@ -67,24 +67,23 @@ Analytiks is a powerful Android library designed to simplify analytics integrati
 
 ### Option 1: Using BOM (Recommended)
 
-The BOM (Bill of Materials) manages versions for all Analytiks modules:
+The BOM (Bill of Materials) automatically includes core modules and manages versions:
 
 ```gradle
 dependencies {
-    // Import the BOM
-    implementation platform('io.github.aminekarimii:analytiks-bom:1.2.0')
+    // Import the BOM - automatically includes analytiks-core and analytiks
+    implementation platform('io.github.aminekarimii:analytiks-bom:1.3.0')
 
-    // Add modules without version numbers
-    implementation 'io.github.aminekarimii:analytiks-core'
-    implementation 'io.github.aminekarimii:analytiks'
+    // Core modules are automatically included!
+    // No need to add analytiks-core and analytiks explicitly
 
-    // Add addons as needed
+    // Add addons as needed (without version numbers)
     implementation 'io.github.aminekarimii:analytiks-appsflyer'
-    implementation 'io.github.aminekarimii:analytiks-amplitude'
-    implementation 'io.github.aminekarimii:analytiks-googleanalytics'
-    implementation 'io.github.aminekarimii:analytiks-mixpanel'
-    implementation 'io.github.aminekarimii:analytiks-timber'
-    implementation 'io.github.aminekarimii:analytiks-segment'
+    implementation 'io.github.aminekarimii:analytiks-addon-amplitude'
+    implementation 'io.github.aminekarimii:analytiks-addon-googleanalytics'
+    implementation 'io.github.aminekarimii:analytiks-addon-mixpanel'
+    implementation 'io.github.aminekarimii:analytiks-addon-timber'
+    implementation 'io.github.aminekarimii:analytiks-addon-segment'
 }
 ```
 

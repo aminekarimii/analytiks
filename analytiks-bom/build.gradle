@@ -12,9 +12,12 @@ javaPlatform {
 }
 
 dependencies {
+    // Include core libraries automatically when BOM is imported
+    api project(':analytiks-core')
+    api project(':analytiks')
+
+    // Addon modules are available as constraints (user must explicitly add them)
     constraints {
-        api project(':analytiks-core')
-        api project(':analytiks')
         api project(':addon:analytiks-amplitude')
         api project(':addon:analytiks-appsflyer')
         api project(':addon:analytiks-appvisor')

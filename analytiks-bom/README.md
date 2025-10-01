@@ -16,14 +16,13 @@ A BOM is a special Maven module that provides dependency management for a set of
 
 ```kotlin
 dependencies {
-    // Import the BOM
-    implementation(platform("io.github.aminekarimii:analytiks-bom:1.2.0"))
-    
-    // Add Analytiks modules without version numbers
-    implementation("io.github.aminekarimii:analytiks-core")
-    implementation("io.github.aminekarimii:analytiks")
-    
-    // Add addon modules as needed
+    // Import the BOM - automatically includes analytiks-core and analytiks
+    implementation(platform("io.github.aminekarimii:analytiks-bom:1.3.0"))
+
+    // Core modules (analytiks-core and analytiks) are automatically included!
+    // No need to add them explicitly
+
+    // Add addon modules as needed (without version numbers)
     implementation("io.github.aminekarimii:analytiks-appsflyer")
     implementation("io.github.aminekarimii:analytiks-addon-amplitude")
     implementation("io.github.aminekarimii:analytiks-addon-segment")
@@ -34,14 +33,13 @@ dependencies {
 
 ```groovy
 dependencies {
-    // Import the BOM
-    implementation platform('io.github.aminekarimii:analytiks-bom:1.2.0')
-    
-    // Add Analytiks modules without version numbers
-    implementation 'io.github.aminekarimii:analytiks-core'
-    implementation 'io.github.aminekarimii:analytiks'
-    
-    // Add addon modules as needed
+    // Import the BOM - automatically includes analytiks-core and analytiks
+    implementation platform('io.github.aminekarimii:analytiks-bom:1.3.0')
+
+    // Core modules (analytiks-core and analytiks) are automatically included!
+    // No need to add them explicitly
+
+    // Add addon modules as needed (without version numbers)
     implementation 'io.github.aminekarimii:analytiks-appsflyer'
     implementation 'io.github.aminekarimii:analytiks-addon-amplitude'
     implementation 'io.github.aminekarimii:analytiks-addon-segment'
@@ -53,11 +51,11 @@ dependencies {
 ```xml
 <dependencyManagement>
     <dependencies>
-        <!-- Import the BOM -->
+        <!-- Import the BOM - automatically includes analytiks-core and analytiks -->
         <dependency>
             <groupId>io.github.aminekarimii</groupId>
             <artifactId>analytiks-bom</artifactId>
-            <version>1.2.0</version>
+            <version>1.3.0</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -65,18 +63,10 @@ dependencies {
 </dependencyManagement>
 
 <dependencies>
-    <!-- Add Analytiks modules without version numbers -->
-    <dependency>
-        <groupId>io.github.aminekarimii</groupId>
-        <artifactId>analytiks-core</artifactId>
-    </dependency>
-    
-    <dependency>
-        <groupId>io.github.aminekarimii</groupId>
-        <artifactId>analytiks</artifactId>
-    </dependency>
-    
-    <!-- Add addon modules as needed -->
+    <!-- Core modules (analytiks-core and analytiks) are automatically included! -->
+    <!-- No need to add them explicitly -->
+
+    <!-- Add addon modules as needed (without version numbers) -->
     <dependency>
         <groupId>io.github.aminekarimii</groupId>
         <artifactId>analytiks-appsflyer</artifactId>
@@ -93,11 +83,13 @@ dependencies {
 
 The BOM manages versions for the following modules:
 
-### Core Modules
+### Core Modules (Automatically Included)
+When you import the BOM, these modules are **automatically included** in your project:
 - `analytiks-core` - Core analytics functionality
 - `analytiks` - Main Analytiks library
 
-### Addon Modules
+### Addon Modules (Optional)
+These modules are available with managed versions, but you must explicitly add them:
 - `analytiks-addon-amplitude` - Amplitude integration
 - `analytiks-appsflyer` - AppsFlyer integration
 - `analytiks-addon-appvisor` - AppVisor integration
@@ -117,10 +109,10 @@ To upgrade all Analytiks modules, simply change the BOM version:
 
 ```kotlin
 // Before
-implementation(platform("io.github.aminekarimii:analytiks-bom:1.2.0"))
+implementation(platform("io.github.aminekarimii:analytiks-bom:1.3.0"))
 
 // After - all modules automatically upgrade
-implementation(platform("io.github.aminekarimii:analytiks-bom:1.3.0"))
+implementation(platform("io.github.aminekarimii:analytiks-bom:1.4.0"))
 ```
 
 ### Reduced Configuration
@@ -132,12 +124,11 @@ If you need to use a different version for a specific module, you can still spec
 
 ```kotlin
 dependencies {
-    implementation(platform("io.github.aminekarimii:analytiks-bom:1.2.0"))
-    
-    // Use BOM version
-    implementation("io.github.aminekarimii:analytiks-core")
+    implementation(platform("io.github.aminekarimii:analytiks-bom:1.3.0"))
 
-    // Override with specific version
+    // Core modules are automatically included with BOM version
+
+    // Override addon with specific version if needed
     implementation("io.github.aminekarimii:analytiks-appsflyer:1.2.0")
 }
 ```
