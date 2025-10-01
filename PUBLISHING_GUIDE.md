@@ -2,7 +2,42 @@
 
 This guide explains how to publish individual modules or all modules to Maven Central.
 
-## Prerequisites
+## Publishing Methods
+
+There are two ways to publish modules:
+
+1. **GitHub Actions (Recommended)** - Automated publishing via CI/CD
+2. **Local Publishing** - Manual publishing from your machine
+
+For GitHub Actions setup, see [.github/RELEASE_SETUP.md](.github/RELEASE_SETUP.md).
+
+## GitHub Actions Publishing (Recommended)
+
+### Quick Start
+
+1. **Set up GitHub Secrets** (one-time setup):
+   - See [.github/RELEASE_SETUP.md](.github/RELEASE_SETUP.md) for detailed instructions
+   - Required secrets: `SIGNING_KEY_ID`, `SIGNING_PASSWORD`, `SIGNING_KEY_BASE64`, `CENTRAL_PORTAL_USERNAME`, `CENTRAL_PORTAL_PASSWORD`
+
+2. **Publish via GitHub Actions**:
+   - Go to **Actions** tab → **Release to Maven Central**
+   - Click **Run workflow**
+   - Select module to publish
+   - Click **Run workflow**
+
+3. **Or publish via Git tag**:
+   ```bash
+   git tag v1.2.0
+   git push origin v1.2.0
+   ```
+
+See [.github/RELEASE_SETUP.md](.github/RELEASE_SETUP.md) for complete setup instructions.
+
+---
+
+## Local Publishing
+
+### Prerequisites
 
 1. **Signing Key**: Ensure you have a valid PGP signing key configured in `local.properties`:
    ```properties
