@@ -74,9 +74,6 @@ dependencies {
     // Import the BOM - automatically includes analytiks-core and analytiks
     implementation platform('io.github.aminekarimii:analytiks-bom:1.4.0')
 
-    // Core modules are automatically included!
-    // No need to add analytiks-core and analytiks explicitly
-
     // Add addons as needed (without version numbers)
     implementation 'io.github.aminekarimii:analytiks-appsflyer'
     implementation 'io.github.aminekarimii:analytiks-addon-amplitude'
