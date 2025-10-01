@@ -13,6 +13,31 @@ if (secretPropsFile.exists()) {
     Properties p = new Properties()
     new FileInputStream(secretPropsFile).withCloseable { is -> p.load(is) }
     p.each { name, value -> ext[name] = value }
+
+    // Handle signing key file reference
+    def signingKeyValue = ext["signing.key"]
+    if (signingKeyValue != null && signingKeyValue.toString().startsWith("@/")) {
+        // Handle @/path/to/file format
+        def keyFilePath = signingKeyValue.toString().substring(2)
+        def keyFile = project.rootProject.file(keyFilePath)
+        if (keyFile.exists()) {
+            ext["signing.key"] = keyFile.text
+            println "Loaded signing key from file: ${keyFilePath} (${ext['signing.key'].length()} chars)"
+        } else {
+            println "WARNING: Signing key file not found: ${keyFilePath}"
+        }
+    } else if (signingKeyValue != null && !signingKeyValue.toString().contains("BEGIN PGP")) {
+        // Assume it's a file path if it doesn't contain PGP key content
+        def keyFile = project.rootProject.file(signingKeyValue.toString())
+        if (keyFile.exists()) {
+            ext["signing.key"] = keyFile.text
+            println "Loaded signing key from file: ${signingKeyValue} (${ext['signing.key'].length()} chars)"
+        } else {
+            println "WARNING: Signing key file not found: ${signingKeyValue}"
+        }
+    } else if (signingKeyValue != null) {
+        println "Using signing key from properties (${signingKeyValue.length()} chars)"
+    }
 } else {
     // Use system environment variables
     ext["ossrhUsername"] = System.getenv('OSSRH_USERNAME')
@@ -39,8 +64,8 @@ nexusPublishing {
             password = ossrhPassword
             version = rootVersionName
 
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
         }
     }
 }
