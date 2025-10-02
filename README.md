@@ -107,7 +107,7 @@ dependencies {
 }
 ```
 
-> **Note**: Check [Maven Central](https://search.maven.org/search?q=g:io.github.aminekarimii) for the latest version.
+> **Note**: Check [Maven Central](https://central.sonatype.com/namespace/io.github.aminekarimii) for the latest version.
 
 ---
 
