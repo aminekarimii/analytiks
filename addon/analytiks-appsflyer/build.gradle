@@ -35,6 +35,6 @@ android {
 }
 
 dependencies {
-    implementation project(':analytiks-core')
+    api project(':analytiks')
     implementation 'com.appsflyer:af-android-sdk:6.17.0'
 }

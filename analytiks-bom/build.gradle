@@ -25,6 +25,7 @@ dependencies {
         api project(':addon:analytiks-googleanalytics')
         api project(':addon:analytiks-mixpanel')
         api project(':addon:analytiks-segment')
+        api project(':addon:analytiks-sentry')
         api project(':addon:analytiks-timber')
     }
 }

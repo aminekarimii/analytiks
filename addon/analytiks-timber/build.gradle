@@ -38,6 +38,6 @@ android {
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation project(':analytiks-core')
+    api project(':analytiks')
     implementation 'com.jakewharton.timber:timber:5.0.1'
 }

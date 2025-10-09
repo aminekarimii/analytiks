@@ -27,7 +27,7 @@ on:
         required: false
         type: boolean
         default: false
-  
+
   push:
     tags:
       - 'v*.*.*'
@@ -35,34 +35,41 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    
+    env:
+      SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
+      SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+      ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.SONTAYPE_USERNAME }}
+      ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.SONTAYPE_PASSWORD }}
+      SIGNING_PRIVATE_KEY_BASE64: ${{ secrets.SIGNING_PRIVATE_KEY_BASE64 }}
+
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: gradle
-      
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      
+
       - name: Decode signing key
         run: |
-          echo "${{ secrets.SIGNING_KEY_BASE64 }}" | base64 -d > signing.key.txt
-      
+          echo "$SIGNING_PRIVATE_KEY_BASE64" | base64 -d > signing.key.txt
+
       - name: Create local.properties
         run: |
-          echo "signing.keyId=${{ secrets.SIGNING_KEY_ID }}" >> local.properties
-          echo "signing.password=${{ secrets.SIGNING_PASSWORD }}" >> local.properties
-          echo "signing.key=signing.key.txt" >> local.properties
+          echo "signing.keyId=${SIGNING_KEY_ID}" >> local.properties
+          echo "signing.password=${SIGNING_KEY_PASSWORD}" >> local.properties
+          echo "signing.key=@/signing.key.txt" >> local.properties
           echo "centralPortalUsername=${{ secrets.CENTRAL_PORTAL_USERNAME }}" >> local.properties
           echo "centralPortalPassword=${{ secrets.CENTRAL_PORTAL_PASSWORD }}" >> local.properties
-          echo "ossrhUsername=${{ secrets.OSSRH_USERNAME }}" >> local.properties
-          echo "ossrhPassword=${{ secrets.OSSRH_PASSWORD }}" >> local.properties
+          echo "ossrhUsername=${ORG_GRADLE_PROJECT_sonatypeUsername}" >> local.properties
+          echo "ossrhPassword=${ORG_GRADLE_PROJECT_sonatypePassword}" >> local.properties
 
       - name: Remove Windows-specific Gradle properties
         run: |
@@ -77,7 +84,7 @@ jobs:
 
       - name: Run tests
         run: ./gradlew test --no-daemon
-      
+
       - name: Determine module to publish
         id: determine_module
         run: |
@@ -86,13 +93,13 @@ jobs:
           else
             echo "module=${{ github.event.inputs.module }}" >> $GITHUB_OUTPUT
           fi
-          
+
           if [ "${{ github.event.inputs.dry_run }}" == "true" ]; then
             echo "dry_run=true" >> $GITHUB_OUTPUT
           else
             echo "dry_run=false" >> $GITHUB_OUTPUT
           fi
-      
+
       - name: Publish Core Modules
         if: steps.determine_module.outputs.module == 'core' || steps.determine_module.outputs.module == 'all'
         run: |
@@ -106,7 +113,7 @@ jobs:
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-      
+
       - name: Publish All Addon Modules
         if: steps.determine_module.outputs.module == 'all-addons' || steps.determine_module.outputs.module == 'all'
         run: |
@@ -118,7 +125,7 @@ jobs:
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-      
+
       - name: Publish Single Module
         if: |
           steps.determine_module.outputs.module != 'all' &&
@@ -133,13 +140,13 @@ jobs:
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-      
+
       - name: Cleanup signing key
         if: always()
         run: |
           rm -f signing.key.txt
           rm -f local.properties
-      
+
       - name: Create GitHub Release
         if: github.event_name == 'push' && steps.determine_module.outputs.dry_run == 'false'
         uses: softprops/action-gh-release@v1
@@ -149,7 +156,7 @@ jobs:
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Summary
         if: always()
         run: |
@@ -159,7 +166,7 @@ jobs:
           echo "- **Version:** ${{ env.PUBLISH_VERSION }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Dry Run:** ${{ steps.determine_module.outputs.dry_run }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Trigger:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
-          
+
           if [ "${{ steps.determine_module.outputs.dry_run }}" == "false" ]; then
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "### Published Artifacts" >> $GITHUB_STEP_SUMMARY

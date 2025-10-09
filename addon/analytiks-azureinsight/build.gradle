@@ -36,7 +36,7 @@ android {
 }
 
 dependencies {
-    api project(':analytiks-core')
+    api project(':analytiks')
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'com.microsoft.azure:applicationinsights-android:1.0-beta.10'

@@ -40,6 +40,6 @@ android {
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation project(':analytiks-core')
+    api project(':analytiks')
     implementation "com.mixpanel.android:mixpanel-android:7.2.2"
 }

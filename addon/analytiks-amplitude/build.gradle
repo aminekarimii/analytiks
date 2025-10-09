@@ -36,6 +36,6 @@ android {
 }
 
 dependencies {
-    implementation project(':analytiks-core')
+    api project(':analytiks')
     implementation 'com.amplitude:analytics-android:1.8.2'
 }
