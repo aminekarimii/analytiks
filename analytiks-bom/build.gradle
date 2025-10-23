@@ -22,8 +22,10 @@ dependencies {
         api project(':addon:analytiks-appsflyer')
         api project(':addon:analytiks-appvisor')
         api project(':addon:analytiks-azureinsight')
+        api project(':addon:analytiks-clevertap')
         api project(':addon:analytiks-googleanalytics')
         api project(':addon:analytiks-mixpanel')
+        api project(':addon:analytiks-onesignal')
         api project(':addon:analytiks-segment')
         api project(':addon:analytiks-timber')
     }
