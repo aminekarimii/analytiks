@@ -2,6 +2,7 @@ package com.logitanalyticsapp
 
 import com.analytiks.Analytiks
 import com.analytiks.addon.appvisor.ui.AppVisorActivity
+import com.analytiks.addon.clevertap.CleverTapClient
 import com.analytiks.addon.mixpanel.MixpanelAnalyticsClient
 import com.analytiks.segment.SegmentAnalyticsClient
 import dagger.Module
@@ -19,6 +20,7 @@ object AnalytiksModule {
         .addInterceptor(AppVisorActivity.initialize())
         .addClient(CustomAnalytiksAddon())
         .addClient(MixpanelAnalyticsClient(token = "YOUR_TOKEN"))
+        .addClient(CleverTapClient(enableDebugLog = true))
         .addClient(
             SegmentAnalyticsClient(
                 token = "YOUR_TOKEN",
