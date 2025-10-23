@@ -1,0 +1,94 @@
+plugins {
+    id 'java-platform'
+    id 'maven-publish'
+    id 'signing'
+}
+
+group = PUBLISH_GROUP_ID
+version = PUBLISH_VERSION
+
+javaPlatform {
+    allowDependencies()
+}
+
+dependencies {
+    // Include core libraries automatically when BOM is imported
+    api project(':analytiks-core')
+    api project(':analytiks')
+
+    // Addon modules are available as constraints (user must explicitly add them)
+    constraints {
+        api project(':addon:analytiks-amplitude')
+        api project(':addon:analytiks-appsflyer')
+        api project(':addon:analytiks-appvisor')
+        api project(':addon:analytiks-azureinsight')
+        api project(':addon:analytiks-googleanalytics')
+        api project(':addon:analytiks-mixpanel')
+        api project(':addon:analytiks-segment')
+        api project(':addon:analytiks-timber')
+    }
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            from components.javaPlatform
+            
+            groupId = PUBLISH_GROUP_ID
+            artifactId = 'analytiks-bom'
+            version = PUBLISH_VERSION
+
+            pom {
+                name = 'Analytiks BOM'
+                description = 'Bill of Materials for Analytiks - Analytics SDK for Android'
+                url = PUBLISH_URL
+                
+                licenses {
+                    license {
+                        name = PUBLISH_LICENSE_NAME
+                        url = PUBLISH_LICENSE_URL
+                    }
+                }
+                
+                developers {
+                    developer {
+                        id = PUBLISH_DEVELOPER_ID
+                        name = PUBLISH_DEVELOPER_NAME
+                        email = PUBLISH_DEVELOPER_EMAIL
+                    }
+                }
+                
+                scm {
+                    connection = PUBLISH_SCM_CONNECTION
+                    developerConnection = PUBLISH_SCM_DEVELOPER_CONNECTION
+                    url = PUBLISH_SCM_URL
+                }
+            }
+        }
+    }
+    
+    repositories {
+        maven {
+            name = "sonatype"
+            url = version.endsWith('SNAPSHOT') 
+                ? uri("https://central.sonatype.com/repository/maven-snapshots/")
+                : uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
+            
+            credentials {
+                username = project.hasProperty('ossrhUsername') ? project.property('ossrhUsername') : System.getenv('OSSRH_USERNAME')
+                password = project.hasProperty('ossrhPassword') ? project.property('ossrhPassword') : System.getenv('OSSRH_PASSWORD')
+            }
+        }
+    }
+}
+
+signing {
+    def signingKey = project.findProperty("signing.key")
+    def signingPassword = project.findProperty("signing.password")
+    
+    if (signingKey && signingPassword) {
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign publishing.publications.release
+    }
+}
+

@@ -1,0 +1,275 @@
+// Script to publish a single module to Maven Central
+// Usage: ./gradlew publishModule -PmoduleName=analytiks-appsflyer
+
+// Define a task to publish a specific module
+tasks.register('publishModule') {
+    group = 'publishing'
+    description = 'Publishes a single module to Sonatype and releases it. Usage: ./gradlew publishModule -PmoduleName=<module-name>'
+    
+    doLast {
+        if (!project.hasProperty('moduleName')) {
+            throw new GradleException("""
+                ❌ Module name not specified!
+                
+                Usage: ./gradlew publishModule -PmoduleName=<module-name>
+                
+                Available modules:
+                  Core modules:
+                    - analytiks-core
+                    - analytiks
+                    - analytiks-bom
+
+                  Addon modules:
+                    - analytiks-appsflyer
+                    - analytiks-amplitude
+                    - analytiks-appvisor
+                    - analytiks-azureinsight
+                    - analytiks-googleanalytics
+                    - analytiks-mixpanel
+                    - analytiks-segment
+                    - analytiks-timber
+                
+                Example:
+                  ./gradlew publishModule -PmoduleName=analytiks-appsflyer
+            """.stripIndent())
+        }
+        
+        def moduleName = project.property('moduleName')
+        def moduleProject = null
+        
+        // Find the module project
+        if (moduleName == 'analytiks-core' || moduleName == 'analytiks' || moduleName == 'analytiks-bom') {
+            moduleProject = project.findProject(":${moduleName}")
+        } else if (moduleName.startsWith('analytiks-')) {
+            moduleProject = project.findProject(":addon:${moduleName}")
+        } else {
+            throw new GradleException("❌ Module '${moduleName}' not found!")
+        }
+        
+        if (moduleProject == null) {
+            throw new GradleException("❌ Module '${moduleName}' not found!")
+        }
+        
+        println """
+        ╔════════════════════════════════════════════════════════════════╗
+        ║  Publishing Module: ${moduleName.padRight(42)} ║
+        ╚════════════════════════════════════════════════════════════════╝
+        """.stripIndent()
+
+        // Execute the publishing tasks for this specific module
+        def modulePath = moduleProject.path
+        def gradleCommand = System.getProperty('os.name').toLowerCase().contains('windows') ? 'gradlew.bat' : './gradlew'
+
+        println "📦 Building ${moduleName}..."
+        project.exec {
+            commandLine gradleCommand, "${modulePath}:build"
+            workingDir project.rootDir
+        }
+
+        println "📤 Publishing ${moduleName} to Sonatype..."
+        project.exec {
+            commandLine gradleCommand, "${modulePath}:publishToSonatype"
+            workingDir project.rootDir
+        }
+
+        println """
+        ╔════════════════════════════════════════════════════════════════╗
+        ║  ✅ Successfully published ${moduleName.padRight(33)}
+        ╚════════════════════════════════════════════════════════════════╝
+
+        📝 Next Steps:
+           1. Go to https://central.sonatype.com/publishing
+           2. Find your staging repository
+           3. Click "Publish" to release to Maven Central
+
+        Or run: ./gradlew closeAndReleaseStagingRepositories
+        """.stripIndent()
+    }
+}
+
+// Task to publish and release a module (includes closing and releasing)
+tasks.register('publishAndReleaseModule') {
+    group = 'publishing'
+    description = 'Publishes a single module to Sonatype and releases it. Usage: ./gradlew publishAndReleaseModule -PmoduleName=<module-name>'
+
+    doLast {
+        if (!project.hasProperty('moduleName')) {
+            throw new GradleException("""
+                ❌ Module name not specified!
+
+                Usage: ./gradlew publishAndReleaseModule -PmoduleName=<module-name>
+
+                Example:
+                  ./gradlew publishAndReleaseModule -PmoduleName=analytiks-appsflyer
+            """.stripIndent())
+        }
+
+        def moduleName = project.property('moduleName')
+        def moduleProject = null
+
+        if (moduleName == 'analytiks-core' || moduleName == 'analytiks' || moduleName == 'analytiks-bom') {
+            moduleProject = project.findProject(":${moduleName}")
+        } else if (moduleName.startsWith('analytiks-')) {
+            moduleProject = project.findProject(":addon:${moduleName}")
+        } else {
+            throw new GradleException("❌ Module '${moduleName}' not found!")
+        }
+
+        if (moduleProject == null) {
+            throw new GradleException("❌ Module '${moduleName}' not found!")
+        }
+
+        def gradleCommand = System.getProperty('os.name').toLowerCase().contains('windows') ? 'gradlew.bat' : './gradlew'
+        def modulePath = moduleProject.path
+
+        println """
+        ╔════════════════════════════════════════════════════════════════╗
+        ║  Publishing and Releasing: ${moduleName.padRight(33)} ║
+        ╚════════════════════════════════════════════════════════════════╝
+        """.stripIndent()
+
+        println "📦 Building and publishing ${moduleName} to Sonatype..."
+        println "🔒 Then closing and releasing staging repository..."
+        println ""
+        println "⚠️  Running in single Gradle invocation to preserve staging repository..."
+        println ""
+
+        project.exec {
+            commandLine gradleCommand, "${modulePath}:build", "${modulePath}:publishToSonatype", "closeAndReleaseStagingRepositories"
+            workingDir project.rootDir
+        }
+
+        println """
+        ╔════════════════════════════════════════════════════════════════╗
+        ║  ✅ Successfully published and released ${moduleName.padRight(23)} ║
+        ╚════════════════════════════════════════════════════════════════╝
+        """.stripIndent()
+    }
+}
+
+// Task to list all publishable modules
+tasks.register('listModules') {
+    group = 'publishing'
+    description = 'Lists all modules that can be published'
+
+    doLast {
+        println """
+        ╔════════════════════════════════════════════════════════════════╗
+        ║  Available Modules for Publishing                             ║
+        ╚════════════════════════════════════════════════════════════════╝
+
+        📦 Core Modules:
+           • analytiks-core
+           • analytiks
+
+        🔌 Addon Modules:
+           • analytiks-appsflyer
+           • analytiks-amplitude
+           • analytiks-appvisor
+           • analytiks-azureinsight
+           • analytiks-googleanalytics
+           • analytiks-mixpanel
+           • analytiks-segment
+           • analytiks-timber
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        Usage:
+          ./gradlew publishModule -PmoduleName=<module-name>
+          ./gradlew publishAndReleaseModule -PmoduleName=<module-name>
+
+        Examples:
+          ./gradlew publishModule -PmoduleName=analytiks-appsflyer
+          ./gradlew publishAndReleaseModule -PmoduleName=analytiks-appsflyer
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        """.stripIndent()
+    }
+}
+
+// Task to publish all addon modules
+tasks.register('publishAllAddons') {
+    group = 'publishing'
+    description = 'Publishes all addon modules to Sonatype'
+
+    doLast {
+        def addonModules = [
+            'analytiks-appsflyer',
+            'analytiks-amplitude',
+            'analytiks-appvisor',
+            'analytiks-azureinsight',
+            'analytiks-googleanalytics',
+            'analytiks-mixpanel',
+            'analytiks-segment',
+            'analytiks-timber'
+        ]
+
+        def gradleCommand = System.getProperty('os.name').toLowerCase().contains('windows') ? 'gradlew.bat' : './gradlew'
+
+        println """
+        ╔════════════════════════════════════════════════════════════════╗
+        ║  Publishing All Addon Modules                                  ║
+        ╚════════════════════════════════════════════════════════════════╝
+        """.stripIndent()
+
+        addonModules.each { moduleName ->
+            println "\n📦 Publishing ${moduleName}..."
+
+            try {
+                project.exec {
+                    commandLine gradleCommand, "publishModule", "-PmoduleName=${moduleName}"
+                    workingDir project.rootDir
+                }
+                println "✅ ${moduleName} published successfully"
+            } catch (Exception e) {
+                println "❌ Failed to publish ${moduleName}: ${e.message}"
+            }
+        }
+
+        println """
+
+        ╔════════════════════════════════════════════════════════════════╗
+        ║  ✅ Finished publishing all addon modules                      ║
+        ╚════════════════════════════════════════════════════════════════╝
+        """.stripIndent()
+    }
+}
+
+// Task to publish core modules
+tasks.register('publishCore') {
+    group = 'publishing'
+    description = 'Publishes core modules (analytiks-core and analytiks) to Sonatype'
+
+    doLast {
+        def coreModules = ['analytiks-core', 'analytiks']
+        def gradleCommand = System.getProperty('os.name').toLowerCase().contains('windows') ? 'gradlew.bat' : './gradlew'
+
+        println """
+        ╔════════════════════════════════════════════════════════════════╗
+        ║  Publishing Core Modules                                       ║
+        ╚════════════════════════════════════════════════════════════════╝
+        """.stripIndent()
+
+        coreModules.each { moduleName ->
+            println "\n📦 Publishing ${moduleName}..."
+
+            try {
+                project.exec {
+                    commandLine gradleCommand, "publishModule", "-PmoduleName=${moduleName}"
+                    workingDir project.rootDir
+                }
+                println "✅ ${moduleName} published successfully"
+            } catch (Exception e) {
+                println "❌ Failed to publish ${moduleName}: ${e.message}"
+            }
+        }
+
+        println """
+
+        ╔════════════════════════════════════════════════════════════════╗
+        ║  ✅ Finished publishing core modules                           ║
+        ╚════════════════════════════════════════════════════════════════╝
+        """.stripIndent()
+    }
+}
+

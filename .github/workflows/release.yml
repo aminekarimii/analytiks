@@ -1,0 +1,171 @@
+name: Release to Maven Central
+
+on:
+  workflow_dispatch:
+    inputs:
+      module:
+        description: 'Module to publish'
+        required: true
+        type: choice
+        options:
+          - 'all'
+          - 'core'
+          - 'all-addons'
+          - 'analytiks-core'
+          - 'analytiks'
+          - 'analytiks-bom'
+          - 'analytiks-appsflyer'
+          - 'analytiks-addon-amplitude'
+          - 'analytiks-addon-appvisor'
+          - 'analytiks-addon-azureinsight'
+          - 'analytiks-addon-googleanalytics'
+          - 'analytiks-addon-mixpanel'
+          - 'analytiks-addon-segment'
+          - 'analytiks-addon-timber'
+      dry_run:
+        description: 'Dry run (build only, do not publish)'
+        required: false
+        type: boolean
+        default: false
+  
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+      
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      
+      - name: Decode signing key
+        run: |
+          echo "${{ secrets.SIGNING_KEY_BASE64 }}" | base64 -d > signing.key.txt
+      
+      - name: Create local.properties
+        run: |
+          echo "signing.keyId=${{ secrets.SIGNING_KEY_ID }}" >> local.properties
+          echo "signing.password=${{ secrets.SIGNING_PASSWORD }}" >> local.properties
+          echo "signing.key=signing.key.txt" >> local.properties
+          echo "centralPortalUsername=${{ secrets.CENTRAL_PORTAL_USERNAME }}" >> local.properties
+          echo "centralPortalPassword=${{ secrets.CENTRAL_PORTAL_PASSWORD }}" >> local.properties
+          echo "ossrhUsername=${{ secrets.OSSRH_USERNAME }}" >> local.properties
+          echo "ossrhPassword=${{ secrets.OSSRH_PASSWORD }}" >> local.properties
+
+      - name: Remove Windows-specific Gradle properties
+        run: |
+          # Remove the Windows Java home path from gradle.properties
+          sed -i '/org.gradle.java.home/d' gradle.properties
+
+      - name: Build all modules
+        run: ./gradlew build --no-daemon
+        env:
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+
+      - name: Run tests
+        run: ./gradlew test --no-daemon
+      
+      - name: Determine module to publish
+        id: determine_module
+        run: |
+          if [ "${{ github.event_name }}" == "push" ]; then
+            echo "module=all" >> $GITHUB_OUTPUT
+          else
+            echo "module=${{ github.event.inputs.module }}" >> $GITHUB_OUTPUT
+          fi
+          
+          if [ "${{ github.event.inputs.dry_run }}" == "true" ]; then
+            echo "dry_run=true" >> $GITHUB_OUTPUT
+          else
+            echo "dry_run=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Publish Core Modules
+        if: steps.determine_module.outputs.module == 'core' || steps.determine_module.outputs.module == 'all'
+        run: |
+          if [ "${{ steps.determine_module.outputs.dry_run }}" == "false" ]; then
+            ./gradlew publishModule -PmoduleName=analytiks-core --no-daemon
+            ./gradlew publishModule -PmoduleName=analytiks --no-daemon
+            ./gradlew publishModule -PmoduleName=analytiks-bom --no-daemon
+          else
+            echo "Dry run: Would publish core modules"
+          fi
+        env:
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+      
+      - name: Publish All Addon Modules
+        if: steps.determine_module.outputs.module == 'all-addons' || steps.determine_module.outputs.module == 'all'
+        run: |
+          if [ "${{ steps.determine_module.outputs.dry_run }}" == "false" ]; then
+            ./gradlew publishAllAddons --no-daemon
+          else
+            echo "Dry run: Would publish all addon modules"
+          fi
+        env:
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+      
+      - name: Publish Single Module
+        if: |
+          steps.determine_module.outputs.module != 'all' &&
+          steps.determine_module.outputs.module != 'core' &&
+          steps.determine_module.outputs.module != 'all-addons'
+        run: |
+          if [ "${{ steps.determine_module.outputs.dry_run }}" == "false" ]; then
+            ./gradlew publishModule -PmoduleName=${{ steps.determine_module.outputs.module }} --no-daemon
+          else
+            echo "Dry run: Would publish ${{ steps.determine_module.outputs.module }}"
+          fi
+        env:
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+      
+      - name: Cleanup signing key
+        if: always()
+        run: |
+          rm -f signing.key.txt
+          rm -f local.properties
+      
+      - name: Create GitHub Release
+        if: github.event_name == 'push' && steps.determine_module.outputs.dry_run == 'false'
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Module:** ${{ steps.determine_module.outputs.module }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version:** ${{ env.PUBLISH_VERSION }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Dry Run:** ${{ steps.determine_module.outputs.dry_run }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Trigger:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.determine_module.outputs.dry_run }}" == "false" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Published Artifacts" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Check Maven Central: https://central.sonatype.com/search?q=io.github.aminekarimii" >> $GITHUB_STEP_SUMMARY
+          fi
+        env:
+          PUBLISH_VERSION: ${{ env.PUBLISH_VERSION }}
+

@@ -4,13 +4,12 @@ plugins {
 }
 
 ext {
-    PUBLISH_ARTIFACT_ID = 'analytiks-addon-azureinsight'
+    PUBLISH_ARTIFACT_ID = 'analytiks-sentry'
 }
-
 apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
 android {
-    namespace 'com.analityks.addon.azureinsight'
+    namespace 'com.analytiks.addon.sentry'
     compileSdk rootProject.compileSdk
 
     defaultConfig {
@@ -36,9 +35,7 @@ android {
 }
 
 dependencies {
-    api project(':analytiks-core')
-
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'com.microsoft.azure:applicationinsights-android:1.0-beta.10'
-
+    implementation project(':analytiks-core')
+    implementation 'io.sentry:sentry-android:8.23.0'
 }
+

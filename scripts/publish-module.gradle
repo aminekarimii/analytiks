@@ -12,8 +12,13 @@ task androidSourcesJar(type: Jar) {
     }
 }
 
+task androidJavadocJar(type: Jar) {
+    archiveClassifier.set('javadoc')
+}
+
 artifacts {
     archives androidSourcesJar
+    archives androidJavadocJar
 }
 
 group = PUBLISH_GROUP_ID
@@ -31,11 +36,13 @@ afterEvaluate {
                 // Two artifacts, the `aar` (or `jar`) and the sources
                 if (project.plugins.findPlugin("com.android.library")) {
                     from components.release
+                    // Note: AGP 8.5+ automatically includes sources and javadoc from components.release
+                    // so we don't need to add them manually
                 } else {
                     from components.java
+                    artifact androidSourcesJar
+                    artifact androidJavadocJar
                 }
-
-                artifact androidSourcesJar
 
                 pom {
                     name = PUBLISH_ARTIFACT_ID
@@ -66,13 +73,29 @@ afterEvaluate {
             }
         }
     }
+
+    signing {
+        def signingKeyId = rootProject.ext["signing.keyId"]
+        def signingKey = rootProject.ext["signing.key"]
+        def signingPassword = rootProject.ext["signing.password"]
+
+        if (signingKeyId && signingKey && signingPassword) {
+            useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+            sign(publishing.publications)
+        }
+    }
+
+    // Ensure proper task ordering
+    tasks.withType(AbstractPublishToMaven).configureEach {
+        dependsOn(tasks.withType(Sign))
+    }
+
+    tasks.withType(GenerateModuleMetadata).configureEach {
+        dependsOn(androidSourcesJar)
+        dependsOn(androidJavadocJar)
+    }
 }
 
-signing {
-    useInMemoryPgpKeys(
-            rootProject.ext["signing.keyId"],
-            rootProject.ext["signing.key"],
-            rootProject.ext["signing.password"],
-    )
-    sign(publishing.publications)
-}
+publish.dependsOn build
+publishToMavenLocal.dependsOn build
+publishToSonatype.dependsOn publish
