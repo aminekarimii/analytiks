@@ -51,6 +51,15 @@ interface EventsExtension {
      *                   of strings.
      */
     fun logEvent(name: String, vararg properties: Param)
+
+    /**
+     * Tracks a screen view event with the given screen name. This method should be called whenever
+     * the user navigates to a new screen or view in the application. Screen tracking helps in
+     * understanding user navigation patterns and measuring engagement across different screens.
+     *
+     * @param screenName the name of the screen or view being displayed.
+     */
+    fun screen(screenName: String) {}
 }
 
 /**

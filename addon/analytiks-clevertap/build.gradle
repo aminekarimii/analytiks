@@ -1,0 +1,41 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+ext {
+    PUBLISH_ARTIFACT_ID = 'analytiks-clevertap'
+}
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
+
+android {
+    namespace 'com.analytiks.addon.clevertap'
+    compileSdk rootProject.compileSdk
+
+    defaultConfig {
+        minSdk 21
+        targetSdk rootProject.targetSdk
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+    api project(':analytiks')
+    implementation 'com.clevertap.android:clevertap-android-sdk:6.2.1'
+    implementation 'androidx.fragment:fragment-ktx:1.5.7'
+}
+

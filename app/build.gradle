@@ -47,12 +47,17 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation project(':analytiks')
-    implementation project(path: ':analytiks-core')
-    implementation project(path: ':addon:analytiks-mixpanel')
-    implementation project(path: ':addon:analytiks-segment')
-    implementation project(path: ':addon:analytiks-timber')
-    implementation project(path: ':addon:analytiks-appvisor')
+    implementation platform('io.github.aminekarimii:analytiks-bom:1.4.0')
+    implementation 'io.github.aminekarimii:analytiks-addon-amplitude'
+    implementation 'io.github.aminekarimii:analytiks-addon-googleanalytics'
+    implementation 'io.github.aminekarimii:analytiks-addon-mixpanel'
+    implementation 'io.github.aminekarimii:analytiks-addon-timber'
+    implementation 'io.github.aminekarimii:analytiks-addon-segment'
+    implementation 'io.github.aminekarimii:analytiks-addon-appvisor'
+    implementation 'io.github.aminekarimii:analytiks-appsflyer'
+    implementation 'io.github.aminekarimii:analytiks-sentry:1.4.0'
+    implementation project(':addon:analytiks-clevertap')
+
     // hilt
     implementation 'com.google.dagger:hilt-android:2.48'
     kapt 'com.google.dagger:hilt-compiler:2.48'
