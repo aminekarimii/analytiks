@@ -61,9 +61,15 @@ class CleverTapClient(
         setUserProperty(property)
     }
 
+    override fun screen(screenName: String) {
+        if (::cleverTap.isInitialized) {
+            cleverTap.recordScreen(screenName)
+        }
+    }
+
     override fun pushAll() {
         if (::cleverTap.isInitialized) {
-            cleverTap.pushEvent("flush")
+            cleverTap.flush()
         }
     }
 }
